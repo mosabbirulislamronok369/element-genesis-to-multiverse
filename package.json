@@ -1,0 +1,15 @@
+{
+  "name": "element-genesis-to-multiverse",
+  "version": "1.0.0",
+  "description": "ELEMENT: Genesis to Multiverse — a 100-level science evolution puzzle game",
+  "scripts": {
+    "android": "npx cap sync android && npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}

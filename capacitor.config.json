@@ -1,0 +1,9 @@
+{
+  "appId": "com.yourname.elementgenesis",
+  "appName": "ELEMENT: Genesis to Multiverse",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": false
+  }
+}

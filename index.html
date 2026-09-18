@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ELEMENT: Genesis to Multiverse</title>
+<meta name="theme-color" content="#070a10">
+<meta name="description" content="Build civilization from stone to spacetime — a 100-level science evolution puzzle game.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div>
+      <div class="eyebrow">100 LEVEL SCIENCE EVOLUTION GAME</div>
+      <h1>ELEMENT: Genesis to Multiverse</h1>
+      <p class="subtitle">Build civilization from stone to spacetime.</p>
+    </div>
+    <div class="savebox">LOCAL SAVE<br><span id="saveStatus">Ready</span></div>
+  </header>
+
+  <section class="hud">
+    <div><b>LEVEL</b><span id="level">1 / 100</span></div>
+    <div><b>ERA</b><span id="era">Stone Age</span></div>
+    <div><b>XP</b><span id="xp">0</span></div>
+    <div><b>MISTAKES</b><span id="retryCount">0 / 3</span></div>
+    <div><b>DISCOVERY</b><span id="discovery">0 / 0</span></div>
+  </section>
+
+  <main>
+    <section class="gamecard">
+      <div class="progress"><div id="bar"></div></div>
+      <div class="mission">
+        <span id="missionTag">MISSION</span>
+        <h2 id="goal">Build your first tool</h2>
+        <p id="hint">Choose the correct combination. Some recipes require earlier discoveries.</p>
+      </div>
+
+      <div id="options" class="options"></div>
+      <div id="message" class="message"></div>
+      <div id="fabricatorSuccess" class="fabricator success-only" aria-hidden="true">
+        <div class="fab-head">
+          <span>FABRICATION CHAMBER</span>
+          <span id="fabState">SYNTHESIS COMPLETE</span>
+        </div>
+        <div id="fabricatorVisual" class="fab-visual"></div>
+        <div class="fab-caption" id="fabCaption"></div>
+      </div>
+
+      <button id="nextLevel" class="next-level hidden-next">NEXT LEVEL →</button>
+
+      <div class="inventory">
+        <div class="invhead"><h3>DISCOVERED MATERIALS</h3><button id="reset" class="danger">Reset Save</button></div>
+        <div id="materials" class="chips"></div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="panel">
+        <h3>SCIENTIST MILESTONES</h3>
+        <div id="scientists"></div>
+      </div>
+      <div class="panel">
+        <h3>HOW TO PLAY</h3>
+        <ol>
+          <li>Pick one of five combinations.</li>
+          <li>Correct science unlocks a discovery.</li>
+          <li>Every 5 levels reveals a scientist reward.</li>
+          <li>Recipes become harder as eras advance.</li>
+          <li>Your progress is saved only on this device.</li>
+        </ol>
+      </div>
+    </aside>
+  </main>
+</div>
+<div id="modal" class="modal hidden">
+  <div class="modalbox">
+    <div class="medal">★</div>
+    <div class="eyebrow">SCIENTIST REWARD</div>
+    <h2 id="scientistName"></h2>
+    <p id="scientistQuote"></p>
+    <button id="continue">CONTINUE</button>
+  </div>
+</div>
+<script src="game.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>

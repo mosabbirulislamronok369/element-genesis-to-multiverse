@@ -1,4 +1,5 @@
-/* ELEMENT: Genesis to Multiverse — 1000 Level Science Challenge */
+/* ELEMENT: Genesis to Multiverse — 2000 Level Job + Science Challenge */
+const TOTAL_LEVELS=2000;
 const SUBJECTS=[
  ["Chemistry"],["Physics"],["Biology"],["Botany"],["Zoology"],["Biotechnology"],
  ["Limnology"],["Microbiology"],["Molecular Biology"],["ICT"],["Mathematics"],
@@ -9,14 +10,14 @@ const SUBJECTS=[
 // The game is intentionally interdisciplinary: subjects are mixed throughout the journey,
 // rather than locked into separate 100-level blocks. Difficulty rises with the player's progress.
 const LEVEL_PHASES=[
- [1,100,"STONE AGE • FOUNDATIONS","Foundation"],
- [101,250,"ANCIENT WORLD • DISCOVERY","Foundation+"],
- [251,450,"SCHOOL SCIENCE • EXPLORER","High School"],
- [451,650,"COLLEGE SCIENCE • BUILDER","College"],
- [651,800,"UNIVERSITY • RESEARCHER","University"],
- [801,900,"HONOURS • FRONTIER","Honours"],
- [901,950,"COSMIC FRONTIER • MULTIVERSE","Advanced"],
- [951,1000,"ISLAMIC KNOWLEDGE • FINAL CHAMBER","Islamic Knowledge"]
+ [1,200,"STONE AGE • FOUNDATIONS","Foundation"],
+ [201,450,"ANCIENT WORLD • DISCOVERY","Foundation+"],
+ [451,750,"SCHOOL SCIENCE • EXPLORER","High School"],
+ [751,1050,"COLLEGE • BUILDER","College"],
+ [1051,1350,"UNIVERSITY • RESEARCHER","University"],
+ [1351,1650,"HONOURS • FRONTIER","Honours"],
+ [1651,1900,"COSMIC FRONTIER • MULTIVERSE • OMNIVERSE","Advanced"],
+ [1901,2000,"ISLAMIC KNOWLEDGE • FINAL CHAMBER","Islamic Knowledge"]
 ];
 
 const DISCOVERY_PATH=[
@@ -49,22 +50,23 @@ const DISCOVERY_PATH=[
 ];
 function phaseFor(level){return LEVEL_PHASES.find(p=>level>=p[0]&&level<=p[1])||LEVEL_PHASES[0]}
 function discoveryFor(level){
- const idx=Math.min(DISCOVERY_PATH.length-1,Math.floor((level-1)/20));
+ const idx=Math.min(DISCOVERY_PATH.length-1,Math.floor((level-1)/40));
  const base=DISCOVERY_PATH[idx];
- if(level>=981) return [51,"Omniverse","অমনিভার্স / Omniverse","∞","Cosmic Frontier"];
+ if(level>=1961) return [51,"Omniverse","অমনিভার্স / Omniverse","∞","Cosmic Frontier"];
+ if(level>=1881) return [50,"Multiverse","মাল্টিভার্স / Multiverse","♾️","Cosmology"];
  return base;
 }
 function subjectFor(level){
- if(level>=951)return "Islamic Science & Knowledge";
+ if(level>=1901)return "Islamic Science & Knowledge";
  const phase=phaseFor(level)[3];
  const sets={
-  "Foundation":["Physics","Chemistry","Biology","Mathematics","Geology & Earth Science","ICT"],
-  "Foundation+":["Chemistry","Physics","Biology","Botany","Zoology","Astronomy","Engineering","ICT"],
-  "High School":["Chemistry","Physics","Biology","Botany","Zoology","Mathematics","ICT","Environmental Science","Astronomy"],
-  "College":["Chemistry","Physics","Biology","Botany","Zoology","Biotechnology","Microbiology","Molecular Biology","Limnology","Mathematics","ICT"],
-  "University":["Physics","Chemistry","Biotechnology","Microbiology","Molecular Biology","Quantum Science","Materials Science","Limnology","Astronomy","Engineering","Mathematics"],
-  "Honours":["Quantum Science","Molecular Biology","Biotechnology","Materials Science","Cosmology","Astronomy","Physics","Chemistry","Microbiology","Engineering","Mathematics"],
-  "Advanced":["Quantum Science","Cosmology","Astronomy","Physics","Molecular Biology","Biotechnology","Materials Science","Mathematics"]
+  "Foundation":["Bangla Grammar","Bangladesh GK & Jobs","English Grammar","Mathematics","Physics","Chemistry","Biology","ICT","Geology & Earth Science"],
+  "Foundation+":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biology","Botany","Zoology","ICT","General Science","Current Affairs"],
+  "High School":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biology","Botany","Zoology","Biotechnology","Microbiology","Astronomy","ICT","Environmental Science","Current Affairs"],
+  "College":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biology","Botany","Zoology","Biotechnology","Microbiology","Molecular Biology","Limnology","ICT","Astronomy","Environmental Science","Current Affairs"],
+  "University":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biotechnology","Microbiology","Molecular Biology","Quantum Science","Materials Science","Limnology","Astronomy","Engineering","ICT","Environmental Science","Current Affairs"],
+  "Honours":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Physics","Chemistry","Molecular Biology","Biotechnology","Microbiology","Quantum Science","Cosmology","Astronomy","Materials Science","Engineering","ICT","Current Affairs"],
+  "Advanced":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Physics","Chemistry","Molecular Biology","Quantum Science","Cosmology","Astronomy","Materials Science","Engineering","ICT","Current Affairs"]
  };
  const list=sets[phase]||sets.Foundation;
  return list[hash(level*13)%list.length];
@@ -340,7 +342,148 @@ function difficultyFor(level){
  return 8;
 }
 const DIFFICULTY_LABEL={1:"Foundation",2:"Foundation+",3:"High School",4:"College",5:"University",6:"Honours",7:"Advanced Frontier",8:"Islamic Knowledge"};
-const ALL_FACTS=FACTS.concat(EXTRA_FACTS);
+
+/* Bangladesh job-prep, teacher recruitment, language, GK and current-affairs bank. */
+const JOB_FACTS=[
+ ["বাংলা বর্ণমালায় স্বরবর্ণের প্রচলিত সংখ্যা কত?","১১",["৭","৯","১৩"],"Bangla Grammar"],
+ ["বাংলা ব্যাকরণে যে শব্দে ব্যক্তি, বস্তু, স্থান বা ভাবের নাম বোঝায় তাকে কী বলে?","বিশেষ্য",["বিশেষণ","ক্রিয়া","অব্যয়"],"Bangla Grammar"],
+ ["যে শব্দ বিশেষ্যের দোষ, গুণ, সংখ্যা বা অবস্থা প্রকাশ করে তাকে কী বলে?","বিশেষণ",["সর্বনাম","ক্রিয়া","অব্যয়"],"Bangla Grammar"],
+ ["‘আমি’ কোন পদ?","সর্বনাম",["বিশেষ্য","বিশেষণ","ক্রিয়া"],"Bangla Grammar"],
+ ["‘সে দ্রুত দৌড়ায়’ বাক্যে ‘দ্রুত’ কোন পদ?","ক্রিয়াবিশেষণ",["বিশেষ্য","সর্বনাম","সমুচ্চয়ী অব্যয়"],"Bangla Grammar"],
+ ["‘বিদ্যালয়ে’ শব্দে কোন কারক বোঝায়?","অধিকরণ কারক",["কর্তৃকারক","কর্মকারক","সম্প্রদান কারক"],"Bangla Grammar"],
+ ["‘রহিমকে ডাকো’ বাক্যে ‘রহিমকে’ কোন কারক?","কর্মকারক",["কর্তৃকারক","অধিকরণ কারক","অপাদান কারক"],"Bangla Grammar"],
+ ["‘মায়ের ভালোবাসা’ পদবন্ধে ‘মায়ের’ কোন কারক?","সম্বন্ধ পদ",["করণ কারক","কর্মকারক","অধিকরণ কারক"],"Bangla Grammar"],
+ ["‘রাজপুত্র’ কোন সমাসের উদাহরণ?","ষষ্ঠী তৎপুরুষ",["দ্বন্দ্ব","অব্যয়ীভাব","বহুব্রীহি"],"Bangla Grammar"],
+ ["‘নীলকমল’ কোন সমাস?","কর্মধারয়",["দ্বন্দ্ব","বহুব্রীহি","অব্যয়ীভাব"],"Bangla Grammar"],
+ ["‘মা-বাবা’ কোন সমাস?","দ্বন্দ্ব",["কর্মধারয়","তৎপুরুষ","বহুব্রীহি"],"Bangla Grammar"],
+ ["‘যথাসাধ্য’ কোন সমাসের উদাহরণ?","অব্যয়ীভাব",["দ্বন্দ্ব","কর্মধারয়","বহুব্রীহি"],"Bangla Grammar"],
+ ["‘অকাল’ শব্দে কোন উপসর্গ আছে?","অ-",["অনু-","প্রতি-","উপ-"],"Bangla Grammar"],
+ ["‘সুশিক্ষা’ শব্দে কোন উপসর্গ আছে?","সু-",["দুর্-","অপ-","নি-"],"Bangla Grammar"],
+ ["‘পাঠক’ শব্দে ‘-ক’ কী?","প্রত্যয়",["উপসর্গ","বিভক্তি","সমাস"],"Bangla Grammar"],
+ ["‘করেছিল’ কোন কাল নির্দেশ করে?","অতীত কাল",["বর্তমান কাল","ভবিষ্যৎ কাল","শর্তসাপেক্ষ কাল"],"Bangla Grammar"],
+ ["‘করবে’ কোন কাল নির্দেশ করে?","ভবিষ্যৎ কাল",["অতীত কাল","বর্তমান কাল","অসমাপিকা রূপ"],"Bangla Grammar"],
+ ["‘সে বই পড়ে’ বাক্যের ক্রিয়া কোনটি?","পড়ে",["সে","বই","সে বই"],"Bangla Grammar"],
+ ["যে বাক্যে একটি মাত্র সমাপিকা ক্রিয়া থাকে তাকে কী বলে?","সরল বাক্য",["জটিল বাক্য","যৌগিক বাক্য","মিশ্র বাক্য"],"Bangla Grammar"],
+ ["দুটি বা ততোধিক স্বাধীন খণ্ডবাক্য সমন্বয়ে গঠিত বাক্য কী?","যৌগিক বাক্য",["সরল বাক্য","জটিল বাক্য","অসমাপিকা বাক্য"],"Bangla Grammar"],
+ ["বাংলাদেশের সংবিধানের মূলনীতির একটি কোনটি?","জাতীয়তাবাদ",["রাজতন্ত্র","উপনিবেশবাদ","সামন্ততন্ত্র"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় সংসদ কী ধরনের আইনসভা?","এককক্ষবিশিষ্ট",["দ্বিকক্ষবিশিষ্ট","ত্রিকক্ষবিশিষ্ট","চারকক্ষবিশিষ্ট"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের মুদ্রার নাম কী?","টাকা",["রুপি","দিনার","রিয়াল"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় ফুল কোনটি?","শাপলা",["গোলাপ","জুঁই","পদ্ম"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় ফল কোনটি?","কাঁঠাল",["আম","লিচু","নারিকেল"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় মাছ কোনটি?","ইলিশ",["রুই","কাতলা","চিংড়ি"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় পাখি কোনটি?","দোয়েল",["শালিক","কোকিল","ময়ূর"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় পশু কোনটি?","রয়েল বেঙ্গল টাইগার",["হাতি","হরিণ","মহিষ"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের স্বাধীনতা দিবস কবে?","২৬ মার্চ",["২১ ফেব্রুয়ারি","১৬ ডিসেম্বর","১৪ এপ্রিল"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের বিজয় দিবস কবে?","১৬ ডিসেম্বর",["২৬ মার্চ","২১ ফেব্রুয়ারি","৭ মার্চ"],"Bangladesh GK & Jobs"],
+ ["আন্তর্জাতিক মাতৃভাষা দিবস কবে?","২১ ফেব্রুয়ারি",["২৬ মার্চ","১৬ ডিসেম্বর","১ মে"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের মুক্তিযুদ্ধ কোন সালে সংঘটিত হয়?","১৯৭১",["১৯৬৯","১৯৭০","১৯৭২"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের সংবিধান গৃহীত হয় কোন তারিখে?","৪ নভেম্বর ১৯৭২",["১৬ ডিসেম্বর ১৯৭১","২৬ মার্চ ১৯৭১","২১ ফেব্রুয়ারি ১৯৫২"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের সংবিধান কার্যকর হয় কবে?","১৬ ডিসেম্বর ১৯৭২",["৪ নভেম্বর ১৯৭২","২৬ মার্চ ১৯৭১","২১ ফেব্রুয়ারি ১৯৭১"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের সর্বোচ্চ আদালত কোনটি?","সুপ্রিম কোর্ট",["জেলা জজ আদালত","হাইকোর্ট ট্রাইব্যুনাল","জাতীয় সংসদ"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের কেন্দ্রীয় ব্যাংক কোনটি?","বাংলাদেশ ব্যাংক",["সোনালী ব্যাংক","অগ্রণী ব্যাংক","ঢাকা ব্যাংক"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় সংসদের মেয়াদ সাধারণত কত বছর?","৫ বছর",["৩ বছর","৪ বছর","৬ বছর"],"Bangladesh GK & Jobs"],
+ ["জাতীয় বাজেট সংসদে উপস্থাপন করেন কে?","অর্থমন্ত্রী",["স্বরাষ্ট্রমন্ত্রী","শিক্ষামন্ত্রী","পররাষ্ট্রমন্ত্রী"],"Bangladesh GK & Jobs"],
+ ["প্রাথমিক শিক্ষার লক্ষ্যগুলোর মধ্যে কোনটি সবচেয়ে সরাসরি সম্পর্কিত?","শিক্ষার্থীর মৌলিক জ্ঞান ও দক্ষতার বিকাশ",["শুধু চাকরি দেওয়া","শুধু পরীক্ষার নম্বর বাড়ানো","শুধু মুখস্থ করানো"],"Education & Pedagogy"],
+ ["Formative assessment সাধারণত কখন বেশি ব্যবহৃত হয়?","শেখার চলমান সময়ে",["শুধু কোর্স শেষে","শুধু ভর্তি পরীক্ষায়","শুধু চাকরির পরে"],"Education & Pedagogy"],
+ ["Summative assessment-এর প্রধান উদ্দেশ্য কী?","নির্দিষ্ট পর্যায়ের শেখার ফল মূল্যায়ন",["শুধু উপস্থিতি নেওয়া","শুধু বই বিতরণ","শুধু শ্রেণিকক্ষ সাজানো"],"Education & Pedagogy"],
+ ["শিক্ষার্থীকেন্দ্রিক শিক্ষায় শিক্ষক প্রধানত কী করেন?","শেখার পরিবেশ ও সহায়তা প্রদান করেন",["সব উত্তর মুখস্থ করান","শুধু বক্তৃতা দেন","শিক্ষার্থীর কাজ বন্ধ রাখেন"],"Education & Pedagogy"],
+ ["Bloom-এর revised taxonomy-তে সর্বোচ্চ স্তর কোনটি?","Create",["Remember","Understand","Apply"],"Education & Pedagogy"],
+ ["Inclusive education-এর মূল ধারণা কী?","বৈচিত্র্যময় শিক্ষার্থীদের একসাথে অংশগ্রহণের সুযোগ দেওয়া",["শুধু মেধাবীদের পড়ানো","প্রতিবন্ধী শিক্ষার্থী বাদ দেওয়া","সবাইকে একই পদ্ধতিতে বাধ্য করা"],"Education & Pedagogy"],
+ ["Lesson objective কেমন হওয়া বেশি কার্যকর?","পরিষ্কার, পর্যবেক্ষণযোগ্য ও মূল্যায়নযোগ্য",["অস্পষ্ট ও সাধারণ","শুধু দীর্ঘ","শুধু আবেগনির্ভর"],"Education & Pedagogy"],
+ ["Scaffolding বলতে কী বোঝায়?","শিক্ষার্থীর প্রয়োজন অনুযায়ী অস্থায়ী সহায়তা দেওয়া",["সব কাজ শিক্ষক করে দেওয়া","শিক্ষার্থীকে বাদ দেওয়া","শুধু পরীক্ষা নেওয়া"],"Education & Pedagogy"],
+ ["Peer learning-এর একটি সুবিধা কী?","শিক্ষার্থীরা পরস্পরের ব্যাখ্যা ও সহযোগিতা থেকে শেখে",["শিক্ষক অপ্রয়োজনীয় হয়ে যায়","কোনো মূল্যায়ন সম্ভব নয়","শুধু প্রতিযোগিতা বাড়ে"],"Education & Pedagogy"],
+ ["Rubric কী কাজে লাগে?","মূল্যায়নের মানদণ্ড ও স্তর স্পষ্ট করতে",["শুধু উপস্থিতি নিতে","শুধু পাঠ্যবই লিখতে","শুধু সময় মাপতে"],"Education & Pedagogy"],
+ ["English grammar-এ ‘He ___ to school every day.’ সঠিকটি কোনটি?","goes",["go","going","gone"],"English Grammar"],
+ ["‘I have finished the work’ কোন tense?","Present Perfect",["Past Simple","Future Simple","Past Continuous"],"English Grammar"],
+ ["‘The book was written by him’ কোন voice?","Passive Voice",["Active Voice","Interrogative Voice","Imperative Voice"],"English Grammar"],
+ ["‘She is taller than her sister’ কোন degree?","Comparative",["Positive","Superlative","Absolute"],"English Grammar"],
+ ["‘An honest man’ বাক্যে ‘an’ কেন ব্যবহৃত?","honest শব্দের শুরুতে vowel sound আছে",["honest-এর বানান h দিয়ে বলে","সব h শব্দের আগে an হয়","কারণ man plural"],"English Grammar"],
+ ["‘Neither of the boys ___ present.’ পরীক্ষামূলক standard English-এ সঠিকটি কোনটি?","is",["are","were","be"],"English Grammar"],
+ ["‘If I were you’ কোন ধরনের conditional construction-এর উদাহরণ?","Second conditional",["First conditional","Third conditional","Zero conditional"],"English Grammar"],
+ ["‘Look after’ phrasal verb-এর অর্থ কী?","যত্ন নেওয়া",["খুঁজে বের করা","ফিরে যাওয়া","অস্বীকার করা"],"English Grammar"],
+ ["‘Quickly’ কোন part of speech?","Adverb",["Noun","Pronoun","Preposition"],"English Grammar"],
+ ["‘Although’ সাধারণত কী ধরনের conjunction?","Subordinating conjunction",["Coordinating conjunction","Correlative conjunction only","Interjection"],"English Grammar"],
+ ["বাংলাদেশের রাজধানী কোনটি?","ঢাকা",["চট্টগ্রাম","রাজশাহী","খুলনা"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের বৃহত্তম সমুদ্রবন্দর কোনটি?","চট্টগ্রাম বন্দর",["মংলা বন্দর","পায়রা বন্দর","নারায়ণগঞ্জ নদীবন্দর"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের দীর্ঘতম সমুদ্রসৈকত কোনটি?","কক্সবাজার",["কুয়াকাটা","পতেঙ্গা","সেন্ট মার্টিন"],"Bangladesh GK & Jobs"],
+ ["সুন্দরবন কোন ধরনের বন?","ম্যানগ্রোভ বন",["শাল বন","চিরহরিৎ পাহাড়ি বন","কনিফার বন"],"Bangladesh GK & Jobs"],
+ ["পদ্মা সেতু কোন নদীর ওপর নির্মিত?","পদ্মা",["যমুনা","মেঘনা","কর্ণফুলী"],"Bangladesh GK & Jobs"],
+ ["ঢাকা কোন নদীর তীরে অবস্থিত?","বুড়িগঙ্গা",["কর্ণফুলী","সুরমা","তিস্তা"],"Bangladesh GK & Jobs"],
+ ["জাতীয় স্মৃতিসৌধ কোথায় অবস্থিত?","সাভার",["গাজীপুর","কুমিল্লা","ময়মনসিংহ"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের জাতীয় মসজিদ কোনটি?","বায়তুল মোকাররম",["ষাট গম্বুজ মসজিদ","তারা মসজিদ","আদিনা মসজিদ"],"Bangladesh GK & Jobs"],
+ ["SAARC-এর সদর দপ্তর কোথায়?","কাঠমান্ডু",["ঢাকা","দিল্লি","কলম্বো"],"Bangladesh GK & Jobs"],
+ ["BIMSTEC-এর পূর্ণরূপে ‘T’ কী নির্দেশ করে?","Technical",["Trade","Transport","Tourism"],"Bangladesh GK & Jobs"],
+ ["জাতিসংঘের সদর দপ্তর কোথায়?","নিউইয়র্ক",["জেনেভা","প্যারিস","লন্ডন"],"Bangladesh GK & Jobs"],
+ ["বিশ্ব স্বাস্থ্য সংস্থার সংক্ষিপ্ত রূপ কী?","WHO",["WTO","WIPO","UNHCR"],"Bangladesh GK & Jobs"],
+ ["UNESCO-এর একটি প্রধান কাজ কী?","শিক্ষা, বিজ্ঞান ও সংস্কৃতিতে আন্তর্জাতিক সহযোগিতা",["শুধু সামরিক জোট পরিচালনা","শুধু মুদ্রা ছাপানো","শুধু খেলাধুলা আয়োজন"],"Bangladesh GK & Jobs"],
+ ["বাংলাদেশের সরকারি চাকরির লিখিত পরীক্ষায় সাধারণ জ্ঞান পড়ার সময় কোন পদ্ধতি কার্যকর?","বিষয়ভিত্তিক নোট ও নিয়মিত পুনরাবৃত্তি",["শুধু শেষ রাতে পড়া","শুধু অনুমান করা","শুধু একবার পড়া"],"Education & Pedagogy"],
+ ["একজন প্রাথমিক শিক্ষক দুর্বল পাঠককে সহায়তা করতে কী করতে পারেন?","ছোট ধাপে guided reading ও feedback দেওয়া",["শুধু শাস্তি দেওয়া","শুধু কঠিন বই দেওয়া","পড়তে না দেওয়া"],"Education & Pedagogy"],
+ ["একজন উচ্চমাধ্যমিক শিক্ষক formative feedback দিলে তার উদ্দেশ্য কী?","শিক্ষার্থীর পরবর্তী শেখা উন্নত করতে তথ্য দেওয়া",["শুধু নম্বর কমানো","শুধু শাস্তি দেওয়া","শুধু উপস্থিতি নথিভুক্ত করা"],"Education & Pedagogy"],
+ ["ICT শিক্ষক password security শেখাতে কোন অভ্যাসটি সবচেয়ে মৌলিক?","শক্তিশালী ও আলাদা password ব্যবহার",["সব সাইটে একই password","password প্রকাশ্যে লেখা","শুধু নাম ব্যবহার"],"ICT"],
+ ["Two-factor authentication-এর উদ্দেশ্য কী?","একাধিক যাচাই উপাদান ব্যবহার করে account security বাড়ানো",["internet speed বাড়ানো","screen resolution বাড়ানো","file size কমানো"],"ICT"],
+ ["Phishing কী?","প্রতারণামূলকভাবে তথ্য বা credentials নেওয়ার চেষ্টা",["ডেটা backup","software update","network cable"],"ICT"],
+ ["Spreadsheet-এ SUM function সাধারণত কী করে?","নির্বাচিত সংখ্যাগুলোর যোগফল দেয়",["শুধু text অনুবাদ করে","ছবি আঁকে","password তৈরি করে"],"ICT"],
+ ["Presentation software-এর মূল ব্যবহার কী?","স্লাইডভিত্তিক তথ্য উপস্থাপন",["শুধু operating system চালানো","শুধু database repair","শুধু antivirus scan"],"ICT"],
+ ["বর্তমান ২০২৬ সালে বাংলাদেশে National Teacher’s Day কোন তারিখে পালনের প্রস্তুতি নেওয়া হচ্ছে?","৫ অক্টোবর",["১ জানুয়ারি","২১ ফেব্রুয়ারি","১৬ ডিসেম্বর"],"Current Affairs"],
+ ["২০২৬ সালের বাংলাদেশ Innovation Fair কোথায় উদ্বোধন করা হয়?","Novo Theatre, Dhaka",["Bangabandhu Stadium","Chattogram Port","Rajshahi University"],"Current Affairs"],
+ ["Bangladesh Innovation Fair 2026-এ আয়োজকদের হিসাবে কতটি বিশ্ববিদ্যালয় অংশ নেয়?","৭৩টি",["৩৩টি","৫৩টি","৯৩টি"],"Current Affairs"],
+ ["২০২৬ সালের সেপ্টেম্বরে Bangladesh Test team Australia সফরে সিরিজটি কী ফল পায়?","১–১ ড্র",["২–০ বাংলাদেশ","২–০ অস্ট্রেলিয়া","৩–১ বাংলাদেশ"],"Current Affairs"],
+ ["২০২৬ সালের সেপ্টেম্বরে Bangla QR payments সম্পর্কে বাংলাদেশ ব্যাংকের নির্দেশনা অনুযায়ী merchant credit কবে থেকে instant করার কথা?","১ অক্টোবর ২০২৬",["১ সেপ্টেম্বর ২০২৬","১৬ ডিসেম্বর ২০২৬","১ জানুয়ারি ২০২৭"],"Current Affairs"],
+ ["২০২৬ সালের সেপ্টেম্বরে NBR solar power equipment-এর import tax কত শতাংশে নামানোর কথা জানায়?","১ শতাংশ",["৫ শতাংশ","১০ শতাংশ","১৭ শতাংশ"],"Current Affairs"],
+ ["২০২৬ সালের সেপ্টেম্বরে Ecnec নতুন কোন transport project অনুমোদনের কথা সংবাদে আসে?","নতুন Metro Rail project",["নতুন সমুদ্রবন্দর project","নতুন airport project","নতুন nuclear plant project"],"Current Affairs"],
+ ["২০২৬ সালের সেপ্টেম্বরে Bangladesh Innovation Fair-এ ১,০০০-এর বেশি কী প্রদর্শনের কথা জানানো হয়?","উদ্ভাবন",["শুধু বই","শুধু গাড়ি","শুধু ক্রীড়া ট্রফি"],"Current Affairs"],
+ ["২০২৬ সালের 81st UNGA-তে বাংলাদেশ কোন বিষয়গুলোর ওপর গুরুত্ব দেওয়ার কথা জানিয়েছে?","উন্নয়ন, অর্থনৈতিক সম্ভাবনা ও চলমান সংস্কার",["শুধু ক্রিকেট","শুধু পর্যটন","শুধু চলচ্চিত্র"],"Current Affairs"],
+ ["২০২৬ সালের সেপ্টেম্বরে Bangladesh-India ambassador appointment নিয়ে agrément বলতে কী বোঝায়?","স্বাগতিক দেশের সম্মতি",["বাণিজ্য কর","ভিসা ফি","জাতীয় বাজেট"],"Current Affairs"],
+ ["প্রাথমিক শিক্ষক শ্রেণিকক্ষে ভুল উত্তর পেলে কোন প্রতিক্রিয়াটি শেখার জন্য বেশি সহায়ক?","ভুলের কারণ অনুসন্ধান করে পুনরায় চেষ্টা করতে উৎসাহ দেওয়া",["সবার সামনে অপমান করা","সঙ্গে সঙ্গে শাস্তি দেওয়া","প্রশ্ন বন্ধ করা"],"Education & Pedagogy"],
+ ["একটি ভালো MCQ distractor কেমন হওয়া উচিত?","প্রশ্নের সঙ্গে সম্পর্কিত ও বিশ্বাসযোগ্য ভুল উত্তর",["সম্পূর্ণ অপ্রাসঙ্গিক শব্দ","স্পষ্ট হাস্যকর উত্তর","সঠিক উত্তরের পুনরাবৃত্তি"],"Education & Pedagogy"],
+ ["শিক্ষকের classroom management-এর একটি মূল উদ্দেশ্য কী?","শেখার উপযোগী নিরাপদ ও সংগঠিত পরিবেশ তৈরি",["শুধু নীরবতা বজায় রাখা","শুধু কঠোর শাস্তি","শুধু উপস্থিতি নেওয়া"],"Education & Pedagogy"],
+ ["শিক্ষার্থীর prior knowledge যাচাই করলে শিক্ষক কী সুবিধা পান?","নতুন পাঠের সঙ্গে পূর্বজ্ঞান যুক্ত করতে পারেন",["শুধু পরীক্ষা বাতিল করতে পারেন","শুধু বই কমাতে পারেন","শুধু সময় নষ্ট হয়"],"Education & Pedagogy"],
+ ["Diagnostic assessment সাধারণত কী জানতে সাহায্য করে?","শেখার আগে বিদ্যমান শক্তি ও দুর্বলতা",["শুধু চূড়ান্ত ফল","শুধু উপস্থিতি","শুধু বেতন"],"Education & Pedagogy"],
+ ["Cooperative learning-এ কোনটি গুরুত্বপূর্ণ?","সুনির্দিষ্ট যৌথ কাজ ও পারস্পরিক দায়িত্ব",["শুধু একজনের কাজ","কোনো যোগাযোগ না থাকা","শুধু ব্যক্তিগত প্রতিযোগিতা"],"Education & Pedagogy"],
+ ["Lesson plan-এ assessment strategy কেন রাখা হয়?","শেখার ফল কতটা অর্জিত হয়েছে তা যাচাই করতে",["শুধু সাজসজ্জার জন্য","শুধু সময় কাটাতে","শুধু উপস্থিতি লিখতে"],"Education & Pedagogy"],
+ ["Digital literacy বলতে কী বোঝায়?","ডিজিটাল তথ্য ও প্রযুক্তি নিরাপদ ও কার্যকরভাবে ব্যবহার করার সক্ষমতা",["শুধু দ্রুত টাইপ করা","শুধু গেম খেলা","শুধু মোবাইল কেনা"],"ICT"],
+ ["Open-source software-এর বৈশিষ্ট্য কী?","উৎসকোড নির্দিষ্ট লাইসেন্সের অধীনে পর্যালোচনা/পরিবর্তনের সুযোগ দিতে পারে",["কখনো দেখা যায় না","সবসময় বিনামূল্যে হওয়া বাধ্যতামূলক","শুধু offline চলে"],"ICT"],
+ ["Operating system-এর একটি প্রধান কাজ কী?","hardware ও software resource ব্যবস্থাপনা",["শুধু ছবি আঁকা","শুধু web page লেখা","শুধু printer paper তৈরি"],"ICT"],
+ ["Database normalization-এর একটি উদ্দেশ্য কী?","অপ্রয়োজনীয় data redundancy কমানো",["সব data duplicate করা","সব table মুছে ফেলা","শুধু ছবি compress করা"],"ICT"],
+ ["HTTP status 404 সাধারণত কী নির্দেশ করে?","অনুরোধ করা resource পাওয়া যায়নি",["server সবসময় ঠিক আছে","authentication সফল","database backup সম্পন্ন"],"ICT"],
+ ["DNS-এর মূল কাজ কী?","domain name-কে network address-এর সাথে resolve করতে সহায়তা করা",["শুধু file encrypt করা","শুধু screen render করা","শুধু password store করা"],"ICT"],
+ ["বাংলা ভাষায় ‘অমর’ শব্দের বিপরীতার্থক কোনটি?","মরণশীল",["অক্ষয়","চিরস্থায়ী","অমৃত"],"Bangla Grammar"],
+ ["‘সূর্য’ শব্দের একটি প্রচলিত সমার্থক কোনটি?","রবি",["শশী","ধরা","নিশা"],"Bangla Grammar"],
+ ["‘অন্ধকার’ শব্দের বিপরীতার্থক কী?","আলো",["রাত্রি","ছায়া","মেঘ"],"Bangla Grammar"],
+ ["‘যে দেশকে ভালোবাসে’—এক কথায় কী?","দেশপ্রেমিক",["স্বদেশত্যাগী","ভ্রমণকারী","প্রবাসী"],"Bangla Grammar"],
+ ["‘যে অন্যের উপকার করে’—এক কথায় কী?","পরোপকারী",["স্বার্থপর","নির্লিপ্ত","অসহযোগী"],"Bangla Grammar"],
+ ["‘নদী’ শব্দের বহুবচন রূপ কোনটি?","নদীগুলো",["নদীটি","নদীর","নদীতে"],"Bangla Grammar"],
+ ["‘ছেলেরা খেলছে’ বাক্যে ‘ছেলেরা’ কী?","কর্তা",["কর্ম","ক্রিয়াবিশেষণ","সম্প্রদান"],"Bangla Grammar"],
+ ["‘বইটি টেবিলের উপর আছে’ বাক্যে ‘টেবিলের উপর’ কী নির্দেশ করে?","অধিকরণ",["করণ","কর্তা","সম্প্রদান"],"Bangla Grammar"],
+ ["‘সে কলম দিয়ে লিখে’ বাক্যে ‘কলম দিয়ে’ কোন কারক?","করণ কারক",["কর্মকারক","অপাদান কারক","অধিকরণ কারক"],"Bangla Grammar"],
+ ["‘গাছ থেকে পাতা পড়ে’ বাক্যে ‘গাছ থেকে’ কোন কারক?","অপাদান কারক",["করণ কারক","সম্প্রদান কারক","কর্মকারক"],"Bangla Grammar"]
+];
+
+function makeVariantFacts(base, count=8){
+ const out=[];
+ const templates=[
+  q=>q,
+  q=>`মিশন: ${q}`,
+  q=>`জ্ঞান-যাচাই: ${q}`,
+  q=>`শিক্ষক/চাকরি প্রস্তুতি: ${q}`,
+  q=>`ফ্যাব্রিকেটর চালু। সঠিক তথ্য নির্বাচন করো: ${q}`,
+  q=>`চ্যালেঞ্জ: ${q}`,
+  q=>`দ্রুত নয়—নির্ভুলভাবে উত্তর দাও: ${q}`,
+  q=>`পরবর্তী আবিষ্কারের আগে যাচাই করো: ${q}`
+ ];
+ base.forEach((x,idx)=>{
+  for(let i=0;i<count;i++){
+   const stem=templates[i%templates.length](x[0]);
+   out.push([stem,x[1],x[2],x[3]]);
+  }
+ });
+ return out;
+}
+
+/* Extra variants make the bank exceed 2000 questions while preserving one objective answer per item. */
+const GENERATED_FACTS=makeVariantFacts(FACTS.concat(EXTRA_FACTS),8).concat(makeVariantFacts(JOB_FACTS,5));
+
+const ALL_FACTS=FACTS.concat(EXTRA_FACTS,JOB_FACTS,GENERATED_FACTS);
 function fallbackFor(subject,level){
  const bilingual=subject==="Islamic Science & Knowledge";
  const base={
@@ -362,7 +505,13 @@ function fallbackFor(subject,level){
   "Engineering":["An engineering mission is ready. Which statement is most precise?","Engineering uses constraints, models, testing and iteration to solve practical problems.",["Testing is unnecessary.","Constraints never matter.","Design cannot be improved after testing."]],
   "Materials Science":["A materials mission is ready. Which statement is most precise?","Material properties arise from composition, structure and processing.",["Only colour determines properties.","All materials behave identically.","Processing cannot change properties."]],
   "Environmental Science":["An environmental mission is ready. Which statement is most precise?","Environmental systems involve interacting organisms, resources and physical conditions.",["Only one species matters.","Physical conditions never affect ecosystems.","Nutrients have no environmental effects."]],
-  "Islamic Science & Knowledge":["ইসলামি জ্ঞানচর্চার একটি প্রশ্ন প্রস্তুত। / An Islamic knowledge question is ready.","জ্ঞান, চিন্তা ও সৃষ্টিজগতের নিদর্শন সম্পর্কে মনোযোগী হওয়া — Seeking knowledge and reflecting on signs of creation.",["জ্ঞান পরিহার করা — Avoiding knowledge.","প্রশ্ন করা নিষিদ্ধ — Questions are forbidden.","প্রমাণের প্রয়োজন নেই — Evidence is unnecessary."]]
+  "Islamic Science & Knowledge":["ইসলামি জ্ঞানচর্চার একটি প্রশ্ন প্রস্তুত। / An Islamic knowledge question is ready.","জ্ঞান, চিন্তা ও সৃষ্টিজগতের নিদর্শন সম্পর্কে মনোযোগী হওয়া — Seeking knowledge and reflecting on signs of creation.",["জ্ঞান পরিহার করা — Avoiding knowledge.","প্রশ্ন করা নিষিদ্ধ — Questions are forbidden.","প্রমাণের প্রয়োজন নেই — Evidence is unnecessary."]],
+  "Bangla Grammar":["বাংলা ব্যাকরণ মিশন: সঠিক ভাষাগত ধারণাটি নির্বাচন করো।","শব্দ, পদ, কারক, সমাস ও বাক্যরীতি নির্ভুলভাবে বিশ্লেষণ করতে হয়.",["ব্যাকরণে কোনো নিয়ম নেই.","সব শব্দ একই পদ.","বাক্যে ক্রিয়ার প্রয়োজন হয় না."]],
+  "Bangladesh GK & Jobs":["বাংলাদেশ চাকরি-প্রস্তুতি মিশন: সঠিক সাধারণ জ্ঞান নির্বাচন করো।","জাতীয় ইতিহাস, সংবিধান, ভূগোল ও প্রতিষ্ঠান সম্পর্কে নির্ভুল তথ্য গুরুত্বপূর্ণ.",["সব তথ্য অনুমানভিত্তিক.","শুধু রাজধানী জানলেই যথেষ্ট.","সংবিধানের কোনো গুরুত্ব নেই."]],
+  "Education & Pedagogy":["Teacher Mission: choose the most precise educational principle.","Effective teaching links objectives, learning activities and assessment.",["Only punishment matters.","Assessment is never useful.","Students should never receive feedback."]],
+  "English Grammar":["English grammar mission: choose the grammatically precise statement.","Grammar depends on sentence structure, tense, agreement and meaning.",["All verb forms are interchangeable.","Articles never affect meaning.","Subject-verb agreement is unnecessary."]],
+  "General Science":["General science mission: select the most accurate statement.","Scientific explanations depend on observable evidence and established relationships.",["Evidence is unnecessary.","All natural events have the same cause.","Measurements never matter."]],
+  "Current Affairs":["Current affairs mission: identify the verified contemporary fact.","Current-affairs questions should be tied to a dated, reported event.",["Current events never change.","Dates do not matter.","Every online claim is automatically verified."]]
  };
  const x=base[subject]||base.Chemistry;
  return {subject,q:x[0],a:x[1],wrong:x[2],difficulty:DIFFICULTY_LABEL[difficultyFor(level)]};
@@ -371,7 +520,7 @@ function questionFor(level){
  const subject=subjectFor(level);
  const phase=phaseFor(level);
  const diff=difficultyFor(level);
- let pool=(level>=951 ? EXTRA_FACTS : ALL_FACTS).filter(x=>x[3]===subject);
+ let pool=ALL_FACTS.filter(x=>x[3]===subject);
  if(!pool.length)return fallbackFor(subject,level);
  // Later stages deliberately prefer deeper concepts when such questions exist.
  const preferred=pool.filter((x,i)=>{
@@ -393,9 +542,9 @@ let state=JSON.parse(localStorage.getItem("elementGameSave")||"null")||DEFAULT;
 state={...DEFAULT,...state};
 if(!Array.isArray(state.completed))state.completed=[];
 if(!Array.isArray(state.rewarded))state.rewarded=[];
-if(!Array.isArray(state.materials))state.materials=["Wood","Stone"];
+if(!Array.isArray(state.materials))state.materials=["Stone • Earth & Materials","Fire • Physics & Chemistry"];
 if(typeof state.retryCount!=="number")state.retryCount=0;
-if(state.level<1||state.level>1000)state.level=1;
+if(state.level<1||state.level>TOTAL_LEVELS)state.level=1;
 let pending=false;
 
 function save(){
@@ -405,12 +554,12 @@ function save(){
 function esc(s){return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
 function render(){
  const l=state.level,q=questionFor(l);
- document.getElementById("level").textContent=`${l} / 1000`;
+ document.getElementById("level").textContent=`${l} / ${TOTAL_LEVELS}`;
  document.getElementById("era").textContent=q.subject;
  document.getElementById("xp").textContent=state.xp;
  document.getElementById("retryCount").textContent=`${state.retryCount} / 3`;
- document.getElementById("discovery").textContent=`${state.completed.length} / 1000`;
- document.getElementById("bar").style.width=`${Math.min(100,l/10)}%`;
+ document.getElementById("discovery").textContent=`${state.completed.length} / ${TOTAL_LEVELS}`;
+ document.getElementById("bar").style.width=`${Math.min(100,l/TOTAL_LEVELS*100)}%`;
  document.getElementById("missionTag").textContent=`LEVEL ${l} • ${q.subject.toUpperCase()}`;
  const d=q.discovery||discoveryFor(l); document.getElementById("missionTag").textContent=`LEVEL ${l} • ${q.subject.toUpperCase()} • ${d[3]} ${d[1]}`;
  const ph=phaseFor(l); document.getElementById("phase").textContent=ph[2]; document.getElementById("difficulty").textContent=q.difficulty||ph[3];
@@ -421,7 +570,7 @@ function render(){
  document.querySelectorAll(".option").forEach(b=>b.onclick=()=>choose(b.dataset.c==="true"));
  document.getElementById("materials").innerHTML=state.materials.slice(-30).map(x=>`<span class="chip">${esc(x)}</span>`).join("");
  let html="";
- for(let n=5;n<=1000;n+=5){
+ for(let n=5;n<=TOTAL_LEVELS;n+=5){
    const s=scientistFor(n),done=state.rewarded.includes(n);
    html+=`<div class="scientist ${done?"done":"locked"}"><div><b>${esc(s[0])}</b><br><span>Level ${n} • ${esc(s[1])}</span></div><span>${done?"✓":"🔒"}</span></div>`;
  }
@@ -471,7 +620,7 @@ function choose(correct){
  pending=true;
  const l=state.level,q=questionFor(l);
  if(!state.completed.includes(l))state.completed.push(l);
- state.xp+=100;state.retryCount=0;state.maxUnlocked=Math.max(state.maxUnlocked,Math.min(1000,l+1));
+ state.xp+=100;state.retryCount=0;state.maxUnlocked=Math.max(state.maxUnlocked,Math.min(TOTAL_LEVELS,l+1));
  const d=q.discovery||discoveryFor(l); state.materials.push(`${d[1]} • ${d[4]} • Level ${l}`); save();
  msg.className="message good";msg.textContent=`✓ Correct! Level ${l} completed.`;
  document.querySelectorAll(".option").forEach(b=>b.disabled=true);
@@ -486,14 +635,14 @@ function choose(correct){
    setTimeout(()=>{const e=document.getElementById("fabState"),s=document.getElementById("energyState"); if(e)e.textContent=l%5===0?"SCIENTIST MILESTONE READY":"ARTIFACT FABRICATED"; if(s)s.textContent="ARTIFACT STABLE • DISCOVERY COMPLETE"},1000);
  }
  const next=document.getElementById("nextLevel");
- next.textContent=l>=1000?"CLAIM FINAL AWARD ★":"NEXT LEVEL →";
+ next.textContent=l>=TOTAL_LEVELS?"CLAIM FINAL AWARD ★":"NEXT LEVEL →";
  setTimeout(()=>{next.classList.remove("hidden-next");next.classList.add("next-level-show")},450);
 }
 function advance(){
  if(!pending)return;
  const l=state.level;
  if(l%5===0){showReward(l);return}
- if(l>=1000){showReward(1000);return}
+ if(l>=TOTAL_LEVELS){showReward(TOTAL_LEVELS);return}
  state.level=l+1;pending=false;save();render();
 }
 function showReward(level){
@@ -510,7 +659,7 @@ function showReward(level){
 function continueReward(){
  document.getElementById("modal").classList.add("hidden");
  const l=state.level;
- if(l>=1000){pending=false;save();render();return}
+ if(l>=TOTAL_LEVELS){pending=false;save();render();return}
  state.level=l+1;pending=false;save();render();
 }
 document.getElementById("nextLevel").onclick=advance;

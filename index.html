@@ -3,86 +3,123 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ELEMENT: Genesis to Multiverse — 2000 Level Science + Career Challenge</title>
+<title>ELEMENT: Genesis to Multiverse — 5000 Mission Edition</title>
 <meta name="theme-color" content="#070a10">
-<meta name="description" content="A 2000-level interdisciplinary knowledge game covering science, technology, Bangladesh job preparation, teacher recruitment topics, Bangla grammar, general knowledge, current affairs and Islamic knowledge.">
+<meta name="description" content="A game-first 5000-level knowledge journey: science, technology, Bangladesh job preparation, Bangla grammar, anime, Marvel, entertainment, sports, current affairs and Islamic knowledge.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
 <header>
- <div>
-  <div class="eyebrow">2000 LEVEL SCIENCE + CAREER KNOWLEDGE CHALLENGE</div>
-  <h1>ELEMENT: Genesis to Multiverse</h1>
-  <p class="subtitle">Think deeper. Choose precisely. Build knowledge from Stone Age to Omniverse.</p>
- </div>
- <div class="savebox">LOCAL SAVE<br><span id="saveStatus">Ready</span></div>
+  <div>
+    <div class="eyebrow">5000 LEVEL • 5000 KNOWLEDGE MISSIONS</div>
+    <h1>ELEMENT: Genesis to Multiverse</h1>
+    <p class="subtitle">Learn. Choose. Fabricate. Discover. From Stone Age to Omniverse.</p>
+  </div>
+  <div class="header-actions">
+    <button id="levelMapBtn" class="map-btn">LEVEL MAP</button>
+    <div class="savebox">LOCAL SAVE<br><span id="saveStatus">Ready</span></div>
+  </div>
 </header>
+
 <section class="hud">
- <div><b>LEVEL</b><span id="level">1 / 2000</span></div>
- <div><b>SUBJECT</b><span id="era">Chemistry</span></div>
- <div><b>XP</b><span id="xp">0</span></div>
- <div><b>MISTAKES</b><span id="retryCount">0 / 3</span></div>
- <div><b>COMPLETED</b><span id="discovery">0 / 2000</span></div>
+  <div><b>LEVEL</b><span id="level">1 / 5000</span></div>
+  <div><b>SUBJECT</b><span id="era">Chemistry</span></div>
+  <div><b>XP</b><span id="xp">0</span></div>
+  <div><b>MISTAKES</b><span id="retryCount">0 / 3</span></div>
+  <div><b>DISCOVERED</b><span id="discovery">0 / 5000</span></div>
 </section>
+
 <main>
 <section class="gamecard">
- <div class="journey-strip"><span>GENESIS PATH</span><strong id="phase">STONE AGE • FOUNDATIONS</strong><em id="difficulty">Foundation</em></div>
- <div class="progress"><div id="bar"></div></div>
- <div class="mission">
-  <span id="missionTag">LEVEL 1 • CHEMISTRY</span>
-  <h2 id="goal">Loading question…</h2>
-  <p id="hint">Choose the scientifically most precise answer.</p>
- </div>
- <div id="options" class="options"></div>
- <div id="message" class="message"></div>
- <div id="fabricatorSuccess" class="fabricator success-only" aria-hidden="true">
-  <div class="fab-head"><span>KNOWLEDGE CHAMBER</span><span id="fabState">KNOWLEDGE UNLOCKED</span></div>
-  <div class="fab-scan"><span id="energyState">ENERGY CORE STANDBY</span><i></i></div>
-  <div id="fabricatorVisual" class="fab-visual" aria-live="polite"></div>
-  <div class="fab-caption" id="fabCaption"></div>
- </div>
- <button id="nextLevel" class="next-level hidden-next">NEXT LEVEL →</button>
- <div class="inventory">
-  <div class="invhead"><h3>DISCOVERED KNOWLEDGE</h3><button id="reset" class="danger">Reset Save</button></div>
-  <div id="materials" class="chips"></div>
- </div>
+  <div class="journey-strip">
+    <span>GENESIS PATH</span>
+    <strong id="phase">STONE AGE FOUNDATIONS</strong>
+    <em id="difficulty">Foundation</em>
+  </div>
+  <div class="progress"><div id="bar"></div></div>
+
+  <div class="mission">
+    <span id="missionTag">LEVEL 1 • CHEMISTRY</span>
+    <h2 id="goal">Loading mission…</h2>
+    <p>Choose the most precise answer. Every correct answer fabricates a discovery.</p>
+  </div>
+
+  <div class="hint-row">
+    <button id="hintBtn" class="hint-btn">💡 HINT</button>
+    <div id="hintBox" class="hint-box"><span>HINT</span><p id="hintText">A clue will appear here.</p></div>
+  </div>
+
+  <div id="options" class="options"></div>
+  <div id="message" class="message"></div>
+
+  <div id="fabricatorSuccess" class="fabricator success-only" aria-hidden="true">
+    <div class="fab-head"><span>KNOWLEDGE FABRICATOR</span><span id="fabState">CORE STANDBY</span></div>
+    <div class="fab-scan"><span>DISCOVERY ENERGY</span><i></i></div>
+    <div id="fabricatorVisual" class="fab-visual" aria-live="polite"></div>
+    <div class="fab-caption" id="fabCaption"></div>
+  </div>
+
+  <button id="nextLevel" class="next-level hidden-next">NEXT LEVEL →</button>
+
+  <div class="inventory">
+    <div class="invhead"><h3>DISCOVERED ARTIFACTS</h3><button id="reset" class="danger">RESET SAVE</button></div>
+    <div id="materials" class="chips"></div>
+  </div>
 </section>
+
 <aside class="side">
- <div class="panel">
-  <h3>SCIENTIST MILESTONES • EVERY 5 LEVELS</h3>
-  <div id="scientists"></div>
- </div>
- <div class="panel">
-  <h3>HOW TO PLAY</h3>
-  <ol>
-   <li>Each level is a mission inside the game world, not a separate quiz mode.</li>
-   <li>The question bank exceeds 2000 questions and includes Bangladesh primary/high-school/college teacher preparation, Bangla grammar, ICT, general knowledge and current affairs.</li>
-   <li>Choose one of four scientifically plausible answers; difficulty rises from school to college, university and honours.</li>
-   <li>Three mistakes cause a 3-level penalty.</li>
-   <li>Every 5 completed levels opens a scientist award.</li>
-   <li>Every award shows the scientist's English + Bangla dialogue.</li>
-   <li>Stone Age discoveries gradually evolve toward atoms, life, technology, quantum science, galaxies, the Multiverse and Omniverse.</li>
-   <li>Level 100 correctly awards Nikola Tesla, and every completed mission fabricates an animated discovery visual.</li>
-   <li>Subjects are mixed naturally: ICT, Physics, Quantum Science, Astronomy, Biology, Chemistry, Bangla Grammar, English Grammar, Bangladesh GK, Education/Pedagogy and Current Affairs.</li>
-   <li>The game continues through Level 2000; the final 100-level Islamic Knowledge chamber uses English + Bangla questions and options.</li>
-   <li>Evolution questions are excluded; the final sector uses Islamic knowledge concepts and bilingual English + Bangla options.</li>
-  </ol>
- </div>
+  <div class="panel">
+    <h3>SCIENTIST MILESTONES</h3>
+    <div id="scientists"></div>
+  </div>
+  <div class="panel">
+    <h3>GAME RULES</h3>
+    <ol>
+      <li>The question is a mission inside the Genesis-to-Omniverse journey.</li>
+      <li>Correct answer → Fabricator → animated discovery → XP → next level.</li>
+      <li>Hint gives a clue connected to the answer; it is optional.</li>
+      <li>Three mistakes apply a 3-level penalty, but previously unlocked levels stay unlocked.</li>
+      <li>Use LEVEL MAP anytime to replay any unlocked level.</li>
+      <li>School foundations gradually rise through High School, College, University, Honours and specialist/competitive levels.</li>
+      <li>Career missions include Bangladesh teacher preparation, Bangla grammar, ICT, GK and job-style questions.</li>
+      <li>Anime, Marvel, TV/streaming, sports and current-affairs missions appear naturally in the journey.</li>
+      <li>Evolution questions are excluded. The final Islamic/Hadith sector uses bilingual English + Bangla questions and options.</li>
+    </ol>
+  </div>
+  <div class="panel source-note">
+    <h3>HADITH STUDY NOTE</h3>
+    <p>Hadith-identification missions focus on verification, isnad, terminology and the distinction between sahih, da'if and mawdu'. The source framing follows the named work <b>হাদীসের নামে জালিয়াতি</b> by Dr. Khandaker Abdullah Jahangir rather than inventing unattributed hadith claims.</p>
+  </div>
 </aside>
 </main>
 </div>
+
 <div id="modal" class="modal hidden">
- <div class="modalbox">
-  <div class="medal">★</div>
-  <div class="eyebrow">SCIENTIST REWARD</div>
-  <div id="awardLevel" class="award-level">LEVEL 5 • SCIENTIST AWARD</div>
-  <h2 id="scientistName"></h2>
-  <div id="scientistField" class="scientist-field"></div>
-  <p id="quoteEn" class="quote en"></p>
-  <p id="quoteBn" class="quote bn"></p>
-  <button id="continue">CONTINUE</button>
- </div>
+  <div class="modalbox reward-box">
+    <div class="medal">★</div>
+    <div class="eyebrow">SCIENTIST / DISCOVERY REWARD</div>
+    <div id="awardLevel" class="award-level">LEVEL 5</div>
+    <h2 id="scientistName"></h2>
+    <div id="scientistField" class="scientist-field"></div>
+    <p id="quoteEn" class="quote en"></p>
+    <p id="quoteBn" class="quote bn"></p>
+    <button id="continue">CONTINUE JOURNEY</button>
+  </div>
+</div>
+
+<div id="levelMapModal" class="modal hidden">
+  <div class="modalbox map-box">
+    <div class="eyebrow">UNLOCKED LEVEL ARCHIVE</div>
+    <h2>LEVEL MAP</h2>
+    <p id="mapInfo" class="map-info">Unlocked: 1 / 5000</p>
+    <div class="jump-row">
+      <input id="levelSearch" type="number" min="1" max="5000" placeholder="Level number">
+      <button id="jumpLevel">GO</button>
+    </div>
+    <div id="levelMap" class="level-map"></div>
+    <button id="closeMap" class="secondary-btn">CLOSE MAP</button>
+  </div>
 </div>
 <script src="game.js"></script>
 </body>

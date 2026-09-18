@@ -1,673 +1,265 @@
-/* ELEMENT: Genesis to Multiverse — 2000 Level Job + Science Challenge */
-const TOTAL_LEVELS=2000;
-const SUBJECTS=[
- ["Chemistry"],["Physics"],["Biology"],["Botany"],["Zoology"],["Biotechnology"],
- ["Limnology"],["Microbiology"],["Molecular Biology"],["ICT"],["Mathematics"],
- ["Astronomy"],["Cosmology"],["Quantum Science"],["Geology & Earth Science"],
- ["Engineering"],["Materials Science"],["Environmental Science"]
+const eras=[
+["Stone Age",1,10],["Bronze & Iron",11,20],["Classical Engineering",21,30],["Scientific Revolution",31,40],
+["Industrial Age",41,50],["Electrical Age",51,60],["Atomic Age",61,70],["Space Age",71,80],
+["Quantum Age",81,90],["Spacetime & Multiverse",91,100]
+];
+const scientists=[
+[5,"Archimedes","You discovered the logic of machines."],[10,"Isaac Newton","The Earth era is complete. Motion and gravity await."],
+[15,"Michael Faraday","Fields can become technology."],[20,"James Watt","Engineering turns ideas into power."],
+[25,"Charles Darwin","Observe patterns; test every assumption."],[30,"Galileo Galilei","Measure the world, then question it."],
+[35,"Antoine Lavoisier","Matter changes form, but accounting matters."],[40,"James Clerk Maxwell","Electricity and magnetism speak one language."],
+[45,"Thomas Edison","Practical invention changes daily life."],[50,"Nikolaus Otto","Engines convert controlled energy into motion."],
+[55,"Nikola Tesla","Alternating current opens a new electrical age."],[60,"Marie Curie","The atom hides astonishing energy."],
+[65,"Ernest Rutherford","The atom has a nucleus."],[70,"Niels Bohr","Quantized structure changes our picture of matter."],
+[75,"Katherine Johnson","Precise mathematics can navigate space."],[80,"Alan Turing","Information itself can be engineered."],
+[85,"Richard Feynman","Nature does not have to be intuitive to be calculable."],[90,"Albert Einstein","Space and time are part of one structure."],
+[95,"Stephen Hawking","The universe challenges every boundary."],[100,"Nikola Tesla","You reached the Multiverse frontier."]
 ];
 
-// The game is intentionally interdisciplinary: subjects are mixed throughout the journey,
-// rather than locked into separate 100-level blocks. Difficulty rises with the player's progress.
-const LEVEL_PHASES=[
- [1,200,"STONE AGE • FOUNDATIONS","Foundation"],
- [201,450,"ANCIENT WORLD • DISCOVERY","Foundation+"],
- [451,750,"SCHOOL SCIENCE • EXPLORER","High School"],
- [751,1050,"COLLEGE • BUILDER","College"],
- [1051,1350,"UNIVERSITY • RESEARCHER","University"],
- [1351,1650,"HONOURS • FRONTIER","Honours"],
- [1651,1900,"COSMIC FRONTIER • MULTIVERSE • OMNIVERSE","Advanced"],
- [1901,2000,"ISLAMIC KNOWLEDGE • FINAL CHAMBER","Islamic Knowledge"]
+// 100 levels, 5 choices each. Correct choice is randomized by a deterministic formula.
+const base=[
+["Stone Axe","Stone + Wood","Axe","cutting tool"],["Fire","Wood + Heat","Fire","energy"],["Clay Brick","Clay + Fire","Brick","construction"],["Copper Tool","Copper + Stone","Copper Tool","metallurgy"],["Bronze","Copper + Tin","Bronze","alloy"],
+["Iron","Iron Ore + Fire","Iron","metal"],["Steel","Iron + Carbon","Steel","alloy"],["Glass","Sand + Fire","Glass","material"],["Wheel","Wood + Stone","Wheel","mechanics"],["Lever","Wood + Stone","Lever","mechanics"],
+["Plough","Wood + Iron","Plough","agriculture"],["Concrete","Limestone + Water","Concrete","construction"],["Paper","Plant Fiber + Water","Paper","material"],["Ink","Carbon + Water","Ink","writing"],["Compass","Iron + Magnetism","Compass","navigation"],
+["Clock","Gear + Spring","Clock","precision"],["Printing Press","Paper + Ink","Printing Press","information"],["Steam Engine","Water + Heat","Steam Engine","power"],["Battery","Copper + Zinc + Acid","Battery","electricity"],["Telegraph","Wire + Battery","Telegraph","communication"],
+["Light Bulb","Glass + Wire + Vacuum","Light Bulb","electricity"],["Motor","Magnet + Wire + Electricity","Motor","electromagnetism"],["Generator","Coil + Magnet + Motion","Generator","induction"],["Radio","Electricity + Antenna","Radio","waves"],["Telephone","Electricity + Membrane","Telephone","communication"],
+["Transformer","Coil + Iron Core + AC","Transformer","power"],["Electron Tube","Vacuum + Metal + Voltage","Electron Tube","electronics"],["X-ray","Electron + Target + Vacuum","X-ray","radiation"],["Photocell","Light + Semiconductor","Photocell","electronics"],["Computer","Logic + Memory + Electricity","Computer","information"],
+["Transistor","Silicon + Doping + Voltage","Transistor","semiconductor"],["Integrated Circuit","Silicon + Transistors","Integrated Circuit","microelectronics"],["Laser","Atom + Cavity + Energy","Laser","photonics"],["Satellite","Rocket + Computer + Radio","Satellite","space"],["Rocket","Fuel + Oxidizer + Engine","Rocket","propulsion"],
+["Solar Cell","Silicon + Light","Solar Cell","energy"],["Nuclear Reactor","Uranium + Neutrons + Control","Nuclear Reactor","nuclear"],["Nuclear Bomb","Uranium + Neutron + Critical Mass","Nuclear Device","nuclear"],["Fusion Reactor","Plasma + Magnetic Field","Fusion Reactor","fusion"],["Particle Accelerator","Magnets + Vacuum + RF","Particle Accelerator","physics"],
+["Space Telescope","Mirror + Sensor + Orbit","Space Telescope","astronomy"],["GPS","Satellites + Atomic Clock + Radio","GPS","navigation"],["Space Station","Modules + Orbit + Life Support","Space Station","space"],["Ion Engine","Electric Field + Plasma","Ion Engine","propulsion"],["Quantum Computer","Qubit + Control + Cryogenics","Quantum Computer","quantum"],
+["Quantum Sensor","Qubit + Measurement","Quantum Sensor","quantum"],["Nanobot","Nano Machine + Control","Nanobot","nanotech"],["Graphene","Carbon + Layer + Energy","Graphene","materials"],["Artificial Intelligence","Computer + Data + Learning","AI","computing"],["Fusion Drive","Fusion + Magnetic Nozzle","Fusion Drive","propulsion"],
+["Antimatter Trap","Antimatter + Magnetic Field + Vacuum","Antimatter Trap","particle physics"],["Warp Metric","Energy + Spacetime Geometry","Warp Metric","relativity"],["Wormhole","Spacetime + Extreme Energy","Wormhole","spacetime"],["Time Dilation Engine","Velocity + Gravity + Atomic Clock","Time Dilation Engine","relativity"],["Time Machine","Causal Loop + Spacetime + Energy","Time Machine","time"],["Chronon Detector","Quantum Clock + Spacetime","Chronon Detector","time"],["Past Probe","Time Machine + Stable Coordinate","Past Probe","time"],["Future Probe","Time Machine + Future Coordinate","Future Probe","time"],["Causal Shield","Time Field + Information Barrier","Causal Shield","time"],["Multiverse Detector","Quantum Branch + Sensor","Multiverse Detector","multiverse"],
+["Branch Navigator","Multiverse Detector + AI","Branch Navigator","multiverse"],["Universe Hopper","Branch Navigator + Wormhole","Universe Hopper","multiverse"],["Parallel Matter","Matter + Branch Coordinate","Parallel Matter","multiverse"],["Reality Anchor","Exotic Matter + Spacetime","Reality Anchor","multiverse"],["Dimensional Map","Universe Data + Quantum Computer","Dimensional Map","multiverse"],["Multiverse Radio","Antenna + Branch Navigator","Multiverse Radio","multiverse"],["Alternate Earth","Universe Hopper + Earth Coordinate","Alternate Earth","multiverse"],["Timeline Library","Past Probe + Future Probe","Timeline Library","time"],["Causality Engine","Timeline Library + Reality Anchor","Causality Engine","causality"],
+["Quantum Gate","Qubit + Wormhole","Quantum Gate","quantum"],["Vacuum Energy Cell","Vacuum + Quantum Field","Vacuum Energy Cell","quantum field"],["Dark Matter Sensor","Gravity + Unknown Mass","Dark Matter Sensor","cosmology"],["Dark Energy Meter","Expansion + Precision Clock","Dark Energy Meter","cosmology"],["Black Hole Probe","Gravity + Shield + Sensor","Black Hole Probe","astrophysics"],["Hawking Radiation Lab","Black Hole + Quantum Sensor","Hawking Lab","quantum gravity"],["Graviton Detector","Mass + Quantum Sensor","Graviton Detector","quantum gravity"],["Planck Engine","Planck Scale + Energy","Planck Engine","quantum gravity"],["Spacetime Computer","Quantum Computer + Spacetime","Spacetime Computer","computation"],["Reality Simulator","Spacetime Computer + Universe Data","Reality Simulator","simulation"],
+["Universe Seed","Matter + Energy + Information","Universe Seed","cosmology"],["Universe Forge","Universe Seed + Causality Engine","Universe Forge","cosmology"],["Dimension Bridge","Universe Forge + Wormhole","Dimension Bridge","dimensions"],["Higher-Dimensional Lens","Dimension Bridge + Sensor","HD Lens","dimensions"],["Temporal Observatory","Timeline Library + HD Lens","Temporal Observatory","time"],["Infinite Archive","Timeline Library + Multiverse Radio","Infinite Archive","information"],["Causal Compiler","Information + Causality","Causal Compiler","computation"],["Reality Compiler","Causal Compiler + Universe Forge","Reality Compiler","reality"],["Multiverse Engine","Reality Compiler + Dimension Bridge","Multiverse Engine","multiverse"],["Omniverse Key","Multiverse Engine + Reality Anchor","Omniverse Key","multiverse"],
+["Time Traveler","Omniverse Key + Time Machine","Time Traveler","time"],["Timeline Repairer","Time Traveler + Causal Shield","Timeline Repairer","time"],["Universe Builder","Reality Compiler + Universe Seed","Universe Builder","cosmology"],["Parallel Civilization","Universe Builder + Alternate Earth","Parallel Civilization","civilization"],["Multiverse Civilization","Parallel Civilization + Universe Hopper","Multiverse Civilization","civilization"],["Cosmic Network","Multiverse Radio + Infinite Archive","Cosmic Network","communication"],["Causal Network","Cosmic Network + Causal Compiler","Causal Network","causality"],["Reality Stabilizer","Causal Network + Reality Anchor","Reality Stabilizer","reality"],["Multiverse Portal","Reality Stabilizer + Dimension Bridge","Multiverse Portal","multiverse"],["THE FINAL MACHINE","Multiverse Portal + Omniverse Key + Tesla Principle","Chrono-Multiverse Engine","final"]
 ];
+const decoys=["Wood + Water","Stone + Air","Iron + Fire","Sand + Water","Copper + Wood","Carbon + Ice","Glass + Stone","Steam + Wood","Magnet + Paper","Salt + Metal","Air + Oil","Clay + Wood","Gold + Water","Light + Stone","Smoke + Ice","Hydrogen + Sand","Limestone + Metal","Plasma + Wood","Gravity + Paper","Energy + Clay"];
 
-const DISCOVERY_PATH=[
- [1,"Stone","প্রস্তর / Stone","🪨","Earth & Materials"],[2,"Fire","আগুন / Fire","🔥","Physics & Chemistry"],
- [3,"Shelter","আশ্রয় / Shelter","⛺","Engineering"],[4,"Wheel","চাকা / Wheel","⚙️","Engineering"],
- [5,"Copper","তামা / Copper","🟠","Materials Science"],[6,"Bronze","ব্রোঞ্জ / Bronze","🟤","Materials Science"],
- [7,"Iron","লোহা / Iron","⚒️","Materials Science"],[8,"Glass","কাচ / Glass","🔷","Chemistry"],
- [9,"Magnet","চুম্বক / Magnet","🧲","Physics"],[10,"Paper","কাগজ / Paper","📜","Materials Science"],
- [11,"Compass","কম্পাস / Compass","🧭","Physics & Engineering"],[12,"Lens","লেন্স / Lens","🔍","Optics"],
- [13,"Clockwork","ঘড়ির যন্ত্র / Clockwork","🕰️","Engineering"],[14,"Steam Engine","বাষ্প ইঞ্জিন / Steam Engine","♨️","Physics & Engineering"],
- [15,"Electricity","বিদ্যুৎ / Electricity","⚡","Physics"],[16,"Battery","ব্যাটারি / Battery","🔋","Chemistry"],
- [17,"Telegraph","টেলিগ্রাফ / Telegraph","📡","ICT & Engineering"],[18,"Radio","রেডিও / Radio","📻","Physics & ICT"],
- [19,"Light Bulb","বৈদ্যুতিক বাতি / Light Bulb","💡","Physics"],[20,"Telephone","টেলিফোন / Telephone","☎️","ICT"],
- [21,"Camera","ক্যামেরা / Camera","📷","Optics & ICT"],[22,"Computer","কম্পিউটার / Computer","💻","ICT"],
- [23,"Internet","ইন্টারনেট / Internet","🌐","ICT"],[24,"Robot","রোবট / Robot","🤖","Engineering & ICT"],
- [25,"DNA","ডিএনএ / DNA","🧬","Molecular Biology"],[26,"Cell","কোষ / Cell","🔬","Biology"],
- [27,"Microbe","অণুজীব / Microbe","🦠","Microbiology"],[28,"PCR","পিসিআর / PCR","🧪","Biotechnology"],
- [29,"Quantum","কোয়ান্টাম / Quantum","⚛️","Quantum Science"],[30,"Atom","পরমাণু / Atom","⚛️","Chemistry & Physics"],
- [31,"Molecule","অণু / Molecule","🧫","Chemistry"],[32,"Protein","প্রোটিন / Protein","🧬","Molecular Biology"],
- [33,"Plant","উদ্ভিদ / Plant","🌱","Botany"],[34,"Animal Cell","প্রাণীকোষ / Animal Cell","🧫","Biology"],
- [35,"Lake","হ্রদ / Lake","💧","Limnology"],[36,"Ecosystem","বাস্তুতন্ত্র / Ecosystem","🌍","Environmental Science"],
- [37,"Crystal","স্ফটিক / Crystal","💎","Materials Science"],[38,"Semiconductor","সেমিকন্ডাক্টর / Semiconductor","◈","Physics & ICT"],
- [39,"Satellite","উপগ্রহ / Satellite","🛰️","Astronomy & Engineering"],[40,"Planet","গ্রহ / Planet","🪐","Astronomy"],
- [41,"Star","নক্ষত্র / Star","⭐","Astronomy"],[42,"Nebula","নীহারিকা / Nebula","🌌","Astronomy"],
- [43,"Galaxy","ছায়াপথ / Galaxy","🌌","Astronomy"],[44,"Black Hole","ব্ল্যাক হোল / Black Hole","🕳️","Cosmology"],
- [45,"Neutron Star","নিউট্রন নক্ষত্র / Neutron Star","✦","Astrophysics"],[46,"Gravitational Wave","মহাকর্ষীয় তরঙ্গ / Gravitational Wave","〰️","Physics"],
- [47,"Quantum Field","কোয়ান্টাম ক্ষেত্র / Quantum Field","◉","Quantum Science"],[48,"Spacetime","স্থান-কাল / Spacetime","🌀","Relativity"],
- [49,"Universe","মহাবিশ্ব / Universe","🌌","Cosmology"],[50,"Multiverse","মাল্টিভার্স / Multiverse","♾️","Cosmology"],
- [51,"Omniverse","অমনিভার্স / Omniverse","∞","Cosmic Frontier"]
-];
-function phaseFor(level){return LEVEL_PHASES.find(p=>level>=p[0]&&level<=p[1])||LEVEL_PHASES[0]}
-function discoveryFor(level){
- const idx=Math.min(DISCOVERY_PATH.length-1,Math.floor((level-1)/40));
- const base=DISCOVERY_PATH[idx];
- if(level>=1961) return [51,"Omniverse","অমনিভার্স / Omniverse","∞","Cosmic Frontier"];
- if(level>=1881) return [50,"Multiverse","মাল্টিভার্স / Multiverse","♾️","Cosmology"];
- return base;
-}
-function subjectFor(level){
- if(level>=1901)return "Islamic Science & Knowledge";
- const phase=phaseFor(level)[3];
- const sets={
-  "Foundation":["Bangla Grammar","Bangladesh GK & Jobs","English Grammar","Mathematics","Physics","Chemistry","Biology","ICT","Geology & Earth Science"],
-  "Foundation+":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biology","Botany","Zoology","ICT","General Science","Current Affairs"],
-  "High School":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biology","Botany","Zoology","Biotechnology","Microbiology","Astronomy","ICT","Environmental Science","Current Affairs"],
-  "College":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biology","Botany","Zoology","Biotechnology","Microbiology","Molecular Biology","Limnology","ICT","Astronomy","Environmental Science","Current Affairs"],
-  "University":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Chemistry","Physics","Biotechnology","Microbiology","Molecular Biology","Quantum Science","Materials Science","Limnology","Astronomy","Engineering","ICT","Environmental Science","Current Affairs"],
-  "Honours":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Physics","Chemistry","Molecular Biology","Biotechnology","Microbiology","Quantum Science","Cosmology","Astronomy","Materials Science","Engineering","ICT","Current Affairs"],
-  "Advanced":["Bangla Grammar","Bangladesh GK & Jobs","Education & Pedagogy","English Grammar","Mathematics","Physics","Chemistry","Molecular Biology","Quantum Science","Cosmology","Astronomy","Materials Science","Engineering","ICT","Current Affairs"]
- };
- const list=sets[phase]||sets.Foundation;
- return list[hash(level*13)%list.length];
-}
+let state=JSON.parse(localStorage.getItem("elementGameSave")||"null")||{level:1,xp:0,materials:["Wood","Stone"],rewarded:[]};
+if(typeof state.retryCount!=="number") state.retryCount=0;
 
-const SCIENTISTS=[
-["Al-Khwarizmi","Mathematics & Algorithms","Careful methods turn difficult problems into solvable ones.","সঠিক পদ্ধতি কঠিন সমস্যাকে সমাধানযোগ্য করে তোলে।"],
-["Ibn al-Haytham","Optics & Experimentation","Question what you see, test it, and let evidence guide you.","যা দেখো তাকে প্রশ্ন করো, পরীক্ষা করো, আর প্রমাণকে পথ দেখাতে দাও।"],
-["Al-Razi","Medicine & Chemistry","Observation is the beginning of disciplined scientific inquiry.","পর্যবেক্ষণই শৃঙ্খলাবদ্ধ বৈজ্ঞানিক অনুসন্ধানের শুরু।"],
-["Ibn Sina","Medicine","Knowledge grows when observation, reasoning, and experience work together.","পর্যবেক্ষণ, যুক্তি ও অভিজ্ঞতা একসাথে কাজ করলে জ্ঞান বাড়ে।"],
-["Al-Biruni","Astronomy & Natural Science","Measure carefully; nature rewards precision.","সতর্কভাবে পরিমাপ করো; প্রকৃতি নির্ভুলতাকে মূল্য দেয়।"],
-["Al-Zahrawi","Surgery","A useful tool begins with understanding the problem it must solve.","যে সমস্যার সমাধান করতে হবে, তাকে বোঝার মাধ্যমেই কার্যকর যন্ত্রের শুরু।"],
-["Ibn al-Nafis","Anatomy & Physiology","A claim becomes stronger when it survives careful observation.","সতর্ক পর্যবেক্ষণের পরীক্ষায় টিকে গেলে দাবির ভিত্তি শক্ত হয়।"],
-["Al-Jazari","Mechanical Engineering","Design is science made tangible through precise construction.","নির্ভুল নির্মাণের মাধ্যমে বিজ্ঞান বাস্তব রূপ পায়।"],
-["Abbas Ibn Firnas","Engineering","Experimentation teaches what imagination alone cannot reveal.","কল্পনা একা যা দেখাতে পারে না, পরীক্ষা তা শেখায়।"],
-["Mariam al-Ijliya","Astronomical Instruments","Precision in an instrument creates precision in observation.","যন্ত্রে নির্ভুলতা থাকলে পর্যবেক্ষণেও নির্ভুলতা আসে।"],
-["Banu Musa","Mechanics","Small mechanical details can produce surprisingly large effects.","ছোট যান্ত্রিক সূক্ষ্মতাও বড় ফল তৈরি করতে পারে।"],
-["Thabit ibn Qurra","Mathematics & Astronomy","Reasoning connects abstract mathematics with the natural world.","যুক্তি বিমূর্ত গণিতকে প্রাকৃতিক জগতের সাথে যুক্ত করে।"],
-["Al-Idrisi","Geography & Cartography","A good map is a structured record of observations.","ভালো মানচিত্র হলো পর্যবেক্ষণের সুশৃঙ্খল নথি।"],
-["Ibn al-Baitar","Botany & Pharmacology","Identify a plant carefully before studying its uses.","উদ্ভিদের ব্যবহার জানার আগে তাকে সঠিকভাবে শনাক্ত করো।"],
-["Al-Dinawari","Botany","Plants deserve systematic study of form, habitat, and use.","উদ্ভিদের গঠন, আবাসস্থল ও ব্যবহারকে পদ্ধতিগতভাবে অধ্যয়ন করা উচিত।"],
-["Ibn al-Awwam","Agriculture","Good cultivation begins with soil, water, and plant needs.","ভালো চাষ শুরু হয় মাটি, পানি ও উদ্ভিদের প্রয়োজন বোঝা থেকে।"],
-["Qusta ibn Luqa","Medicine & Natural Philosophy","Evidence and careful translation help knowledge travel across cultures.","প্রমাণ ও সতর্ক অনুবাদ জ্ঞানকে সংস্কৃতির সীমানা পেরোতে সাহায্য করে।"],
-["Al-Farabi","Logic & Philosophy","Clear definitions make difficult reasoning easier to examine.","স্পষ্ট সংজ্ঞা কঠিন যুক্তিকে পরীক্ষা করা সহজ করে।"],
-["Ibn Battuta","Geography & Observation","Travel broadens observation; disciplined records make it useful knowledge.","ভ্রমণ পর্যবেক্ষণকে বিস্তৃত করে; সুশৃঙ্খল নথি তাকে জ্ঞানে রূপ দেয়।"],
-["Fatima al-Fihri","Education","A culture of learning can preserve and multiply knowledge.","শেখার সংস্কৃতি জ্ঞানকে সংরক্ষণ ও বহুগুণ বৃদ্ধি করতে পারে।"]
-];
+function save(){localStorage.setItem("elementGameSave",JSON.stringify(state));document.getElementById("saveStatus").textContent="Saved locally";}
+function eraFor(l){return eras.find(e=>l>=e[1]&&l<=e[2])||eras[9]}
+function currentRecipe(){return base[state.level-1]}
 
-// Level 100 is explicitly reserved for Nikola Tesla. Other milestones use Muslim scholars/scientists.
-const MILESTONE_SCIENTISTS={100:["Nikola Tesla","Electrical Engineering & Invention","The present is theirs; the future, for which I really worked, is mine.","বর্তমান তাদের; আর যে ভবিষ্যতের জন্য আমি কাজ করেছি, তা আমার।"]};
-function scientistFor(level){
- const muslim=SCIENTISTS;
- if(MILESTONE_SCIENTISTS[level]) return MILESTONE_SCIENTISTS[level];
- return muslim[((level/5)-1)%muslim.length];
-}
-
-const FACTS=[
-["পানির pH 25°C-এ প্রায় কত?","7.0",["6.0","8.0","7.8"],"Chemistry"],
-["অক্সিজেনের সাধারণ জারণ সংখ্যা কত?","−2",["−1","+1","+2"],"Chemistry"],
-["NaCl-এ প্রধান ধরনের রাসায়নিক বন্ধন কোনটি?","আয়নিক বন্ধন",["ধাতব বন্ধন","সমযোজী বন্ধন","হাইড্রোজেন বন্ধন"],"Chemistry"],
-["এক মোল পদার্থে কণার সংখ্যা প্রায় কত?","6.022 × 10²³",["6.022 × 10²⁰","3.011 × 10²³","9.81 × 10²³"],"Chemistry"],
-["Catalyst সাধারণত কী করে?","বিক্রিয়ার সক্রিয়ণ শক্তি কমায়",["equilibrium constant বদলায়","উৎপাদের মৌলিক পরিচয় বদলায়","তাপমাত্রা স্থায়ীভাবে বাড়ায়"],"Chemistry"],
-["Le Chatelier নীতি অনুযায়ী গ্যাসীয় সাম্যে চাপ বাড়ালে সাধারণত কোন দিকে সরে?","যেদিকে মোট গ্যাসীয় মোল কম",["যেদিকে মোট মোল বেশি","সবসময় বিক্রিয়কের দিকে","কোনো দিকেই নয়"],"Chemistry"],
-["Buffer solution-এর প্রধান বৈশিষ্ট্য কী?","অল্প অ্যাসিড/ক্ষার যোগে pH-এর পরিবর্তন প্রতিরোধ করে",["সবসময় pH 7 রাখে","শুধু লবণ ধারণ করে","শুধু তাপমাত্রা নিয়ন্ত্রণ করে"],"Chemistry"],
-["Redox বিক্রিয়ায় oxidation কী?","ইলেকট্রন ত্যাগ",["ইলেকট্রন গ্রহণ","প্রোটন গ্রহণ সবসময়","নিউট্রন ত্যাগ"],"Chemistry"],
-["Redox বিক্রিয়ায় reduction কী?","ইলেকট্রন গ্রহণ",["ইলেকট্রন ত্যাগ","প্রোটন ত্যাগ সবসময়","নিউট্রন গ্রহণ"],"Chemistry"],
-["Electrochemical cell-এ oxidation কোথায় ঘটে?","Anode-এ",["Cathode-এ","Salt bridge-এ","Electrolyte-এর বাইরে"],"Chemistry"],
-["আদর্শ গ্যাস সমীকরণ কোনটি?","PV = nRT",["PV = RT/n","P + V = nRT","PV = nR/T"],"Chemistry"],
-["একটি exothermic reaction-এ সিস্টেম সাধারণত কী করে?","তাপ পরিবেশে ছাড়ে",["তাপ শোষণ করে","ভর সৃষ্টি করে","সবসময় আলো শোষণ করে"],"Chemistry"],
-["একটি Lewis acid কী গ্রহণ করে?","Electron pair",["Proton pair","Neutron","Photon অবশ্যই"],"Chemistry"],
-["পিরিয়ডিক টেবিলে একই গ্রুপের মৌলগুলোর মধ্যে সাধারণত কী মিল বেশি?","Valence electron বিন্যাসে সাদৃশ্য",["একই পারমাণবিক ভর","একই নিউট্রন সংখ্যা","একই পর্যায়"],"Chemistry"],
-["শক্তিশালী অ্যাসিডের উদাহরণ কোনটি?","HCl",["CH₃COOH","NH₃","H₂O"],"Chemistry"],
-["Quantum number l মূলত কী নির্দেশ করে?","Orbital-এর আকৃতি/উপশক্তিস্তর",["প্রধান শক্তিস্তর শুধু","শুধু electron spin","নিউক্লিয়াসের ভর"],"Chemistry"],
-["Equilibrium constant K কী নির্দেশ করে?","সাম্যে উৎপাদ ও বিক্রিয়কের আপেক্ষিক অনুপাত",["বিক্রিয়ার সময়কাল","ক্যাটালিস্টের ভর","শুধু প্রাথমিক ঘনত্ব"],"Chemistry"],
-["Benzene-এর স্থিতিশীলতার গুরুত্বপূর্ণ কারণ কোনটি?","π electron delocalization",["শুধু sp³ hybridization","ionic lattice","নিউট্রন delocalization"],"Chemistry"],
-["NaCl পানিতে দ্রবীভূত হলে প্রধানত কী হয়?","Na⁺ ও Cl⁻ আয়নে বিচ্ছুরিত হয়",["Na ও Cl পরমাণুতে অপরিবর্তিত থাকে","NaCl গ্যাসে পরিণত হয়","শুধু proton তৈরি হয়"],"Chemistry"],
-["Molarity কোন রাশিকে নির্দেশ করে?","প্রতি লিটার দ্রবণে দ্রবের মোল",["প্রতি কেজি দ্রাবকে মোল","মোট দ্রবণের ভর","শুধু solvent-এর volume"],"Chemistry"],
-["প্রাণীকোষে কোনটি অনুপস্থিত?","কোষপ্রাচীর",["কোষঝিল্লি","মাইটোকন্ড্রিয়া","রাইবোসোম"],"Biology"],
-["প্রাণীকোষে উদ্ভিদকোষের তুলনায় কোন গঠনটি সাধারণত থাকে?","সেন্ট্রোসোম/সেন্ট্রিওল",["ক্লোরোপ্লাস্ট","বৃহৎ কেন্দ্রীয় রসধানী","কোষপ্রাচীর"],"Biology"],
-["কোষের শক্তি উৎপাদনে প্রধান অঙ্গাণু কোনটি?","মাইটোকন্ড্রিয়া",["গলজি বডি","লাইসোসোম","নিউক্লিওলাস"],"Biology"],
-["প্রোটিন সংশ্লেষণের সরাসরি স্থান কোনটি?","রাইবোসোম",["লাইসোসোম","সেন্ট্রোসোম","ভ্যাকুওল"],"Biology"],
-["DNA-র পূর্ণরূপ কী?","Deoxyribonucleic acid",["Dinucleic acid","Deoxyribose nitrogen acid","Double nucleic arrangement"],"Molecular Biology"],
-["RNA-তে DNA-র বদলে কোন ক্ষার থাকে?","ইউরাসিল",["থাইমিন","গুয়ানিন","সাইটোসিন"],"Molecular Biology"],
-["মানব রক্তে অক্সিজেন বহনে প্রধান ভূমিকা কার?","হিমোগ্লোবিন",["ইনসুলিন","কেরাটিন","পিত্তলবণ"],"Biology"],
-["অ্যান্টিবডি উৎপাদনের সাথে কোন কোষ সরাসরি যুক্ত?","B-লিম্ফোসাইট",["লোহিত রক্তকণিকা","প্লেটলেট","অস্টিওসাইট"],"Biology"],
-["এনজাইম সাধারণত কী?","জৈব অনুঘটক",["জিনের অংশমাত্র","খনিজ লবণ","শক্তির উৎস"],"Biology"],
-["ইনসুলিন কোন অঙ্গ থেকে নিঃসৃত হয়?","অগ্ন্যাশয়",["থাইরয়েড","যকৃত","প্লীহা"],"Biology"],
-["মাইটোসিসের ফলে সাধারণত কতটি কন্যা কোষ তৈরি হয়?","দুটি",["একটি","তিনটি","চারটি"],"Biology"],
-["মিয়োসিসের প্রধান ফল কী?","হ্যাপ্লয়েড প্রজনন কোষ তৈরিতে সহায়তা",["দেহকোষ দ্বিগুণ করা","শুধু ক্ষত সারানো","রক্তে গ্লুকোজ বাড়ানো"],"Biology"],
-["কোষঝিল্লির প্রধান গঠন কী?","ফসফোলিপিড দ্বিস্তর",["সেলুলোজের একক স্তর","শুধু DNA","ক্যালসিয়াম কার্বোনেট স্তর"],"Biology"],
-["হোমিওস্টেসিস বলতে কী বোঝায়?","অভ্যন্তরীণ পরিবেশ তুলনামূলক স্থিতিশীল রাখা",["শুধু বৃদ্ধি","শুধু চলাচল","শুধু প্রজনন"],"Biology"],
-["ফুসফুসে গ্যাসের আদান-প্রদান কোথায় হয়?","অ্যালভিওলাই",["খাদ্যনালী","ডায়াফ্রামের পেশি","যকৃত"],"Biology"],
-["কিডনির কার্যকরী একক কোনটি?","নেফ্রন",["নিউরন","অ্যালভিওলাস","অস্টিওন"],"Biology"],
-["রক্ত জমাট বাঁধায় কোনটি গুরুত্বপূর্ণ?","প্লেটলেট",["রাইবোসোম","নিউরন","অ্যাডিপোসাইট"],"Biology"],
-["ATP-র প্রধান ভূমিকা কী?","বহু জৈবিক কাজে ব্যবহারযোগ্য শক্তি সরবরাহ",["জিনের নাম নির্ধারণ","শুধু অক্সিজেন বহন","কোষপ্রাচীর তৈরি"],"Biology"],
-
-["উদ্ভিদকোষে প্রাণীকোষের তুলনায় কোনটি থাকে?","কোষপ্রাচীর",["সেন্ট্রোসোম","হিমোগ্লোবিন","গ্লাইকোজেন কণিকা"],"Botany"],
-["প্রকাশ-সংশ্লেষণের প্রধান স্থান কোন অঙ্গাণু?","ক্লোরোপ্লাস্ট",["মাইটোকন্ড্রিয়া","লাইসোসোম","সেন্ট্রোসোম"],"Botany"],
-["ক্লোরোফিলের প্রধান কাজ কী?","আলোক শক্তি শোষণে সহায়তা করা",["প্রোটিন ভাঙা","DNA অনুলিপি করা","পানি জমাট করা"],"Botany"],
-["জাইলেমের প্রধান কাজ কী?","পানি ও খনিজ পরিবহন",["শুধু চিনি পরিবহন","পরাগায়ন","বীজ তৈরি"],"Botany"],
-["ফ্লোয়েম প্রধানত কী পরিবহন করে?","সুক্রোজসহ জৈব দ্রব্য",["শুধু অক্সিজেন","শুধু ক্যালসিয়াম","শুধু DNA"],"Botany"],
-["স্টোমাটা কী নিয়ন্ত্রণ করে?","গ্যাস বিনিময় ও জলীয়বাষ্প নির্গমন",["DNA replication","বীজের অঙ্কুরোদ্গমই শুধু","পরাগের DNA"],"Botany"],
-["রুট হেয়ার কী বাড়ায়?","শোষণকারী পৃষ্ঠের ক্ষেত্রফল",["ফুলের রং","বীজের DNA","পাতার ক্লোরোফিল"],"Botany"],
-["অক্সিনের একটি গুরুত্বপূর্ণ ভূমিকা কী?","কোষের বৃদ্ধি ও ট্রপিক প্রতিক্রিয়ায় সহায়তা",["DNA ধ্বংস","শ্বাস বন্ধ","পরাগ ধ্বংস"],"Botany"],
-["ফল সাধারণত কোন গঠন থেকে বিকশিত হয়?","পরিণত ডিম্বাশয়",["শুধু পাপড়ি","শুধু পুংকেশর","শুধু মূল"],"Botany"],
-["পরাগধানী কোন অংশের অন্তর্ভুক্ত?","পুংকেশর",["গর্ভকেশর","বৃতি","পাপড়ি"],"Botany"],
-
-["মাছ প্রধানত কোন অঙ্গ দিয়ে পানিতে দ্রবীভূত অক্সিজেন নেয়?","ফুলকা",["ফুসফুস","ট্র্যাকিয়া","শুধু ত্বক"],"Zoology"],
-["স্তন্যপায়ীর একটি বৈশিষ্ট্য কোনটি?","স্তন্যগ্রন্থি থেকে দুধ উৎপাদন",["সবাই ডিম পাড়ে","সবাই ফুলকা দিয়ে শ্বাস নেয়","সবাই শীতল রক্তের"],"Zoology"],
-["কীটপতঙ্গের দেহ সাধারণত কয়টি প্রধান অঞ্চলে বিভক্ত?","তিনটি",["দুটি","চারটি","পাঁচটি"],"Zoology"],
-["মাকড়সা কোন শ্রেণির?","Arachnida",["Insecta","Mollusca","Annelida"],"Zoology"],
-["কেঁচো কোন পর্বের?","Annelida",["Arthropoda","Mollusca","Cnidaria"],"Zoology"],
-["অক্টোপাস কোন পর্বের?","Mollusca",["Annelida","Arthropoda","Echinodermata"],"Zoology"],
-["তারামাছ কোন পর্বের?","Echinodermata",["Mollusca","Chordata","Annelida"],"Zoology"],
-["ব্যাঙের জলজ লার্ভাকে কী বলা হয়?","ব্যাঙাচি (Tadpole)",["Pupa","Nymph","Caterpillar"],"Zoology"],
-
-["PCR-এর প্রধান ব্যবহার কী?","নির্দিষ্ট DNA অংশের বহু কপি তৈরি করা",["প্রোটিন জমাট করা","কোষ মেরে ফেলা","লিপিড তৈরি করা"],"Biotechnology"],
-["CRISPR-Cas9 কী কাজে ব্যবহৃত হতে পারে?","নির্দিষ্ট DNA ক্রম সম্পাদনা",["শুধু RNA অনুবাদ","ATP উৎপাদন","কোষের পানি বের করা"],"Biotechnology"],
-["রিকম্বিন্যান্ট DNA প্রযুক্তিতে কী করা হয়?","ভিন্ন উৎসের DNA অংশ যুক্ত করা",["DNA পোড়ানো","প্রোটিন দ্রবীভূত করা","কোষ শুকানো"],"Biotechnology"],
-["ব্যাকটেরিয়া দিয়ে মানব ইনসুলিন উৎপাদন কোন প্রযুক্তির উদাহরণ?","জেনেটিক ইঞ্জিনিয়ারিং",["শুধু পাতন","শুধু টিস্যু কালচার","শুধু ফিল্টারেশন"],"Biotechnology"],
-["উদ্ভিদ টিস্যু কালচারের একটি ব্যবহার কী?","দ্রুত ক্লোনাল বংশবিস্তার",["মাটি জমাট করা","পরাগ ধ্বংস","শুধু বীজ শুকানো"],"Biotechnology"],
-["Yeast fermentation-এ কী তৈরি হতে পারে?","ইথানল ও CO₂",["DNA ও RNA","ক্যালসিয়াম ও লোহা","শুধু অক্সিজেন"],"Biotechnology"],
-["ELISA সাধারণত কী শনাক্ত করে?","নির্দিষ্ট অ্যান্টিজেন বা অ্যান্টিবডি",["হাড়ের ঘনত্ব","রক্তচাপ","উদ্ভিদের উচ্চতা"],"Biotechnology"],
-["Stem cell-এর গুরুত্বপূর্ণ বৈশিষ্ট্য কী?","নিজেকে পুনর্নবীকরণ ও বিভিন্ন কোষে বিভেদের ক্ষমতা",["DNA ধ্বংস","রক্ত জমাট","অক্সিজেন তৈরি"],"Biotechnology"],
-
-["লিমনোলজি কী নিয়ে অধ্যয়ন করে?","অভ্যন্তরীণ জলজ বাস্তুতন্ত্র",["মরুভূমি","বায়ুমণ্ডল","শুধু মহাসাগরের জোয়ার"],"Limnology"],
-["Eutrophication-এর সাথে কোনটি যুক্ত?","অতিরিক্ত নাইট্রোজেন ও ফসফরাস",["শুধু লবণ শূন্য হওয়া","শুধু আলো কমা","শুধু পাথর বৃদ্ধি"],"Limnology"],
-["Dissolved oxygen কমে গেলে কী সমস্যা হতে পারে?","জলজ প্রাণীর শ্বাসক্রিয়ায় চাপ তৈরি হতে পারে",["সব মাছ দ্রুত বড় হয়","সব উদ্ভিদ শুকায়","pH সবসময় 7 হয়"],"Limnology"],
-["Secchi disk কী মাপে?","পানির স্বচ্ছতা",["তাপমাত্রা","লবণাক্ততা","স্রোতের গতি"],"Limnology"],
-["Thermal stratification কী?","তাপমাত্রাভেদে জলস্তরের স্তরবিন্যাস",["বরফের গলন","নদীর গতি","মাছের স্থানান্তর"],"Limnology"],
-["Photic zone কী?","যেখানে পর্যাপ্ত আলো পৌঁছে",["যেখানে অক্সিজেন নেই","শুধু তলদেশ","শুধু উষ্ণতম স্তর"],"Limnology"],
-
-["ব্যাকটেরিয়া সাধারণত কোন ধরনের কোষ?","প্রোক্যারিওটিক",["ইউক্যারিওটিক বহুকোষী","ভাইরাস","ছত্রাক"],"Microbiology"],
-["ভাইরাসকে সাধারণত কী বলা হয়?","অকোষীয় সংক্রামক কণা",["স্বাধীনভাবে বিভাজিত কোষ","ব্যাকটেরিয়ার অঙ্গাণু","উদ্ভিদ টিস্যু"],"Microbiology"],
-["Gram-positive ব্যাকটেরিয়ার কোষপ্রাচীরে কী বেশি থাকে?","পুরু peptidoglycan স্তর",["সেলুলোজ","কাইটিন","কোনো কোষপ্রাচীর নেই"],"Microbiology"],
-["Autoclave কী কাজে ব্যবহৃত হয়?","চাপযুক্ত বাষ্পে জীবাণুমুক্তকরণ",["ঠান্ডা করা","DNA sequencing","pH মাপা"],"Microbiology"],
-["Antibiotic সাধারণত কোন জীবের বিরুদ্ধে ব্যবহৃত হয়?","ব্যাকটেরিয়ার বিরুদ্ধে",["সব ভাইরাসের বিরুদ্ধে নিশ্চিতভাবে","সব পোকামাকড়ের বিরুদ্ধে","শুধু উদ্ভিদের বিরুদ্ধে"],"Microbiology"],
-["Lactobacillus কোন প্রক্রিয়ায় গুরুত্বপূর্ণ?","ল্যাকটিক অ্যাসিড fermentation",["DNA replication","ফটোসিন্থেসিস","নাইট্রোজেনের দহন"],"Microbiology"],
-["Biofilm কী?","পৃষ্ঠে গঠিত অণুজীবের সংগঠিত আবরণ",["একটি ভাইরাস","মৃত কোষ","খনিজ স্ফটিক"],"Microbiology"],
-
-["Transcription-এ কী তৈরি হয়?","DNA টেমপ্লেট থেকে RNA",["RNA থেকে DNA সবসময়","প্রোটিন থেকে DNA","লিপিড থেকে RNA"],"Molecular Biology"],
-["Translation কোথায় ঘটে?","রাইবোসোমে",["লাইসোসোমে","কোষপ্রাচীরে","গলজি বডির বাইরে"],"Molecular Biology"],
-["mRNA-এর কাজ কী?","প্রোটিন তৈরির জন্য জেনেটিক তথ্য বহন করা",["DNA কাটা","ATP ভাঙা","কোষঝিল্লি তৈরি"],"Molecular Biology"],
-["Codon কী?","mRNA-র তিন নিউক্লিওটাইডের ক্রম",["DNA-র পুরো অণু","একটি প্রোটিন","একটি অঙ্গাণু"],"Molecular Biology"],
-["DNA replication-এর বৈশিষ্ট্য কী?","Semiconservative",["সম্পূর্ণ conservative","শুধু RNA-dependent","template লাগে না"],"Molecular Biology"],
-["Mutation বলতে কী বোঝায়?","জেনেটিক উপাদানের ক্রমে পরিবর্তন",["কোষের আয়তন বাড়া","পানি হারানো","প্রোটিন জমা হওয়া"],"Molecular Biology"],
-["Restriction enzyme কী করতে পারে?","নির্দিষ্ট DNA sequence চিনে কেটে দিতে পারে",["RNA অনুবাদ","ATP তৈরি","লিপিড ভাঙা"],"Molecular Biology"],
-["Operon ধারণাটি বিশেষভাবে কোথায় gene regulation বোঝাতে ব্যবহৃত হয়?","ব্যাকটেরিয়া/প্রোক্যারিওটে",["ভাইরাসে","লোহিত রক্তকণিকায়","পরিণত পেশিকোষে"],"Molecular Biology"],
-
-["ইসলামিক জ্ঞানচর্চায় পর্যবেক্ষণ ও চিন্তার গুরুত্ব কোন ধারণার সাথে সামঞ্জস্যপূর্ণ?","সৃষ্টিজগতের নিদর্শন নিয়ে চিন্তা ও জ্ঞান অন্বেষণ",["জ্ঞানচর্চা নিষিদ্ধ","পরীক্ষা অপ্রয়োজনীয়","প্রমাণের বদলে কেবল অনুমান"],"Islamic Science & Knowledge"],
-["ইবন আল-হাইসামের বৈজ্ঞানিক পদ্ধতির সাথে কোনটি সামঞ্জস্যপূর্ণ?","পরীক্ষা ও পর্যবেক্ষণের মাধ্যমে ধারণা যাচাই",["প্রমাণ ছাড়াই সিদ্ধান্ত","পরীক্ষা এড়িয়ে চলা","শুধু কর্তৃত্বের উপর নির্ভর করা"],"Islamic Science & Knowledge"],
-["আল-বিরুনির কাজের একটি বৈশিষ্ট্য কী?","পরিমাপ ও তুলনামূলক পর্যবেক্ষণ",["কল্পকাহিনি লেখা","শুধু ভাষাতত্ত্ব","শুধু স্থাপত্য"],"Islamic Science & Knowledge"],
-["ইবন সিনার 'কানুন' কোন ক্ষেত্রের সাথে সম্পর্কিত?","চিকিৎসাবিজ্ঞান",["জ্যোতির্বিদ্যার যন্ত্র","সামুদ্রিক মানচিত্র","যান্ত্রিক ঘড়ি"],"Islamic Science & Knowledge"],
-["আল-জাজারির অবদান কোন ক্ষেত্রের সাথে সম্পর্কিত?","যান্ত্রিক প্রকৌশল",["উদ্ভিদ শ্রেণিবিন্যাস","ভাইরাসবিদ্যা","সমুদ্রবিজ্ঞান"],"Islamic Science & Knowledge"],
-["আল-ইদ্রিসির কাজের সাথে কোন ক্ষেত্রের সম্পর্ক বেশি?","ভূগোল ও মানচিত্রবিদ্যা",["আণবিক জীববিজ্ঞান","কোষবিদ্যা","ব্যাকটেরিয়াল জেনেটিক্স"],"Islamic Science & Knowledge"],
-["ইবন আল-বাইতারের কাজ কোন ক্ষেত্রের সাথে বিশেষভাবে যুক্ত?","উদ্ভিদ ও ঔষধি পদার্থ",["জ্যোতির্পদার্থবিদ্যা","যান্ত্রিক ঘড়ি","পরমাণু বিভাজন"],"Islamic Science & Knowledge"],
-["আল-জাজারির জ্ঞানচর্চায় কোন দক্ষতা বিশেষভাবে গুরুত্বপূর্ণ ছিল?","যান্ত্রিক নকশা ও নির্মাণ",["শুধু উদ্ভিদ প্রজনন","শুধু ভাইরাস শনাক্তকরণ","শুধু রক্তের গ্রুপ নির্ণয়"],"Islamic Science & Knowledge"]
-];
-
-
-
-const EXTRA_FACTS=[
- ["বল ও ত্বরণের সম্পর্ক কোন সূত্রে সবচেয়ে সরাসরি প্রকাশ পায়?","F = ma",["F = mv","F = m/a","F = a/m"],"Physics"],
- ["সমবেগে চলা বস্তুর ত্বরণ কত?","শূন্য",["ধ্রুব কিন্তু শূন্য নয়","অসীম","ভরের সমান"],"Physics"],
- ["কাজের SI একক কোনটি?","Joule",["Newton","Watt","Pascal"],"Physics"],
- ["ক্ষমতার SI একক কোনটি?","Watt",["Joule","Volt","Ohm"],"Physics"],
- ["ভরবেগের সূত্র কোনটি?","p = mv",["p = m/v","p = v/m","p = ma"],"Physics"],
- ["তড়িৎ প্রবাহের SI একক কী?","Ampere",["Volt","Ohm","Coulomb"],"Physics"],
- ["Ohm-এর সূত্র কোন সম্পর্কটি প্রকাশ করে?","V = IR",["V = I/R","I = VR","R = VI"],"Physics"],
- ["আলো শূন্যস্থানে প্রায় কত বেগে চলে?","3.00 × 10⁸ m/s",["3.00 × 10⁶ m/s","3.00 × 10⁷ m/s","3.00 × 10⁹ m/s"],"Physics"],
- ["তাপমাত্রা বাড়লে অধিকাংশ কঠিন পদার্থে কী ঘটে?","তাপীয় প্রসারণ ঘটে",["ভর শূন্য হয়","চার্জ দ্বিগুণ হয়","মহাকর্ষ বন্ধ হয়"],"Physics"],
- ["লেন্সের power-এর SI একক কী?","Diopter",["Tesla","Henry","Weber"],"Physics"],
- ["বাইনারি সংখ্যায় 1010-এর দশমিক মান কত?","10",["8","12","14"],"ICT"],
- ["CPU-এর প্রধান কাজ কোনটি?","নির্দেশনা প্রক্রিয়াকরণ ও হিসাব সম্পাদন",["শুধু ছবি সংরক্ষণ","শুধু বিদ্যুৎ তৈরি","শুধু কাগজ ছাপানো"],"ICT"],
- ["RAM-এর বৈশিষ্ট্য কোনটি?","বিদ্যুৎ বন্ধ হলে সাধারণত ডেটা হারায়",["স্থায়ীভাবে ডেটা রাখে","শুধু ইনপুট নেয়","কেবল নেটওয়ার্কে কাজ করে"],"ICT"],
- ["HTML-এর মূল ব্যবহার কী?","ওয়েব পেজের কাঠামো নির্ধারণ",["শুধু ডেটাবেস এনক্রিপ্ট করা","শুধু CPU নিয়ন্ত্রণ","শুধু ছবি আঁকা"],"ICT"],
- ["IP address-এর প্রধান ভূমিকা কী?","নেটওয়ার্কে একটি ডিভাইস/ইন্টারফেস শনাক্ত করতে সহায়তা",["শুধু স্ক্রিনের রং নির্ধারণ","শুধু ফাইল compress করা","শুধু keyboard চালানো"],"ICT"],
- ["Database-এ primary key-এর মূল উদ্দেশ্য কী?","একটি record-কে অনন্যভাবে শনাক্ত করা",["সব record মুছে ফেলা","শুধু password তৈরি","শুধু ছবি দেখানো"],"ICT"],
- ["Algorithm বলতে কী বোঝায়?","কোনো সমস্যা সমাধানের সুনির্দিষ্ট ধাপসমূহ",["শুধু programming language","শুধু hardware","শুধু internet speed"],"ICT"],
- ["Encryption-এর উদ্দেশ্য কী?","তথ্যকে অননুমোদিত পাঠ থেকে সুরক্ষিত করা",["ডেটা মুছে ফেলা","CPU ঠান্ডা করা","স্ক্রিন বড় করা"],"ICT"],
- ["Binary search সাধারণত কোন শর্তে প্রয়োগ করা হয়?","ডেটা sorted থাকতে হয়",["ডেটা সবসময় random হতে হয়","শুধু image-এ কাজ করে","শুধু encrypted data-তে কাজ করে"],"ICT"],
- ["Cloud computing-এ resource সাধারণত কোথা থেকে পাওয়া যায়?","নেটওয়ার্কের মাধ্যমে remote infrastructure থেকে",["শুধু local keyboard থেকে","শুধু printer থেকে","শুধু offline paper থেকে"],"ICT"],
- ["ত্রিভুজের তিন কোণের সমষ্টি কত?","180°",["90°","270°","360°"],"Mathematics"],
- ["একটি মৌলিক সংখ্যার ধনাত্মক গুণনীয়ক কয়টি?","দুটি",["একটি","তিনটি","চারটি"],"Mathematics"],
- ["2, 4, 8, 16 ধারার পরের পদ কী?","32",["24","30","36"],"Mathematics"],
- ["একটি সরলরেখার slope কী নির্দেশ করে?","y-এর পরিবর্তনের হার x-এর তুলনায়",["শুধু y-এর intercept","শুধু x-এর মান","রেখার দৈর্ঘ্য"],"Mathematics"],
- ["log₁₀(1000) কত?","3",["2","10","100"],"Mathematics"],
- ["∫ 2x dx-এর একটি antiderivative কোনটি?","x² + C",["2x² + C","x + C","x²/2 + C"],"Mathematics"],
- ["d(x²)/dx কত?","2x",["x","x²","2"],"Mathematics"],
- ["একটি fair coin একবার ছুঁড়লে Head-এর সম্ভাবনা কত?","1/2",["1/4","1/3","2/3"],"Mathematics"],
- ["Matrix multiplication-এর জন্য কোন শর্তটি প্রয়োজন?","প্রথম matrix-এর column সংখ্যা = দ্বিতীয়টির row সংখ্যা",["দুই matrix-এর row সংখ্যা সবসময় সমান","দুই matrix-এর column সংখ্যা সবসময় সমান","দুটিই square হওয়া বাধ্যতামূলক"],"Mathematics"],
- ["একটি vector-এর magnitude কী?","তার দৈর্ঘ্য/মান",["শুধু x-component","শুধু y-component","শুধু direction"],"Mathematics"],
- ["পৃথিবী সূর্যকে একবার প্রদক্ষিণ করতে প্রায় কত সময় নেয়?","365.25 দিন",["24 ঘণ্টা","30 দিন","700 দিন"],"Astronomy"],
- ["চাঁদের আলো সম্পর্কে কোনটি সঠিক?","চাঁদ মূলত সূর্যের আলো প্রতিফলিত করে",["চাঁদ নিজে সূর্যের মতো আলো উৎপন্ন করে","চাঁদ সবসময় plasma দিয়ে জ্বলে","চাঁদ কেবল পৃথিবীর আলো শোষণ করে"],"Astronomy"],
- ["একটি নক্ষত্রের মূল শক্তির উৎস কী হতে পারে?","কেন্দ্রে nuclear fusion",["শুধু chemical combustion","শুধু friction","শুধু reflection"],"Astronomy"],
- ["Milky Way কী?","একটি galaxy",["একটি planet","একটি moon","একটি nebula মাত্র"],"Astronomy"],
- ["গ্রহের কক্ষপথে সূর্যের সবচেয়ে কাছে থাকা বিন্দুকে কী বলা হয়?","Perihelion",["Aphelion","Zenith","Equinox"],"Astronomy"],
- ["Event horizon কোন জ্যোতির্বৈজ্ঞানিক বস্তুর সাথে বিশেষভাবে যুক্ত?","Black hole",["White dwarf","Asteroid belt","Comet tail"],"Astronomy"],
- ["Redshift সাধারণত দূরে সরে যাওয়া আলোর কোন পরিবর্তন নির্দেশ করে?","তরঙ্গদৈর্ঘ্য বৃদ্ধি",["তরঙ্গদৈর্ঘ্য হ্রাস","আলো সম্পূর্ণ অদৃশ্য হওয়া","শুধু intensity দ্বিগুণ হওয়া"],"Astronomy"],
- ["একটি light-year কী মাপে?","দূরত্ব",["সময়","ভর","তাপমাত্রা"],"Astronomy"],
- ["Hertzsprung–Russell diagram কী সম্পর্ক দেখায়?","নক্ষত্রের luminosity ও surface temperature",["গ্রহের ভর ও সমুদ্রের গভীরতা","গ্যালাক্সির বয়স ও নদীর গতি","চাঁদের phase ও বাতাসের চাপ"],"Astronomy"],
- ["Neutron star কী ধরনের অবশিষ্ট নাক্ষত্রিক বস্তু?","অত্যন্ত ঘন stellar remnant",["একটি gas giant","একটি asteroid","একটি সাধারণ moon"],"Astronomy"],
- ["Quantum superposition ধারণাটি কী বোঝায়?","একটি quantum state একাধিক সম্ভাব্য অবস্থার সমন্বয়ে থাকতে পারে",["সব বস্তু একই অবস্থায় থাকে","measurement অসম্ভব","কেবল classical particles superpose করে"],"Quantum Science"],
- ["Heisenberg uncertainty principle কোন জোড়ার নির্ভুলতা সীমিত করে?","অবস্থান ও ভরবেগ",["ভর ও চার্জ","তাপমাত্রা ও রং","সময় ও mass number"],"Quantum Science"],
- ["একটি photon-এর শক্তি কোন সম্পর্কের সাথে যুক্ত?","E = hf",["E = mc","E = h/f","E = f/h"],"Quantum Science"],
- ["Quantum tunneling কী?","classically নিষিদ্ধ barrier পেরিয়ে quantum particle-এর পাওয়ার সম্ভাবনা",["particle-এর গতি সবসময় শূন্য হওয়া","আলো বন্ধ হওয়া","মাধ্যাকর্ষণ অদৃশ্য হওয়া"],"Quantum Science"],
- ["Entanglement কী নির্দেশ করে?","দুই quantum system-এর যৌথ state-এ শক্তিশালী correlation",["দুই particle সবসময় একই জায়গায় থাকা","কেবল classical coincidence","শুধু gravity effect"],"Quantum Science"],
- ["Wave function কী ধারণার সাথে যুক্ত?","quantum state-এর mathematical description",["শুধু classical trajectory","শুধু temperature","শুধু mass density"],"Quantum Science"],
- ["Quantum number n সাধারণত কী নির্দেশ করে?","প্রধান শক্তিস্তর",["শুধু spin direction","শুধু nucleus charge","শুধু orbital orientation"],"Quantum Science"],
- ["Pauli exclusion principle কী বলে?","একই atom-এ দুই electron-এর চার quantum number একসাথে একই হতে পারে না",["সব electron একই orbit-এ থাকে","একটি atom-এ electron থাকতে পারে না","সব electron-এর spin অবশ্যই সমান"],"Quantum Science"],
- ["Superconductivity-এর একটি বৈশিষ্ট্য কী?","নির্দিষ্ট শর্তে বৈদ্যুতিক resistance অত্যন্ত কম/শূন্য হতে পারে",["resistance সবসময় বেড়ে যায়","কেবল আলো উৎপন্ন করে","শুধু gas-এ ঘটে"],"Quantum Science"],
- ["Quantum measurement-এর ফলাফল সম্পর্কে কোনটি সঠিক?","পরিমাপ নির্দিষ্ট ফল দেয় এবং quantum state-কে প্রভাবিত করতে পারে",["পরিমাপ কখনো state-কে প্রভাবিত করে না","সব measurement একই ফল দেয়","measurement কেবল classical object-এ সম্ভব"],"Quantum Science"],
- ["Plate tectonics অনুযায়ী lithospheric plates কী করতে পারে?","আপেক্ষিকভাবে সরে যেতে পারে",["কখনো নড়ে না","শুধু বাতাসে ভাসে","শুধু সমুদ্রের পানিতে দ্রবীভূত হয়"],"Geology & Earth Science"],
- ["ভূমিকম্পের magnitude কী ধারণার সাথে যুক্ত?","মুক্ত শক্তির পরিমাণের পরিমাপ",["শুধু ক্ষয়ক্ষতির ছবি","শুধু আবহাওয়ার তাপমাত্রা","শুধু সমুদ্রের উচ্চতা"],"Geology & Earth Science"],
- ["Igneous rock কীভাবে তৈরি হয়?","গলিত শিলা/ম্যাগমা বা লাভা ঠান্ডা হয়ে",["শুধু উদ্ভিদের পচনে","শুধু বৃষ্টির কারণে","শুধু বাতাসে ঘর্ষণে"],"Geology & Earth Science"],
- ["Sedimentary rock গঠনে কোন প্রক্রিয়া গুরুত্বপূর্ণ?","sediment জমা ও lithification",["শুধু nuclear fusion","শুধু photosynthesis","শুধু বজ্রপাত"],"Geology & Earth Science"],
- ["Water cycle-এ evaporation কী?","তরল পানি থেকে জলীয়বাষ্পে রূপান্তর",["বাষ্প থেকে বরফ","বরফ থেকে পাথর","মেঘ থেকে মাটি"],"Geology & Earth Science"],
- ["বায়ুমণ্ডলের কোন স্তরে অধিকাংশ আবহাওয়া ঘটে?","Troposphere",["Stratosphere","Mesosphere","Exosphere"],"Geology & Earth Science"],
- ["Greenhouse effect-এর প্রধান কারণ কী?","বায়ুমণ্ডলের কিছু gas infrared radiation শোষণ/পুনঃনিঃসরণ করে",["সব আলো মহাকাশে প্রতিফলিত হওয়া","শুধু অক্সিজেন জমা হওয়া","মহাসাগর শুকিয়ে যাওয়া"],"Environmental Science"],
- ["Biodiversity বলতে কী বোঝায়?","জীববৈচিত্র্য—জিন, প্রজাতি ও ecosystem-এর বৈচিত্র্য",["শুধু প্রাণীর সংখ্যা","শুধু গাছের উচ্চতা","শুধু মাটির pH"],"Environmental Science"],
- ["Carbon cycle-এ photosynthesis কী করে?","CO₂ থেকে জৈব কার্বন তৈরিতে সহায়তা করে",["কার্বন সম্পূর্ণ ধ্বংস করে","শুধু nitrogen তৈরি করে","শুধু methane পোড়ায়"],"Environmental Science"],
- ["Engineering design-এর গুরুত্বপূর্ণ ধাপ কোনটি?","সমস্যা নির্ধারণ, নকশা, পরীক্ষা ও উন্নয়ন",["শুধু final product আঁকা","শুধু material কেনা","শুধু বিজ্ঞাপন তৈরি"],"Engineering"],
- ["Feedback control system-এর উদ্দেশ্য কী?","output পর্যবেক্ষণ করে system-এর আচরণ সামঞ্জস্য করা",["শুধু power বন্ধ করা","শুধু input মুছে ফেলা","শুধু sensor নিষ্ক্রিয় করা"],"Engineering"],
- ["Bridge-এর truss design কেন কার্যকর হতে পারে?","ত্রিভুজাকার সদস্য দিয়ে load transfer দক্ষভাবে করা যায়",["ত্রিভুজে কোনো force কাজ করে না","শুধু decoration-এর জন্য","শুধু পানি আটকাতে"],"Engineering"],
- ["Semiconductor-এর conductivity সাধারণত কীভাবে নিয়ন্ত্রণ করা যায়?","doping ও অন্যান্য বৈদ্যুতিক/তাপীয় শর্ত দিয়ে",["শুধু রং বদলে","শুধু ওজন বাড়িয়ে","শুধু পানিতে ভিজিয়ে"],"Materials Science"],
- ["Alloy কী?","দুই বা ততোধিক উপাদানের মধ্যে অন্তত একটি ধাতু থাকা কঠিন/ধাতব মিশ্রণ",["শুধু বিশুদ্ধ element","শুধু gas mixture","শুধু organic polymer"],"Materials Science"],
- ["Graphene কী?","এক স্তর carbon atoms-এর honeycomb lattice",["একটি protein","একটি virus","একটি liquid metal"],"Materials Science"],
- ["Ceramic materials-এর একটি সাধারণ বৈশিষ্ট্য কী?","উচ্চ তাপ সহনশীলতা ও কঠোরতা থাকতে পারে",["সবসময় rubber-এর মতো নমনীয়","সবসময় electrical superconductor","সবসময় liquid"],"Materials Science"],
- ["Molecular biology-তে promoter কী?","transcription শুরু/নিয়ন্ত্রণের সাথে যুক্ত DNA region",["একটি protein product","একটি lipid","একটি ribosome"],"Molecular Biology"],
- ["Biotechnology-তে vector কী করতে পারে?","genetic material একটি host cell-এ বহনে সহায়তা করতে পারে",["শুধু cell শুকায়","শুধু protein ভাঙে","শুধু microscope বানায়"],"Biotechnology"],
- ["Limnology-তে thermocline কী?","জলের এমন স্তর যেখানে তাপমাত্রা দ্রুত পরিবর্তিত হয়",["সবচেয়ে লবণাক্ত স্তর","শুধু বরফের স্তর","শুধু কাদা স্তর"],"Limnology"],
- ["Microbiology-তে binary fission কী?","একটি prokaryotic cell বিভাজিত হয়ে দুটি কন্যা কোষ তৈরি করে",["একটি virus-এর budding মাত্র","DNA transcription","protein folding"],"Microbiology"],
- ["Botany-তে transpiration কী?","উদ্ভিদ থেকে জলীয়বাষ্পের ক্ষয়",["শুধু CO₂ গ্রহণ","শুধু pollen তৈরি","শুধু glucose ভাঙা"],"Botany"],
- ["Zoology-তে homeothermy কী?","দেহের তাপমাত্রা তুলনামূলক স্থিতিশীল রাখার ক্ষমতা",["শুধু পানিতে বাস করা","শুধু ডিম পাড়া","শুধু রং পরিবর্তন"],"Zoology"],
- ["Biology-তে gene কী?","বংশগত তথ্যের কার্যকরী একক/sequence",["শুধু protein","শুধু cell wall","শুধু ATP"],"Biology"],
- ["Chemistry-তে enthalpy change কী প্রকাশ করে?","নির্দিষ্ট শর্তে system-এর heat content পরিবর্তনের সাথে সম্পর্কিত রাশি",["শুধু reaction time","শুধু atomic number","শুধু catalyst mass"],"Chemistry"],
- ["Cosmology-তে cosmic microwave background কী?","প্রারম্ভিক উষ্ণ মহাবিশ্বের অবশিষ্ট thermal radiation",["একটি planet-এর আলো","শুধু black hole-এর jet","শুধু solar wind"],"Cosmology"],
- ["Dark matter ধারণাটি কেন ব্যবহৃত হয়?","দৃশ্যমান পদার্থের চেয়ে বেশি মহাকর্ষীয় প্রভাব ব্যাখ্যা করতে",["শুধু আলো উৎপাদন করতে","শুধু পৃথিবীর আবহাওয়া ব্যাখ্যা করতে","শুধু chemistry reaction ব্যাখ্যা করতে"],"Cosmology"],
- ["Dark energy শব্দটি কোন cosmic observation-এর সাথে যুক্ত?","মহাবিশ্বের accelerated expansion",["শুধু নক্ষত্রের rotation","শুধু চাঁদের phase","শুধু পৃথিবীর gravity"],"Cosmology"],
- ["General relativity-তে gravity কীভাবে বর্ণিত হয়?","spacetime-এর curvature হিসেবে",["শুধু একটি chemical bond হিসেবে","শুধু electric current হিসেবে","শুধু sound wave হিসেবে"],"Cosmology"],
- ["Islamic belief অনুযায়ী আসমান ও জমিনের স্রষ্টা কে? / In Islamic belief, Who is the Creator of the heavens and the earth?","আল্লাহ — Allah",["ফেরেশতা — The angels","মানুষ — Humanity","প্রকৃতি নিজে — Nature itself"],"Islamic Science & Knowledge"],
- ["ইসলামি বিশ্বাসে সর্বশক্তিমান ও একমাত্র উপাস্য কে? / Who is the One worthy of worship in Islam?","আল্লাহ — Allah",["কোনো নবী — A prophet","কোনো ফেরেশতা — An angel","কোনো জ্যোতিষ্ক — A celestial body"],"Islamic Science & Knowledge"],
- ["ইসলামি বিশ্বাসে কুরআন কার বাণী হিসেবে মানা হয়? / Whose word is the Qur'an regarded as in Islam?","আল্লাহর বাণী — The word of Allah",["মানব রচিত কাব্য — A human poem","একজন জ্যোতির্বিদের লেখা — An astronomer's writing","একটি বৈজ্ঞানিক ম্যানুয়াল — A science manual"],"Islamic Science & Knowledge"],
- ["ইসলামি ঐতিহ্যে জ্ঞান অন্বেষণের একটি গুরুত্বপূর্ণ নীতি কোনটি? / Which principle is important in the Islamic tradition of seeking knowledge?","জ্ঞান অন্বেষণ ও চিন্তাশীল পর্যবেক্ষণ — Seeking knowledge and thoughtful observation",["জ্ঞান এড়িয়ে চলা — Avoiding knowledge","প্রমাণ অপ্রয়োজনীয় — Evidence is unnecessary","প্রশ্ন করা নিষিদ্ধ — Questions are forbidden"],"Islamic Science & Knowledge"],
- ["ইবন আল-হাইসামের কাজ কোন ক্ষেত্রের সাথে বিশেষভাবে যুক্ত? / Ibn al-Haytham is especially associated with which field?","অপটিক্স — Optics",["জেনেটিক ইঞ্জিনিয়ারিং — Genetic engineering","কম্পাইলার ডিজাইন — Compiler design","নিউক্লিয়ার রিঅ্যাক্টর — Nuclear reactor"],"Islamic Science & Knowledge"],
- ["আল-খওয়ারিজমির নাম কোন ধারণার সাথে ঐতিহাসিকভাবে যুক্ত? / Al-Khwarizmi's name is historically associated with which concept?","Algorithm — অ্যালগরিদম",["Antibody — অ্যান্টিবডি","Photosynthesis — প্রকাশ-সংশ্লেষণ","PCR — পিসিআর"],"Islamic Science & Knowledge"],
- ["ইবন সিনার বিখ্যাত চিকিৎসাবিষয়ক গ্রন্থ কোনটি? / Which famous medical work is associated with Ibn Sina?","The Canon of Medicine — কানুন ফিৎ-তিব্ব",["The Book of Optics — কিতাব আল-মানাজির","The Book of Ingenious Devices — কিতাব আল-হিয়াল","The Meadows of Gold — মুরূজ আল-ধাহাব"],"Islamic Science & Knowledge"],
- ["আল-বিরুনি কোন ধরনের কাজের জন্য পরিচিত? / Al-Biruni is known for work involving which area?","পরিমাপ, জ্যোতির্বিজ্ঞান ও প্রাকৃতিক বিজ্ঞান — Measurement, astronomy and natural science",["শুধু novel writing — শুধু উপন্যাস লেখা","শুধু modern programming — শুধু আধুনিক programming","শুধু film production — শুধু চলচ্চিত্র নির্মাণ"],"Islamic Science & Knowledge"],
- ["আল-জাজারি কোন ক্ষেত্রের সাথে বেশি পরিচিত? / Al-Jazari is best known for which field?","যান্ত্রিক প্রকৌশল — Mechanical engineering",["Molecular genetics — আণবিক জেনেটিক্স","Marine biology — সামুদ্রিক জীববিজ্ঞান","Quantum computing — কোয়ান্টাম কম্পিউটিং"],"Islamic Science & Knowledge"],
- ["ইবন আল-বাইতার কোন ক্ষেত্রের সাথে যুক্ত? / Ibn al-Baytar is associated with which field?","উদ্ভিদ ও ঔষধি পদার্থ — Botany and medicinal substances",["Cosmology only — শুধু মহাকাশতত্ত্ব","Computer networking — কম্পিউটার নেটওয়ার্কিং","Bridge engineering — সেতু প্রকৌশল"],"Islamic Science & Knowledge"],
- ["আল-ইদ্রিসির কাজ কোন ক্ষেত্রের সাথে যুক্ত? / Al-Idrisi's work is associated with which field?","ভূগোল ও মানচিত্রবিদ্যা — Geography and cartography",["Microbial culture — অণুজীব culture","Protein folding — protein folding","Quantum tunneling — quantum tunneling"],"Islamic Science & Knowledge"],
- ["ইসলামি বিশ্বাসে আল্লাহ সম্পর্কে 'তাওহিদ' কী নির্দেশ করে? / In Islamic belief, what does Tawhid refer to?","আল্লাহর একত্ব — The oneness of Allah",["অনেক স্রষ্টার ধারণা — Many creators","শুধু ফেরেশতাদের উপাসনা — Worship of angels","প্রকৃতির উপাসনা — Worship of nature"],"Islamic Science & Knowledge"],
- ["ইসলামি বিশ্বাসে নবী মুহাম্মদ ﷺ-এর মর্যাদা কী? / In Islamic belief, what is Prophet Muhammad ﷺ's role?","আল্লাহর রাসূল ও শেষ নবী — Messenger of Allah and the final prophet",["স্রষ্টা — The Creator","একজন ফেরেশতা — An angel","একজন গ্রহ — A planet"],"Islamic Science & Knowledge"]
-];
-
-const ADV=[
-["NaCl","MgCl₂","NaCl",["MgCl₂","CH₄","SiO₂"],"Chemistry"],
-["catalyst","equilibrium constant","catalyst",["equilibrium constant","reaction enthalpy","product identity"],"Chemistry"],
-["anode","cathode","anode",["cathode","salt bridge","electrolyte solvent"],"Chemistry"],
-["HCl","CH₃COOH","HCl",["CH₃COOH","NH₃","H₂O"],"Chemistry"],
-["কোষপ্রাচীর","কোষঝিল্লি","কোষপ্রাচীর",["কোষঝিল্লি","মাইটোকন্ড্রিয়া","গলজি বডি"],"Biology"],
-["ক্লোরোপ্লাস্ট","মাইটোকন্ড্রিয়া","ক্লোরোপ্লাস্ট",["মাইটোকন্ড্রিয়া","রাইবোসোম","লাইসোসোম"],"Botany"],
-["জাইলেম","ফ্লোয়েম","জাইলেম",["ফ্লোয়েম","ক্যাম্বিয়াম","কর্ক"],"Botany"],
-["PCR","ELISA","PCR",["ELISA","Western blot","Gram stain"],"Biotechnology"],
-["Secchi disk","Petri dish","Secchi disk",["Petri dish","Kirby disk","watch glass"],"Limnology"],
-["Taq polymerase","Pepsin","Taq polymerase",["Pepsin","Amylase","Lipase"],"Biotechnology"],
-["Codon","Anticodon","Codon",["Anticodon","Operon","Intron"],"Molecular Biology"],
-["Peptidoglycan","Cellulose","Peptidoglycan",["Cellulose","Chitin","Lignin"],"Microbiology"],
-["ফুলকা","ফুসফুস","ফুলকা",["ফুসফুস","ট্র্যাকিয়া","কিডনি"],"Zoology"]
-];
-
-function hash(n){let x=(n*1103515245+12345)>>>0;x^=x>>>16;x=Math.imul(x,2246822519)>>>0;x^=x>>>13;return x>>>0}
-function shuffle(a,seed){a=[...a];for(let i=a.length-1;i>0;i--){let j=hash(seed+i*97)%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
-const GENERIC_FALLBACK={
-"Chemistry":["কোন বক্তব্যটি reaction kinetics ও equilibrium-এর পার্থক্য সবচেয়ে ভালো বোঝায়?","Catalyst বিক্রিয়ার গতি বদলায় কিন্তু নির্দিষ্ট তাপমাত্রায় equilibrium constant সাধারণত বদলায় না",["Catalyst সবসময় equilibrium constant দ্বিগুণ করে","Catalyst উৎপাদের রাসায়নিক পরিচয় বদলে দেয়","Catalyst শুধু চাপের মান নির্ধারণ করে"]],
-"Biology":["কোষীয় গঠন ও কাজের সম্পর্ক সম্পর্কে কোন বক্তব্যটি সবচেয়ে নির্ভুল?","অঙ্গাণুর গঠন তার নির্দিষ্ট কোষীয় কাজের সাথে সম্পর্কিত",["সব অঙ্গাণুর একই কাজ","কোষে গঠন ও কাজের কোনো সম্পর্ক নেই","শুধু নিউক্লিয়াসই সব কোষীয় কাজ করে"]],
-"Botany":["উদ্ভিদের পরিবহন টিস্যু সম্পর্কে কোন বক্তব্যটি সবচেয়ে নির্ভুল?","জাইলেম মূলত পানি-খনিজ এবং ফ্লোয়েম জৈব দ্রব্য পরিবহনে বিশেষায়িত",["দুটিই শুধু পানি পরিবহন করে","জাইলেম শুধু চিনি বহন করে","ফ্লোয়েম কেবল অক্সিজেন বহন করে"]],
-"Zoology":["প্রাণীবিজ্ঞানে অঙ্গতন্ত্র সম্পর্কে কোন বক্তব্যটি সবচেয়ে নির্ভুল?","একাধিক অঙ্গ সমন্বিতভাবে নির্দিষ্ট শারীরবৃত্তীয় কাজ সম্পন্ন করতে পারে",["প্রতিটি অঙ্গ একাই সব কাজ করে","সব অঙ্গ একই টিস্যু দিয়ে গঠিত","অঙ্গতন্ত্রে নিয়ন্ত্রণের প্রয়োজন নেই"]],
-"Biotechnology":["PCR ও sequencing-এর সম্পর্ক কোনটি?","PCR নির্দিষ্ট DNA অংশ বাড়াতে পারে, sequencing nucleotide order নির্ণয় করে",["দুটিই একই প্রক্রিয়া","Sequencing DNA কপি করে কিন্তু PCR sequence পড়ে","PCR শুধু protein শনাক্ত করে"]],
-"Limnology":["একটি হ্রদের ecosystem বোঝার সময় কোন সমন্বয়টি সবচেয়ে গুরুত্বপূর্ণ?","আলো, তাপমাত্রা, dissolved oxygen ও nutrient dynamics",["শুধু পানির রং","শুধু বাতাসের গতি","শুধু তীরের উচ্চতা"]],
-"Microbiology":["অণুজীব শনাক্তকরণে একাধিক পরীক্ষা প্রয়োজন হতে পারে কেন?","একটি বৈশিষ্ট্য অনেক প্রজাতির মধ্যে মিল থাকতে পারে",["সব অণুজীব একই","একটি পরীক্ষাই সবসময় যথেষ্ট","সংস্কৃতি ছাড়া DNA-এর অস্তিত্ব নেই"]],
-"Molecular Biology":["Gene expression-এ transcription ও translation-এর সম্পর্ক কোনটি?","Transcription RNA তৈরি করে এবং translation protein synthesis-এ সহায়তা করে",["দুটিই DNA replication","Translation আগে DNA বানায়","Transcription সরাসরি lipid তৈরি করে"]],
-"Islamic Science & Knowledge":["ইসলামি জ্ঞানচর্চার ঐতিহাসিক ধারায় বৈজ্ঞানিক অনুসন্ধানের সঙ্গে কোন নীতিটি সামঞ্জস্যপূর্ণ?","পর্যবেক্ষণ, পরিমাপ, যুক্তি ও জ্ঞান অন্বেষণ",["প্রমাণ অপ্রয়োজনীয়","শুধু অনুমানই যথেষ্ট","প্রাকৃতিক ঘটনাকে মাপা নিষিদ্ধ"]]
+const visualData={
+"Stone":"🪨","Wood":"🪵","Clay":"🟤","Fire":"🔥","Water":"💧","Heat":"♨️","Copper":"Cu","Tin":"Sn","Iron":"Fe","Carbon":"C",
+"Sand":"⌛","Magnetism":"🧲","Electricity":"⚡","Wire":"〰️","Vacuum":"◌","Silicon":"Si","Light":"☀️","Uranium":"U","Neutrons":"n",
+"Plasma":"🟣","Gravity":"🌐","Computer":"💻","Data":"▦","Learning":"🧠","Qubit":"Q","Cryogenics":"❄️","Quantum Field":"∿",
+"Spacetime":"🌀","Wormhole":"🕳️","Energy":"⚡","AI":"🤖","Universe Data":"🌌","Branch Coordinate":"⌘","Exotic Matter":"✦",
+"Planck Scale":"ℏ","Causality":"⏳","Reality":"◈","Dimension":"◇","Time Machine":"⏱️","Multiverse":"🌌"
 };
-function difficultyFor(level){
- if(level<=100)return 1;
- if(level<=250)return 2;
- if(level<=450)return 3;
- if(level<=650)return 4;
- if(level<=800)return 5;
- if(level<=900)return 6;
- if(level<=950)return 7;
- return 8;
-}
-const DIFFICULTY_LABEL={1:"Foundation",2:"Foundation+",3:"High School",4:"College",5:"University",6:"Honours",7:"Advanced Frontier",8:"Islamic Knowledge"};
-
-/* Bangladesh job-prep, teacher recruitment, language, GK and current-affairs bank. */
-const JOB_FACTS=[
- ["বাংলা বর্ণমালায় স্বরবর্ণের প্রচলিত সংখ্যা কত?","১১",["৭","৯","১৩"],"Bangla Grammar"],
- ["বাংলা ব্যাকরণে যে শব্দে ব্যক্তি, বস্তু, স্থান বা ভাবের নাম বোঝায় তাকে কী বলে?","বিশেষ্য",["বিশেষণ","ক্রিয়া","অব্যয়"],"Bangla Grammar"],
- ["যে শব্দ বিশেষ্যের দোষ, গুণ, সংখ্যা বা অবস্থা প্রকাশ করে তাকে কী বলে?","বিশেষণ",["সর্বনাম","ক্রিয়া","অব্যয়"],"Bangla Grammar"],
- ["‘আমি’ কোন পদ?","সর্বনাম",["বিশেষ্য","বিশেষণ","ক্রিয়া"],"Bangla Grammar"],
- ["‘সে দ্রুত দৌড়ায়’ বাক্যে ‘দ্রুত’ কোন পদ?","ক্রিয়াবিশেষণ",["বিশেষ্য","সর্বনাম","সমুচ্চয়ী অব্যয়"],"Bangla Grammar"],
- ["‘বিদ্যালয়ে’ শব্দে কোন কারক বোঝায়?","অধিকরণ কারক",["কর্তৃকারক","কর্মকারক","সম্প্রদান কারক"],"Bangla Grammar"],
- ["‘রহিমকে ডাকো’ বাক্যে ‘রহিমকে’ কোন কারক?","কর্মকারক",["কর্তৃকারক","অধিকরণ কারক","অপাদান কারক"],"Bangla Grammar"],
- ["‘মায়ের ভালোবাসা’ পদবন্ধে ‘মায়ের’ কোন কারক?","সম্বন্ধ পদ",["করণ কারক","কর্মকারক","অধিকরণ কারক"],"Bangla Grammar"],
- ["‘রাজপুত্র’ কোন সমাসের উদাহরণ?","ষষ্ঠী তৎপুরুষ",["দ্বন্দ্ব","অব্যয়ীভাব","বহুব্রীহি"],"Bangla Grammar"],
- ["‘নীলকমল’ কোন সমাস?","কর্মধারয়",["দ্বন্দ্ব","বহুব্রীহি","অব্যয়ীভাব"],"Bangla Grammar"],
- ["‘মা-বাবা’ কোন সমাস?","দ্বন্দ্ব",["কর্মধারয়","তৎপুরুষ","বহুব্রীহি"],"Bangla Grammar"],
- ["‘যথাসাধ্য’ কোন সমাসের উদাহরণ?","অব্যয়ীভাব",["দ্বন্দ্ব","কর্মধারয়","বহুব্রীহি"],"Bangla Grammar"],
- ["‘অকাল’ শব্দে কোন উপসর্গ আছে?","অ-",["অনু-","প্রতি-","উপ-"],"Bangla Grammar"],
- ["‘সুশিক্ষা’ শব্দে কোন উপসর্গ আছে?","সু-",["দুর্-","অপ-","নি-"],"Bangla Grammar"],
- ["‘পাঠক’ শব্দে ‘-ক’ কী?","প্রত্যয়",["উপসর্গ","বিভক্তি","সমাস"],"Bangla Grammar"],
- ["‘করেছিল’ কোন কাল নির্দেশ করে?","অতীত কাল",["বর্তমান কাল","ভবিষ্যৎ কাল","শর্তসাপেক্ষ কাল"],"Bangla Grammar"],
- ["‘করবে’ কোন কাল নির্দেশ করে?","ভবিষ্যৎ কাল",["অতীত কাল","বর্তমান কাল","অসমাপিকা রূপ"],"Bangla Grammar"],
- ["‘সে বই পড়ে’ বাক্যের ক্রিয়া কোনটি?","পড়ে",["সে","বই","সে বই"],"Bangla Grammar"],
- ["যে বাক্যে একটি মাত্র সমাপিকা ক্রিয়া থাকে তাকে কী বলে?","সরল বাক্য",["জটিল বাক্য","যৌগিক বাক্য","মিশ্র বাক্য"],"Bangla Grammar"],
- ["দুটি বা ততোধিক স্বাধীন খণ্ডবাক্য সমন্বয়ে গঠিত বাক্য কী?","যৌগিক বাক্য",["সরল বাক্য","জটিল বাক্য","অসমাপিকা বাক্য"],"Bangla Grammar"],
- ["বাংলাদেশের সংবিধানের মূলনীতির একটি কোনটি?","জাতীয়তাবাদ",["রাজতন্ত্র","উপনিবেশবাদ","সামন্ততন্ত্র"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় সংসদ কী ধরনের আইনসভা?","এককক্ষবিশিষ্ট",["দ্বিকক্ষবিশিষ্ট","ত্রিকক্ষবিশিষ্ট","চারকক্ষবিশিষ্ট"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের মুদ্রার নাম কী?","টাকা",["রুপি","দিনার","রিয়াল"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় ফুল কোনটি?","শাপলা",["গোলাপ","জুঁই","পদ্ম"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় ফল কোনটি?","কাঁঠাল",["আম","লিচু","নারিকেল"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় মাছ কোনটি?","ইলিশ",["রুই","কাতলা","চিংড়ি"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় পাখি কোনটি?","দোয়েল",["শালিক","কোকিল","ময়ূর"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় পশু কোনটি?","রয়েল বেঙ্গল টাইগার",["হাতি","হরিণ","মহিষ"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের স্বাধীনতা দিবস কবে?","২৬ মার্চ",["২১ ফেব্রুয়ারি","১৬ ডিসেম্বর","১৪ এপ্রিল"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের বিজয় দিবস কবে?","১৬ ডিসেম্বর",["২৬ মার্চ","২১ ফেব্রুয়ারি","৭ মার্চ"],"Bangladesh GK & Jobs"],
- ["আন্তর্জাতিক মাতৃভাষা দিবস কবে?","২১ ফেব্রুয়ারি",["২৬ মার্চ","১৬ ডিসেম্বর","১ মে"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের মুক্তিযুদ্ধ কোন সালে সংঘটিত হয়?","১৯৭১",["১৯৬৯","১৯৭০","১৯৭২"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের সংবিধান গৃহীত হয় কোন তারিখে?","৪ নভেম্বর ১৯৭২",["১৬ ডিসেম্বর ১৯৭১","২৬ মার্চ ১৯৭১","২১ ফেব্রুয়ারি ১৯৫২"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের সংবিধান কার্যকর হয় কবে?","১৬ ডিসেম্বর ১৯৭২",["৪ নভেম্বর ১৯৭২","২৬ মার্চ ১৯৭১","২১ ফেব্রুয়ারি ১৯৭১"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের সর্বোচ্চ আদালত কোনটি?","সুপ্রিম কোর্ট",["জেলা জজ আদালত","হাইকোর্ট ট্রাইব্যুনাল","জাতীয় সংসদ"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের কেন্দ্রীয় ব্যাংক কোনটি?","বাংলাদেশ ব্যাংক",["সোনালী ব্যাংক","অগ্রণী ব্যাংক","ঢাকা ব্যাংক"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় সংসদের মেয়াদ সাধারণত কত বছর?","৫ বছর",["৩ বছর","৪ বছর","৬ বছর"],"Bangladesh GK & Jobs"],
- ["জাতীয় বাজেট সংসদে উপস্থাপন করেন কে?","অর্থমন্ত্রী",["স্বরাষ্ট্রমন্ত্রী","শিক্ষামন্ত্রী","পররাষ্ট্রমন্ত্রী"],"Bangladesh GK & Jobs"],
- ["প্রাথমিক শিক্ষার লক্ষ্যগুলোর মধ্যে কোনটি সবচেয়ে সরাসরি সম্পর্কিত?","শিক্ষার্থীর মৌলিক জ্ঞান ও দক্ষতার বিকাশ",["শুধু চাকরি দেওয়া","শুধু পরীক্ষার নম্বর বাড়ানো","শুধু মুখস্থ করানো"],"Education & Pedagogy"],
- ["Formative assessment সাধারণত কখন বেশি ব্যবহৃত হয়?","শেখার চলমান সময়ে",["শুধু কোর্স শেষে","শুধু ভর্তি পরীক্ষায়","শুধু চাকরির পরে"],"Education & Pedagogy"],
- ["Summative assessment-এর প্রধান উদ্দেশ্য কী?","নির্দিষ্ট পর্যায়ের শেখার ফল মূল্যায়ন",["শুধু উপস্থিতি নেওয়া","শুধু বই বিতরণ","শুধু শ্রেণিকক্ষ সাজানো"],"Education & Pedagogy"],
- ["শিক্ষার্থীকেন্দ্রিক শিক্ষায় শিক্ষক প্রধানত কী করেন?","শেখার পরিবেশ ও সহায়তা প্রদান করেন",["সব উত্তর মুখস্থ করান","শুধু বক্তৃতা দেন","শিক্ষার্থীর কাজ বন্ধ রাখেন"],"Education & Pedagogy"],
- ["Bloom-এর revised taxonomy-তে সর্বোচ্চ স্তর কোনটি?","Create",["Remember","Understand","Apply"],"Education & Pedagogy"],
- ["Inclusive education-এর মূল ধারণা কী?","বৈচিত্র্যময় শিক্ষার্থীদের একসাথে অংশগ্রহণের সুযোগ দেওয়া",["শুধু মেধাবীদের পড়ানো","প্রতিবন্ধী শিক্ষার্থী বাদ দেওয়া","সবাইকে একই পদ্ধতিতে বাধ্য করা"],"Education & Pedagogy"],
- ["Lesson objective কেমন হওয়া বেশি কার্যকর?","পরিষ্কার, পর্যবেক্ষণযোগ্য ও মূল্যায়নযোগ্য",["অস্পষ্ট ও সাধারণ","শুধু দীর্ঘ","শুধু আবেগনির্ভর"],"Education & Pedagogy"],
- ["Scaffolding বলতে কী বোঝায়?","শিক্ষার্থীর প্রয়োজন অনুযায়ী অস্থায়ী সহায়তা দেওয়া",["সব কাজ শিক্ষক করে দেওয়া","শিক্ষার্থীকে বাদ দেওয়া","শুধু পরীক্ষা নেওয়া"],"Education & Pedagogy"],
- ["Peer learning-এর একটি সুবিধা কী?","শিক্ষার্থীরা পরস্পরের ব্যাখ্যা ও সহযোগিতা থেকে শেখে",["শিক্ষক অপ্রয়োজনীয় হয়ে যায়","কোনো মূল্যায়ন সম্ভব নয়","শুধু প্রতিযোগিতা বাড়ে"],"Education & Pedagogy"],
- ["Rubric কী কাজে লাগে?","মূল্যায়নের মানদণ্ড ও স্তর স্পষ্ট করতে",["শুধু উপস্থিতি নিতে","শুধু পাঠ্যবই লিখতে","শুধু সময় মাপতে"],"Education & Pedagogy"],
- ["English grammar-এ ‘He ___ to school every day.’ সঠিকটি কোনটি?","goes",["go","going","gone"],"English Grammar"],
- ["‘I have finished the work’ কোন tense?","Present Perfect",["Past Simple","Future Simple","Past Continuous"],"English Grammar"],
- ["‘The book was written by him’ কোন voice?","Passive Voice",["Active Voice","Interrogative Voice","Imperative Voice"],"English Grammar"],
- ["‘She is taller than her sister’ কোন degree?","Comparative",["Positive","Superlative","Absolute"],"English Grammar"],
- ["‘An honest man’ বাক্যে ‘an’ কেন ব্যবহৃত?","honest শব্দের শুরুতে vowel sound আছে",["honest-এর বানান h দিয়ে বলে","সব h শব্দের আগে an হয়","কারণ man plural"],"English Grammar"],
- ["‘Neither of the boys ___ present.’ পরীক্ষামূলক standard English-এ সঠিকটি কোনটি?","is",["are","were","be"],"English Grammar"],
- ["‘If I were you’ কোন ধরনের conditional construction-এর উদাহরণ?","Second conditional",["First conditional","Third conditional","Zero conditional"],"English Grammar"],
- ["‘Look after’ phrasal verb-এর অর্থ কী?","যত্ন নেওয়া",["খুঁজে বের করা","ফিরে যাওয়া","অস্বীকার করা"],"English Grammar"],
- ["‘Quickly’ কোন part of speech?","Adverb",["Noun","Pronoun","Preposition"],"English Grammar"],
- ["‘Although’ সাধারণত কী ধরনের conjunction?","Subordinating conjunction",["Coordinating conjunction","Correlative conjunction only","Interjection"],"English Grammar"],
- ["বাংলাদেশের রাজধানী কোনটি?","ঢাকা",["চট্টগ্রাম","রাজশাহী","খুলনা"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের বৃহত্তম সমুদ্রবন্দর কোনটি?","চট্টগ্রাম বন্দর",["মংলা বন্দর","পায়রা বন্দর","নারায়ণগঞ্জ নদীবন্দর"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের দীর্ঘতম সমুদ্রসৈকত কোনটি?","কক্সবাজার",["কুয়াকাটা","পতেঙ্গা","সেন্ট মার্টিন"],"Bangladesh GK & Jobs"],
- ["সুন্দরবন কোন ধরনের বন?","ম্যানগ্রোভ বন",["শাল বন","চিরহরিৎ পাহাড়ি বন","কনিফার বন"],"Bangladesh GK & Jobs"],
- ["পদ্মা সেতু কোন নদীর ওপর নির্মিত?","পদ্মা",["যমুনা","মেঘনা","কর্ণফুলী"],"Bangladesh GK & Jobs"],
- ["ঢাকা কোন নদীর তীরে অবস্থিত?","বুড়িগঙ্গা",["কর্ণফুলী","সুরমা","তিস্তা"],"Bangladesh GK & Jobs"],
- ["জাতীয় স্মৃতিসৌধ কোথায় অবস্থিত?","সাভার",["গাজীপুর","কুমিল্লা","ময়মনসিংহ"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের জাতীয় মসজিদ কোনটি?","বায়তুল মোকাররম",["ষাট গম্বুজ মসজিদ","তারা মসজিদ","আদিনা মসজিদ"],"Bangladesh GK & Jobs"],
- ["SAARC-এর সদর দপ্তর কোথায়?","কাঠমান্ডু",["ঢাকা","দিল্লি","কলম্বো"],"Bangladesh GK & Jobs"],
- ["BIMSTEC-এর পূর্ণরূপে ‘T’ কী নির্দেশ করে?","Technical",["Trade","Transport","Tourism"],"Bangladesh GK & Jobs"],
- ["জাতিসংঘের সদর দপ্তর কোথায়?","নিউইয়র্ক",["জেনেভা","প্যারিস","লন্ডন"],"Bangladesh GK & Jobs"],
- ["বিশ্ব স্বাস্থ্য সংস্থার সংক্ষিপ্ত রূপ কী?","WHO",["WTO","WIPO","UNHCR"],"Bangladesh GK & Jobs"],
- ["UNESCO-এর একটি প্রধান কাজ কী?","শিক্ষা, বিজ্ঞান ও সংস্কৃতিতে আন্তর্জাতিক সহযোগিতা",["শুধু সামরিক জোট পরিচালনা","শুধু মুদ্রা ছাপানো","শুধু খেলাধুলা আয়োজন"],"Bangladesh GK & Jobs"],
- ["বাংলাদেশের সরকারি চাকরির লিখিত পরীক্ষায় সাধারণ জ্ঞান পড়ার সময় কোন পদ্ধতি কার্যকর?","বিষয়ভিত্তিক নোট ও নিয়মিত পুনরাবৃত্তি",["শুধু শেষ রাতে পড়া","শুধু অনুমান করা","শুধু একবার পড়া"],"Education & Pedagogy"],
- ["একজন প্রাথমিক শিক্ষক দুর্বল পাঠককে সহায়তা করতে কী করতে পারেন?","ছোট ধাপে guided reading ও feedback দেওয়া",["শুধু শাস্তি দেওয়া","শুধু কঠিন বই দেওয়া","পড়তে না দেওয়া"],"Education & Pedagogy"],
- ["একজন উচ্চমাধ্যমিক শিক্ষক formative feedback দিলে তার উদ্দেশ্য কী?","শিক্ষার্থীর পরবর্তী শেখা উন্নত করতে তথ্য দেওয়া",["শুধু নম্বর কমানো","শুধু শাস্তি দেওয়া","শুধু উপস্থিতি নথিভুক্ত করা"],"Education & Pedagogy"],
- ["ICT শিক্ষক password security শেখাতে কোন অভ্যাসটি সবচেয়ে মৌলিক?","শক্তিশালী ও আলাদা password ব্যবহার",["সব সাইটে একই password","password প্রকাশ্যে লেখা","শুধু নাম ব্যবহার"],"ICT"],
- ["Two-factor authentication-এর উদ্দেশ্য কী?","একাধিক যাচাই উপাদান ব্যবহার করে account security বাড়ানো",["internet speed বাড়ানো","screen resolution বাড়ানো","file size কমানো"],"ICT"],
- ["Phishing কী?","প্রতারণামূলকভাবে তথ্য বা credentials নেওয়ার চেষ্টা",["ডেটা backup","software update","network cable"],"ICT"],
- ["Spreadsheet-এ SUM function সাধারণত কী করে?","নির্বাচিত সংখ্যাগুলোর যোগফল দেয়",["শুধু text অনুবাদ করে","ছবি আঁকে","password তৈরি করে"],"ICT"],
- ["Presentation software-এর মূল ব্যবহার কী?","স্লাইডভিত্তিক তথ্য উপস্থাপন",["শুধু operating system চালানো","শুধু database repair","শুধু antivirus scan"],"ICT"],
- ["বর্তমান ২০২৬ সালে বাংলাদেশে National Teacher’s Day কোন তারিখে পালনের প্রস্তুতি নেওয়া হচ্ছে?","৫ অক্টোবর",["১ জানুয়ারি","২১ ফেব্রুয়ারি","১৬ ডিসেম্বর"],"Current Affairs"],
- ["২০২৬ সালের বাংলাদেশ Innovation Fair কোথায় উদ্বোধন করা হয়?","Novo Theatre, Dhaka",["Bangabandhu Stadium","Chattogram Port","Rajshahi University"],"Current Affairs"],
- ["Bangladesh Innovation Fair 2026-এ আয়োজকদের হিসাবে কতটি বিশ্ববিদ্যালয় অংশ নেয়?","৭৩টি",["৩৩টি","৫৩টি","৯৩টি"],"Current Affairs"],
- ["২০২৬ সালের সেপ্টেম্বরে Bangladesh Test team Australia সফরে সিরিজটি কী ফল পায়?","১–১ ড্র",["২–০ বাংলাদেশ","২–০ অস্ট্রেলিয়া","৩–১ বাংলাদেশ"],"Current Affairs"],
- ["২০২৬ সালের সেপ্টেম্বরে Bangla QR payments সম্পর্কে বাংলাদেশ ব্যাংকের নির্দেশনা অনুযায়ী merchant credit কবে থেকে instant করার কথা?","১ অক্টোবর ২০২৬",["১ সেপ্টেম্বর ২০২৬","১৬ ডিসেম্বর ২০২৬","১ জানুয়ারি ২০২৭"],"Current Affairs"],
- ["২০২৬ সালের সেপ্টেম্বরে NBR solar power equipment-এর import tax কত শতাংশে নামানোর কথা জানায়?","১ শতাংশ",["৫ শতাংশ","১০ শতাংশ","১৭ শতাংশ"],"Current Affairs"],
- ["২০২৬ সালের সেপ্টেম্বরে Ecnec নতুন কোন transport project অনুমোদনের কথা সংবাদে আসে?","নতুন Metro Rail project",["নতুন সমুদ্রবন্দর project","নতুন airport project","নতুন nuclear plant project"],"Current Affairs"],
- ["২০২৬ সালের সেপ্টেম্বরে Bangladesh Innovation Fair-এ ১,০০০-এর বেশি কী প্রদর্শনের কথা জানানো হয়?","উদ্ভাবন",["শুধু বই","শুধু গাড়ি","শুধু ক্রীড়া ট্রফি"],"Current Affairs"],
- ["২০২৬ সালের 81st UNGA-তে বাংলাদেশ কোন বিষয়গুলোর ওপর গুরুত্ব দেওয়ার কথা জানিয়েছে?","উন্নয়ন, অর্থনৈতিক সম্ভাবনা ও চলমান সংস্কার",["শুধু ক্রিকেট","শুধু পর্যটন","শুধু চলচ্চিত্র"],"Current Affairs"],
- ["২০২৬ সালের সেপ্টেম্বরে Bangladesh-India ambassador appointment নিয়ে agrément বলতে কী বোঝায়?","স্বাগতিক দেশের সম্মতি",["বাণিজ্য কর","ভিসা ফি","জাতীয় বাজেট"],"Current Affairs"],
- ["প্রাথমিক শিক্ষক শ্রেণিকক্ষে ভুল উত্তর পেলে কোন প্রতিক্রিয়াটি শেখার জন্য বেশি সহায়ক?","ভুলের কারণ অনুসন্ধান করে পুনরায় চেষ্টা করতে উৎসাহ দেওয়া",["সবার সামনে অপমান করা","সঙ্গে সঙ্গে শাস্তি দেওয়া","প্রশ্ন বন্ধ করা"],"Education & Pedagogy"],
- ["একটি ভালো MCQ distractor কেমন হওয়া উচিত?","প্রশ্নের সঙ্গে সম্পর্কিত ও বিশ্বাসযোগ্য ভুল উত্তর",["সম্পূর্ণ অপ্রাসঙ্গিক শব্দ","স্পষ্ট হাস্যকর উত্তর","সঠিক উত্তরের পুনরাবৃত্তি"],"Education & Pedagogy"],
- ["শিক্ষকের classroom management-এর একটি মূল উদ্দেশ্য কী?","শেখার উপযোগী নিরাপদ ও সংগঠিত পরিবেশ তৈরি",["শুধু নীরবতা বজায় রাখা","শুধু কঠোর শাস্তি","শুধু উপস্থিতি নেওয়া"],"Education & Pedagogy"],
- ["শিক্ষার্থীর prior knowledge যাচাই করলে শিক্ষক কী সুবিধা পান?","নতুন পাঠের সঙ্গে পূর্বজ্ঞান যুক্ত করতে পারেন",["শুধু পরীক্ষা বাতিল করতে পারেন","শুধু বই কমাতে পারেন","শুধু সময় নষ্ট হয়"],"Education & Pedagogy"],
- ["Diagnostic assessment সাধারণত কী জানতে সাহায্য করে?","শেখার আগে বিদ্যমান শক্তি ও দুর্বলতা",["শুধু চূড়ান্ত ফল","শুধু উপস্থিতি","শুধু বেতন"],"Education & Pedagogy"],
- ["Cooperative learning-এ কোনটি গুরুত্বপূর্ণ?","সুনির্দিষ্ট যৌথ কাজ ও পারস্পরিক দায়িত্ব",["শুধু একজনের কাজ","কোনো যোগাযোগ না থাকা","শুধু ব্যক্তিগত প্রতিযোগিতা"],"Education & Pedagogy"],
- ["Lesson plan-এ assessment strategy কেন রাখা হয়?","শেখার ফল কতটা অর্জিত হয়েছে তা যাচাই করতে",["শুধু সাজসজ্জার জন্য","শুধু সময় কাটাতে","শুধু উপস্থিতি লিখতে"],"Education & Pedagogy"],
- ["Digital literacy বলতে কী বোঝায়?","ডিজিটাল তথ্য ও প্রযুক্তি নিরাপদ ও কার্যকরভাবে ব্যবহার করার সক্ষমতা",["শুধু দ্রুত টাইপ করা","শুধু গেম খেলা","শুধু মোবাইল কেনা"],"ICT"],
- ["Open-source software-এর বৈশিষ্ট্য কী?","উৎসকোড নির্দিষ্ট লাইসেন্সের অধীনে পর্যালোচনা/পরিবর্তনের সুযোগ দিতে পারে",["কখনো দেখা যায় না","সবসময় বিনামূল্যে হওয়া বাধ্যতামূলক","শুধু offline চলে"],"ICT"],
- ["Operating system-এর একটি প্রধান কাজ কী?","hardware ও software resource ব্যবস্থাপনা",["শুধু ছবি আঁকা","শুধু web page লেখা","শুধু printer paper তৈরি"],"ICT"],
- ["Database normalization-এর একটি উদ্দেশ্য কী?","অপ্রয়োজনীয় data redundancy কমানো",["সব data duplicate করা","সব table মুছে ফেলা","শুধু ছবি compress করা"],"ICT"],
- ["HTTP status 404 সাধারণত কী নির্দেশ করে?","অনুরোধ করা resource পাওয়া যায়নি",["server সবসময় ঠিক আছে","authentication সফল","database backup সম্পন্ন"],"ICT"],
- ["DNS-এর মূল কাজ কী?","domain name-কে network address-এর সাথে resolve করতে সহায়তা করা",["শুধু file encrypt করা","শুধু screen render করা","শুধু password store করা"],"ICT"],
- ["বাংলা ভাষায় ‘অমর’ শব্দের বিপরীতার্থক কোনটি?","মরণশীল",["অক্ষয়","চিরস্থায়ী","অমৃত"],"Bangla Grammar"],
- ["‘সূর্য’ শব্দের একটি প্রচলিত সমার্থক কোনটি?","রবি",["শশী","ধরা","নিশা"],"Bangla Grammar"],
- ["‘অন্ধকার’ শব্দের বিপরীতার্থক কী?","আলো",["রাত্রি","ছায়া","মেঘ"],"Bangla Grammar"],
- ["‘যে দেশকে ভালোবাসে’—এক কথায় কী?","দেশপ্রেমিক",["স্বদেশত্যাগী","ভ্রমণকারী","প্রবাসী"],"Bangla Grammar"],
- ["‘যে অন্যের উপকার করে’—এক কথায় কী?","পরোপকারী",["স্বার্থপর","নির্লিপ্ত","অসহযোগী"],"Bangla Grammar"],
- ["‘নদী’ শব্দের বহুবচন রূপ কোনটি?","নদীগুলো",["নদীটি","নদীর","নদীতে"],"Bangla Grammar"],
- ["‘ছেলেরা খেলছে’ বাক্যে ‘ছেলেরা’ কী?","কর্তা",["কর্ম","ক্রিয়াবিশেষণ","সম্প্রদান"],"Bangla Grammar"],
- ["‘বইটি টেবিলের উপর আছে’ বাক্যে ‘টেবিলের উপর’ কী নির্দেশ করে?","অধিকরণ",["করণ","কর্তা","সম্প্রদান"],"Bangla Grammar"],
- ["‘সে কলম দিয়ে লিখে’ বাক্যে ‘কলম দিয়ে’ কোন কারক?","করণ কারক",["কর্মকারক","অপাদান কারক","অধিকরণ কারক"],"Bangla Grammar"],
- ["‘গাছ থেকে পাতা পড়ে’ বাক্যে ‘গাছ থেকে’ কোন কারক?","অপাদান কারক",["করণ কারক","সম্প্রদান কারক","কর্মকারক"],"Bangla Grammar"]
-];
-
-function makeVariantFacts(base, count=8){
- const out=[];
- const templates=[
-  q=>q,
-  q=>`মিশন: ${q}`,
-  q=>`জ্ঞান-যাচাই: ${q}`,
-  q=>`শিক্ষক/চাকরি প্রস্তুতি: ${q}`,
-  q=>`ফ্যাব্রিকেটর চালু। সঠিক তথ্য নির্বাচন করো: ${q}`,
-  q=>`চ্যালেঞ্জ: ${q}`,
-  q=>`দ্রুত নয়—নির্ভুলভাবে উত্তর দাও: ${q}`,
-  q=>`পরবর্তী আবিষ্কারের আগে যাচাই করো: ${q}`
- ];
- base.forEach((x,idx)=>{
-  for(let i=0;i<count;i++){
-   const stem=templates[i%templates.length](x[0]);
-   out.push([stem,x[1],x[2],x[3]]);
-  }
- });
- return out;
+function iconFor(name){
+  if(visualData[name]) return visualData[name];
+  const n=(name||"").toLowerCase();
+  if(n.includes("water")) return "💧"; if(n.includes("fire")||n.includes("heat")) return "🔥";
+  if(n.includes("wood")) return "🪵"; if(n.includes("stone")||n.includes("ore")) return "🪨";
+  if(n.includes("glass")) return "🔷"; if(n.includes("paper")) return "📜"; if(n.includes("engine")) return "⚙️";
+  if(n.includes("rocket")) return "🚀"; if(n.includes("satellite")) return "🛰️"; if(n.includes("computer")) return "💻";
+  if(n.includes("quantum")) return "⚛️"; if(n.includes("universe")||n.includes("multiverse")) return "🌌";
+  if(n.includes("time")) return "⏱️"; if(n.includes("black hole")) return "🕳️";
+  return "◆";
 }
 
-/* Extra variants make the bank exceed 2000 questions while preserving one objective answer per item. */
-const GENERATED_FACTS=makeVariantFacts(FACTS.concat(EXTRA_FACTS),8).concat(makeVariantFacts(JOB_FACTS,5));
-
-const ALL_FACTS=FACTS.concat(EXTRA_FACTS,JOB_FACTS,GENERATED_FACTS);
-function fallbackFor(subject,level){
- const bilingual=subject==="Islamic Science & Knowledge";
- const base={
-  "Chemistry":["A chemistry mission is ready. Which concept best matches the described chemical behaviour?","Chemical structure and reaction conditions determine observable behaviour.",["Only colour determines it.","Only mass determines it.","Chemical behaviour never depends on conditions."]],
-  "Physics":["A physics mission is ready. Which statement best matches the physical system?","The measured outcome depends on the relevant physical quantities and conditions.",["Physical laws change randomly.","Measurements never depend on conditions.","Only colour can determine a physical result."]],
-  "Biology":["A biology mission is ready. Which statement best matches the biological system?","Structure and function are closely related in living systems.",["Every cell has the same function.","Biological processes need no energy.","Genes are identical to organelles."]],
-  "Botany":["A plant-science mission is ready. Which statement is most precise?","Plant structures are specialized for transport, growth, support and reproduction.",["All plant tissues perform the same task.","Plants have no specialized tissues.","Roots perform only photosynthesis."]],
-  "Zoology":["A zoology mission is ready. Which statement is most precise?","Animal structures are adapted to particular physiological roles.",["All animals use identical organs.","Animal cells have cell walls like plants.","All animals breathe with gills."]],
-  "Biotechnology":["A biotechnology mission is ready. Which statement is most precise?","Biotechnology applies biological systems or molecules to useful processes.",["It never uses DNA.","It is limited to astronomy.","It excludes laboratory methods."]],
-  "Limnology":["A freshwater mission is ready. Which factor matters to a lake ecosystem?","Light, temperature, oxygen and nutrients interact in freshwater systems.",["Only water colour matters.","Lakes contain no organisms.","Nutrients never affect aquatic systems."]],
-  "Microbiology":["A microbiology mission is ready. Which statement is most precise?","Microorganisms can differ in structure, metabolism and response to conditions.",["All microbes are viruses.","All microbes are multicellular animals.","Microbes never interact with environments."]],
-  "Molecular Biology":["A molecular mission is ready. Which statement is most precise?","DNA, RNA and proteins participate in information flow and cellular function.",["DNA is a lipid.","RNA is always a protein.","Proteins contain no biological information or function."]],
-  "ICT":["An ICT mission is ready. Which statement is most precise?","Computing systems combine algorithms, data and hardware/software components.",["Algorithms are physical wires.","Data never needs storage.","Software cannot represent instructions."]],
-  "Mathematics":["A mathematics mission is ready. Which statement is most precise?","Definitions and logical operations determine the valid result.",["Any numerical answer is valid.","Units never matter in applied mathematics.","Proof is unrelated to mathematics."]],
-  "Astronomy":["An astronomy mission is ready. Which statement is most precise?","Astronomical observations connect measurable light, motion and physical properties.",["Stars are all identical.","Planets produce all of their own visible light.","Distance has no effect on observation."],],
-  "Cosmology":["A cosmology mission is ready. Which statement is most precise?","Cosmology studies the large-scale structure, history and evolution of the universe.",["It studies only one laboratory reaction.","It excludes observations.","It concerns only Earth's weather."]],
-  "Quantum Science":["A quantum mission is ready. Which statement is most precise?","Quantum systems are described by states, probabilities and measurement rules.",["Quantum objects always follow classical paths.","Measurement has no relation to quantum states.","Quantum theory applies only to planets."]],
-  "Geology & Earth Science":["An Earth-science mission is ready. Which statement is most precise?","Earth processes are shaped by interacting geological, atmospheric and hydrological systems.",["Earth has no internal processes.","Rocks never change.","Water has no role in Earth systems."]],
-  "Engineering":["An engineering mission is ready. Which statement is most precise?","Engineering uses constraints, models, testing and iteration to solve practical problems.",["Testing is unnecessary.","Constraints never matter.","Design cannot be improved after testing."]],
-  "Materials Science":["A materials mission is ready. Which statement is most precise?","Material properties arise from composition, structure and processing.",["Only colour determines properties.","All materials behave identically.","Processing cannot change properties."]],
-  "Environmental Science":["An environmental mission is ready. Which statement is most precise?","Environmental systems involve interacting organisms, resources and physical conditions.",["Only one species matters.","Physical conditions never affect ecosystems.","Nutrients have no environmental effects."]],
-  "Islamic Science & Knowledge":["ইসলামি জ্ঞানচর্চার একটি প্রশ্ন প্রস্তুত। / An Islamic knowledge question is ready.","জ্ঞান, চিন্তা ও সৃষ্টিজগতের নিদর্শন সম্পর্কে মনোযোগী হওয়া — Seeking knowledge and reflecting on signs of creation.",["জ্ঞান পরিহার করা — Avoiding knowledge.","প্রশ্ন করা নিষিদ্ধ — Questions are forbidden.","প্রমাণের প্রয়োজন নেই — Evidence is unnecessary."]],
-  "Bangla Grammar":["বাংলা ব্যাকরণ মিশন: সঠিক ভাষাগত ধারণাটি নির্বাচন করো।","শব্দ, পদ, কারক, সমাস ও বাক্যরীতি নির্ভুলভাবে বিশ্লেষণ করতে হয়.",["ব্যাকরণে কোনো নিয়ম নেই.","সব শব্দ একই পদ.","বাক্যে ক্রিয়ার প্রয়োজন হয় না."]],
-  "Bangladesh GK & Jobs":["বাংলাদেশ চাকরি-প্রস্তুতি মিশন: সঠিক সাধারণ জ্ঞান নির্বাচন করো।","জাতীয় ইতিহাস, সংবিধান, ভূগোল ও প্রতিষ্ঠান সম্পর্কে নির্ভুল তথ্য গুরুত্বপূর্ণ.",["সব তথ্য অনুমানভিত্তিক.","শুধু রাজধানী জানলেই যথেষ্ট.","সংবিধানের কোনো গুরুত্ব নেই."]],
-  "Education & Pedagogy":["Teacher Mission: choose the most precise educational principle.","Effective teaching links objectives, learning activities and assessment.",["Only punishment matters.","Assessment is never useful.","Students should never receive feedback."]],
-  "English Grammar":["English grammar mission: choose the grammatically precise statement.","Grammar depends on sentence structure, tense, agreement and meaning.",["All verb forms are interchangeable.","Articles never affect meaning.","Subject-verb agreement is unnecessary."]],
-  "General Science":["General science mission: select the most accurate statement.","Scientific explanations depend on observable evidence and established relationships.",["Evidence is unnecessary.","All natural events have the same cause.","Measurements never matter."]],
-  "Current Affairs":["Current affairs mission: identify the verified contemporary fact.","Current-affairs questions should be tied to a dated, reported event.",["Current events never change.","Dates do not matter.","Every online claim is automatically verified."]]
- };
- const x=base[subject]||base.Chemistry;
- return {subject,q:x[0],a:x[1],wrong:x[2],difficulty:DIFFICULTY_LABEL[difficultyFor(level)]};
+// Real product illustrations are drawn as inline SVGs so the game remains fully offline.
+function productArt(name){
+  const n=(name||"").toLowerCase();
+  const esc=s=>String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+  const wrap=(body,extra="")=>`<svg class="product-art" viewBox="0 0 180 180" role="img" aria-label="${esc(name)}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ea8ff"/><stop offset="1" stop-color="#38d9ff"/></linearGradient><radialGradient id="gl"><stop stop-color="#fff"/><stop offset="1" stop-color="#6d7cff" stop-opacity="0"/></radialGradient></defs>${body}${extra}</svg>`;
+  const glow=`<circle cx="90" cy="88" r="62" fill="url(#gl)" opacity=".22"/>`;
+  if(n.includes("stone axe")) return wrap(glow+`<path d="M60 124 L113 54" stroke="#9b7652" stroke-width="12" stroke-linecap="round"/><path d="M101 42 Q129 45 133 67 L119 82 Q96 76 91 57Z" fill="#aeb9c8" stroke="#e7efff" stroke-width="3"/>`);
+  if(n==="fire") return wrap(glow+`<path d="M90 145 C52 139 52 107 78 88 C70 65 88 46 99 31 C100 55 123 66 121 91 C141 111 124 141 90 145Z" fill="#ffb347" stroke="#ffe7a0" stroke-width="3"/><path d="M91 128 C72 123 75 105 89 94 C88 82 96 74 101 68 C102 85 113 92 110 107 C119 119 108 129 91 128Z" fill="#fff1a8"/>`);
+  if(n.includes("clay brick")) return wrap(glow+`<g fill="#b96f55" stroke="#f2b49b" stroke-width="3"><rect x="36" y="62" width="50" height="30" rx="4"/><rect x="94" y="62" width="50" height="30" rx="4"/><rect x="48" y="96" width="50" height="30" rx="4"/><rect x="106" y="96" width="38" height="30" rx="4"/></g>`);
+  if(n.includes("copper tool")) return wrap(glow+`<path d="M48 124 L116 55" stroke="#b87333" stroke-width="13" stroke-linecap="round"/><path d="M108 48 L141 81" stroke="#e8a15f" stroke-width="15" stroke-linecap="round"/>`);
+  if(n==="bronze") return wrap(glow+`<path d="M48 55 L126 55 L143 78 L132 126 L53 126 L38 78Z" fill="#b97832" stroke="#ffd18a" stroke-width="4"/><path d="M52 70 H130" stroke="#ffe2a8" stroke-width="4" opacity=".55"/><text x="90" y="108" text-anchor="middle" fill="#fff2d2" font-size="16" font-weight="800">BRONZE</text>`);
+  if(n==="iron") return wrap(glow+`<path d="M50 58 L130 58 L143 76 L130 125 L50 125 L37 76Z" fill="#596779" stroke="#b8c8dd" stroke-width="4"/><path d="M50 76 H130" stroke="#d9e5f4" stroke-width="4" opacity=".35"/><text x="90" y="108" text-anchor="middle" fill="#edf5ff" font-size="18" font-weight="800">Fe</text>`);
+  if(n==="steel") return wrap(glow+`<circle cx="90" cy="90" r="50" fill="#7d8ea7" stroke="#d9e5f4" stroke-width="5"/><circle cx="90" cy="90" r="18" fill="#101827" stroke="#d9e5f4" stroke-width="5"/><path d="M90 40v18M90 122v18M40 90h18M122 90h18M55 55l13 13M112 112l13 13M125 55l-13 13M68 112l-13 13" stroke="#d9e5f4" stroke-width="8" stroke-linecap="round"/>`);
+  if(n==="glass") return wrap(glow+`<path d="M60 48 H120 L112 132 Q90 146 68 132Z" fill="#7ee8ff" fill-opacity=".25" stroke="#b9f5ff" stroke-width="4"/><path d="M73 62 L104 118" stroke="#fff" stroke-width="5" opacity=".55"/><path d="M66 126 Q90 137 114 126" fill="none" stroke="#65cfff" stroke-width="4"/>`);
+  if(n==="wheel") return wrap(glow+`<circle cx="90" cy="90" r="57" fill="#3c4657" stroke="#d6e1f0" stroke-width="5"/><circle cx="90" cy="90" r="19" fill="#101827" stroke="#b7c8df" stroke-width="5"/><path d="M90 33V71M90 109v38M33 90h38M109 90h38M50 50l27 27M103 103l27 27M130 50l-27 27M77 103l-27 27" stroke="#b7c8df" stroke-width="7"/>`);
+  if(n==="lever") return wrap(glow+`<path d="M35 128 L145 55" stroke="#b57b4c" stroke-width="14" stroke-linecap="round"/><path d="M86 93 L105 111 L124 93 L105 75Z" fill="#7f8ea7" stroke="#d8e4f3" stroke-width="3"/><circle cx="105" cy="93" r="7" fill="#d8e4f3"/>`);
+  if(n.includes("plough")) return wrap(glow+`<path d="M38 57 H118" stroke="#8d603d" stroke-width="10" stroke-linecap="round"/><path d="M70 57 L82 125 L118 125" fill="none" stroke="#a7b8cc" stroke-width="8"/><path d="M80 125 L62 143 M108 125 L127 143" stroke="#a7b8cc" stroke-width="8" stroke-linecap="round"/>`);
+  if(n.includes("concrete")) return wrap(glow+`<path d="M45 64 L125 64 L138 79 L128 126 L50 126 L40 80Z" fill="#9ca7b5" stroke="#dbe5f0" stroke-width="4"/><path d="M57 83l16 8m-2-18l17 12m-4 19l18 10m-4-35l14 8" stroke="#6d7786" stroke-width="5"/>`);
+  if(n==="paper") return wrap(glow+`<path d="M52 38 H113 L132 57 V143 H52Z" fill="#f4ead4" stroke="#fff" stroke-width="4"/><path d="M113 38 V58 H132M66 77 H118M66 94 H118M66 111 H104" stroke="#a9b4c4" stroke-width="4"/>`);
+  if(n==="ink") return wrap(glow+`<path d="M62 126 H118 Q128 126 128 136 H52 Q52 126 62 126Z" fill="#26334a" stroke="#aabbd4" stroke-width="3"/><path d="M73 58 Q90 47 107 58 L101 118 Q90 128 79 118Z" fill="#151d2b" stroke="#90a5c5" stroke-width="4"/><path d="M79 68 Q90 74 101 68" stroke="#7c9cff" stroke-width="4"/>`);
+  if(n.includes("compass")) return wrap(glow+`<circle cx="90" cy="90" r="55" fill="#172033" stroke="#c5d5e9" stroke-width="5"/><path d="M90 44 L104 90 L90 136 L76 90Z" fill="#6f83ff" stroke="#e8f0ff" stroke-width="3"/><path d="M90 44 L90 136" stroke="#fff" stroke-width="3"/><circle cx="90" cy="90" r="7" fill="#fff"/>`);
+  if(n.includes("clock")) return wrap(glow+`<circle cx="90" cy="90" r="56" fill="#202b3d" stroke="#e0ebf8" stroke-width="5"/><circle cx="90" cy="90" r="5" fill="#fff"/><path d="M90 90 L90 57 M90 90 L114 103" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M90 34V43M146 90H137M90 146V137M34 90H43" stroke="#9fb0c8" stroke-width="4"/>`);
+  if(n.includes("printing press")) return wrap(glow+`<path d="M53 52 H127 V78 H53Z M45 78 H135 V126 H45Z" fill="#48566c" stroke="#cbd8e7" stroke-width="4"/><path d="M62 91 H118 V112 H62Z" fill="#f3e7d0"/><path d="M78 40 V68" stroke="#d7e4f2" stroke-width="8"/>`);
+  if(n.includes("steam engine")) return wrap(glow+`<circle cx="77" cy="101" r="35" fill="#4e5d72" stroke="#d5e1ef" stroke-width="4"/><circle cx="77" cy="101" r="10" fill="#172033" stroke="#d5e1ef" stroke-width="4"/><rect x="105" y="66" width="30" height="70" rx="6" fill="#697b92" stroke="#d5e1ef" stroke-width="4"/><path d="M115 55 Q125 43 135 55" fill="none" stroke="#bfeaff" stroke-width="5"/>`);
+  if(n==="battery") return wrap(glow+`<rect x="55" y="47" width="70" height="91" rx="10" fill="#3e4c61" stroke="#dce7f4" stroke-width="4"/><rect x="77" y="37" width="26" height="12" rx="3" fill="#9eb1c8"/><path d="M78 77 H102 M90 65 V89" stroke="#ffcf70" stroke-width="7" stroke-linecap="round"/><path d="M78 111 H102 M90 99 V123" stroke="#72dcff" stroke-width="7" stroke-linecap="round"/>`);
+  if(n.includes("telegraph")) return wrap(glow+`<path d="M42 125 Q90 58 138 125" fill="none" stroke="#d7e3f0" stroke-width="5"/><circle cx="90" cy="88" r="20" fill="#b67a3f" stroke="#f0c58e" stroke-width="4"/><path d="M90 108 V137 M65 137 H115" stroke="#b7c8db" stroke-width="7" stroke-linecap="round"/>`);
+  if(n.includes("light bulb")) return wrap(glow+`<path d="M90 35 C56 35 50 78 72 99 V116 H108 V99 C130 78 124 35 90 35Z" fill="#fff2a8" stroke="#fff" stroke-width="4"/><path d="M73 116 H107 M78 128 H102" stroke="#aebdd0" stroke-width="7" stroke-linecap="round"/><path d="M79 86 H101 M90 72 V101" stroke="#f6b73c" stroke-width="4"/>`);
+  if(n==="motor") return wrap(glow+`<circle cx="90" cy="90" r="50" fill="#43536b" stroke="#d7e3ef" stroke-width="5"/><circle cx="90" cy="90" r="20" fill="#151e2d" stroke="#8be7ff" stroke-width="5"/><path d="M45 90 H20 M135 90 H160" stroke="#d7e3ef" stroke-width="8"/><path d="M90 70 V45 M90 135 V110" stroke="#7c9cff" stroke-width="7"/>`);
+  if(n==="generator") return wrap(glow+`<circle cx="90" cy="90" r="52" fill="#3c4b63" stroke="#dce7f4" stroke-width="5"/><circle cx="90" cy="90" r="18" fill="#111827" stroke="#6ee7b7" stroke-width="5"/><path d="M90 38 V63 M142 90 H117 M90 142 V117 M38 90 H63" stroke="#8be7ff" stroke-width="7"/>`);
+  if(n==="radio") return wrap(glow+`<rect x="43" y="67" width="94" height="68" rx="10" fill="#4a5a70" stroke="#dbe6f2" stroke-width="4"/><circle cx="72" cy="101" r="18" fill="#172033" stroke="#8be7ff" stroke-width="4"/><path d="M101 87 H124 M101 101 H124 M101 115 H116" stroke="#d9e6f3" stroke-width="5" stroke-linecap="round"/><path d="M110 67 Q125 43 139 25" fill="none" stroke="#b9c9dd" stroke-width="5"/>`);
+  if(n==="telephone") return wrap(glow+`<path d="M55 58 Q90 42 125 58 L115 82 Q90 74 65 82Z" fill="#55667d" stroke="#dce7f3" stroke-width="4"/><path d="M60 68 Q42 98 70 119 M120 68 Q138 98 110 119" fill="none" stroke="#dce7f3" stroke-width="10" stroke-linecap="round"/>`);
+  if(n.includes("transformer")) return wrap(glow+`<path d="M55 48 V132 M75 48 V132 M105 48 V132 M125 48 V132" stroke="#dbe6f4" stroke-width="7"/><path d="M55 48 Q65 38 75 48 Q85 58 95 48 Q105 38 115 48 Q125 58 135 48" fill="none" stroke="#e8a15f" stroke-width="8"/>`);
+  if(n.includes("electron tube")) return wrap(glow+`<path d="M62 43 Q90 30 118 43 V137 Q90 150 62 137Z" fill="#a5eaff" fill-opacity=".12" stroke="#bfeaff" stroke-width="4"/><path d="M74 112 V70 M106 112 V70" stroke="#e0f5ff" stroke-width="5"/><path d="M74 105 Q90 86 106 105" fill="none" stroke="#ffd36e" stroke-width="5"/>`);
+  if(n==="x-ray") return wrap(glow+`<path d="M55 55 H125 V125 H55Z" fill="#26354b" stroke="#d8e7f5" stroke-width="4"/><path d="M90 69 L90 111 M69 90 H111" stroke="#8be7ff" stroke-width="5"/><circle cx="90" cy="90" r="13" fill="none" stroke="#fff" stroke-width="4"/>`);
+  if(n==="photocell") return wrap(glow+`<rect x="45" y="58" width="90" height="65" rx="8" fill="#1c3151" stroke="#a8dcff" stroke-width="4"/><path d="M58 75 L122 75 M58 91 L122 91 M58 107 L122 107" stroke="#4d8ac7" stroke-width="5"/><path d="M90 30 L90 53 M73 36 L80 53 M107 36 L100 53" stroke="#fff1a8" stroke-width="5"/>`);
+  if(n.includes("computer")) return wrap(glow+`<rect x="42" y="48" width="96" height="70" rx="8" fill="#26354b" stroke="#dbe8f6" stroke-width="4"/><rect x="53" y="59" width="74" height="46" fill="#101b2c"/><path d="M62 72 H78 M62 86 H104 M62 96 H91" stroke="#6ee7b7" stroke-width="4"/><path d="M72 118 H108 M90 118 V136 M68 136 H112" stroke="#cbd8e7" stroke-width="6" stroke-linecap="round"/>`);
+  if(n.includes("transistor")) return wrap(glow+`<path d="M70 52 V128 M110 52 V128" stroke="#dbe7f4" stroke-width="7"/><path d="M70 78 H110 M70 101 H110" stroke="#6ee7ff" stroke-width="5"/><path d="M90 38 V58 M90 122 V142" stroke="#ffd36e" stroke-width="6"/>`);
+  if(n.includes("integrated circuit")) return wrap(glow+`<rect x="50" y="50" width="80" height="80" rx="8" fill="#1a2333" stroke="#dbe7f4" stroke-width="4"/><g stroke="#6ee7ff" stroke-width="4"><path d="M60 40v10M75 40v10M90 40v10M105 40v10M120 40v10M60 130v10M75 130v10M90 130v10M105 130v10M120 130v10M40 60h10M40 75h10M40 90h10M40 105h10M40 120h10M130 60h10M130 75h10M130 90h10M130 105h10M130 120h10"/></g><circle cx="78" cy="78" r="6" fill="#ffd36e"/><circle cx="104" cy="104" r="6" fill="#6ee7b7"/>`);
+  if(n==="laser") return wrap(glow+`<path d="M48 72 H119 L136 90 L119 108 H48Z" fill="#3f5273" stroke="#dce8f5" stroke-width="4"/><path d="M64 90 H160" stroke="#ff6f91" stroke-width="8"/><path d="M67 77 H106" stroke="#9beaff" stroke-width="5"/>`);
+  if(n.includes("satellite")) return wrap(glow+`<rect x="68" y="58" width="44" height="64" rx="6" fill="#9aa9bd" stroke="#eef5ff" stroke-width="4"/><path d="M68 70 L36 53 M112 70 L144 53 M68 109 L36 126 M112 109 L144 126" stroke="#8be7ff" stroke-width="4"/><path d="M42 47 H20 V67 H42 M138 47 H160 V67 H138" fill="#385b83" stroke="#bfeaff" stroke-width="4"/>`);
+  if(n==="rocket") return wrap(glow+`<path d="M90 32 C115 51 124 83 113 119 L90 145 L67 119 C56 83 65 51 90 32Z" fill="#d7e4f2" stroke="#fff" stroke-width="4"/><circle cx="90" cy="76" r="13" fill="#263a59" stroke="#6ee7ff" stroke-width="4"/><path d="M67 105 L47 121 L59 131 M113 105 L133 121 L121 131" fill="#6f83ff" stroke="#b9c8da" stroke-width="3"/><path d="M78 139 L90 161 L102 139" fill="#ff9b55" stroke="#ffe0a5" stroke-width="3"/>`);
+  if(n.includes("solar cell")) return wrap(glow+`<rect x="40" y="55" width="100" height="70" rx="5" fill="#203c67" stroke="#bfeaff" stroke-width="4"/><g stroke="#67baff" stroke-width="2"><path d="M65 55v70M90 55v70M115 55v70M40 78h100M40 101h100"/></g><path d="M90 30v20M77 35l6 15M103 35l-6 15" stroke="#fff1a8" stroke-width="5"/>`);
+  if(n.includes("nuclear") || n.includes("fusion reactor")) return wrap(glow+`<path d="M52 63 Q90 40 128 63 V119 Q90 142 52 119Z" fill="#5c6f89" stroke="#dbe7f4" stroke-width="4"/><circle cx="90" cy="91" r="24" fill="#ffb65d" stroke="#fff0b5" stroke-width="4"/><path d="M90 67 C70 83 70 99 90 115 C110 99 110 83 90 67Z" fill="none" stroke="#fff" stroke-width="3"/>`);
+  if(n.includes("particle accelerator")) return wrap(glow+`<ellipse cx="90" cy="90" rx="62" ry="34" fill="none" stroke="#8be7ff" stroke-width="10"/><ellipse cx="90" cy="90" rx="35" ry="18" fill="none" stroke="#7c9cff" stroke-width="7"/><circle cx="90" cy="90" r="7" fill="#fff"/>`);
+  if(n.includes("space telescope")) return wrap(glow+`<path d="M55 65 H125 V116 H55Z" fill="#6d7c91" stroke="#e3edf7" stroke-width="4"/><circle cx="90" cy="90" r="21" fill="#172033" stroke="#8be7ff" stroke-width="5"/><path d="M55 75 L34 61 M125 75 L146 61" stroke="#c9d8e8" stroke-width="7"/><path d="M90 116 V145 M72 145 H108" stroke="#c9d8e8" stroke-width="6"/>`);
+  if(n==="gps") return wrap(glow+`<rect x="64" y="54" width="52" height="72" rx="8" fill="#8f9db0" stroke="#edf4fc" stroke-width="4"/><path d="M90 32 V54 M90 126 V148 M58 90 H42 M122 90 H138" stroke="#8be7ff" stroke-width="5"/><circle cx="90" cy="90" r="14" fill="#172033" stroke="#6ee7b7" stroke-width="4"/>`);
+  if(n.includes("space station")) return wrap(glow+`<path d="M35 84 H145 M50 61 L130 119 M50 119 L130 61" stroke="#cbd8e7" stroke-width="10"/><circle cx="90" cy="90" r="18" fill="#263a59" stroke="#8be7ff" stroke-width="4"/><rect x="35" y="77" width="30" height="26" fill="#5279a5" stroke="#dce8f5" stroke-width="3"/><rect x="115" y="77" width="30" height="26" fill="#5279a5" stroke="#dce8f5" stroke-width="3"/>`);
+  if(n.includes("ion engine")) return wrap(glow+`<path d="M55 58 H112 L132 90 L112 122 H55 L73 90Z" fill="#465a76" stroke="#dce8f5" stroke-width="4"/><path d="M78 72 L106 90 L78 108Z" fill="#8be7ff"/><path d="M48 90 H28" stroke="#bfeaff" stroke-width="7"/>`);
+  if(n.includes("quantum computer")) return wrap(glow+`<rect x="45" y="48" width="90" height="84" rx="12" fill="#1c2940" stroke="#dce8f5" stroke-width="4"/><circle cx="73" cy="78" r="9" fill="#8be7ff"/><circle cx="107" cy="78" r="9" fill="#ffcf70"/><circle cx="73" cy="106" r="9" fill="#6ee7b7"/><circle cx="107" cy="106" r="9" fill="#c18cff"/><path d="M73 78 L107 78 M73 106 L107 106 M73 78 L73 106 M107 78 L107 106" stroke="#6f83ff" stroke-width="4"/>`);
+  if(n.includes("quantum sensor")) return wrap(glow+`<circle cx="90" cy="90" r="45" fill="#20344d" stroke="#8be7ff" stroke-width="5"/><circle cx="90" cy="90" r="14" fill="#fff"/><path d="M90 28v30M90 122v30M28 90h30M122 90h30" stroke="#6ee7b7" stroke-width="5"/>`);
+  if(n.includes("nanobot")) return wrap(glow+`<circle cx="90" cy="90" r="35" fill="#7c8da4" stroke="#e7eff9" stroke-width="4"/><circle cx="80" cy="82" r="6" fill="#6ee7ff"/><circle cx="101" cy="100" r="6" fill="#ffcf70"/><path d="M90 55V38M90 142v-17M55 90H38M142 90h-17M66 66L54 54M126 126l-12-12M114 66l12-12M66 114l-12 12" stroke="#8be7ff" stroke-width="5" stroke-linecap="round"/>`);
+  if(n.includes("graphene")) return wrap(glow+`<path d="M40 70 L65 50 L95 62 L125 48 L145 76 L121 100 L140 125 L106 135 L82 116 L52 132 L37 103 L58 86Z" fill="#27364c" stroke="#8be7ff" stroke-width="4"/><g stroke="#6f83ff" stroke-width="3" fill="none"><path d="M40 70l18 16 7-36M58 86l24 30 13-54M82 116l24 19 15-35M95 62l26 38 24-24M125 48l-4 52"/></g>`);
+  if(n.includes("artificial intelligence")) return wrap(glow+`<circle cx="90" cy="90" r="50" fill="#293b59" stroke="#dbe8f6" stroke-width="4"/><path d="M63 79 Q90 55 117 79 V111 Q90 128 63 111Z" fill="#111b2d" stroke="#8be7ff" stroke-width="4"/><circle cx="77" cy="91" r="6" fill="#6ee7b7"/><circle cx="103" cy="91" r="6" fill="#6ee7b7"/><path d="M77 106 Q90 114 103 106" fill="none" stroke="#ffcf70" stroke-width="4"/>`);
+  if(n.includes("fusion drive")) return wrap(glow+`<path d="M55 62 H112 L145 90 L112 118 H55 L75 90Z" fill="#465d7d" stroke="#dce9f7" stroke-width="4"/><path d="M65 76 Q90 90 65 104 M82 70 Q110 90 82 110" fill="none" stroke="#ff9b55" stroke-width="6"/><path d="M40 90 H20" stroke="#8be7ff" stroke-width="7"/>`);
+  if(n.includes("antimatter trap")) return wrap(glow+`<ellipse cx="90" cy="90" rx="55" ry="34" fill="none" stroke="#c18cff" stroke-width="9"/><circle cx="90" cy="90" r="12" fill="#ffcf70"/><path d="M45 90 H25 M155 90 H135" stroke="#8be7ff" stroke-width="5"/>`);
+  if(n.includes("warp metric")||n.includes("spacetime")) return wrap(glow+`<path d="M30 90 Q55 42 90 90 T150 90" fill="none" stroke="#8be7ff" stroke-width="6"/><path d="M30 90 Q55 138 90 90 T150 90" fill="none" stroke="#7c9cff" stroke-width="6"/><circle cx="90" cy="90" r="14" fill="#fff"/>`);
+  if(n.includes("wormhole")||n.includes("portal")) return wrap(glow+`<ellipse cx="90" cy="90" rx="42" ry="58" fill="#0b1020" stroke="#c18cff" stroke-width="8"/><ellipse cx="90" cy="90" rx="23" ry="39" fill="none" stroke="#8be7ff" stroke-width="5"/><path d="M50 60 Q90 90 130 60 M50 120 Q90 90 130 120" fill="none" stroke="#6f83ff" stroke-width="4"/>`);
+  if(n.includes("time machine")||n.includes("time traveler")||n.includes("timeline")||n.includes("chronon")||n.includes("past probe")||n.includes("future probe")) return wrap(glow+`<circle cx="90" cy="90" r="55" fill="#26344b" stroke="#dce8f5" stroke-width="5"/><circle cx="90" cy="90" r="39" fill="#111a29" stroke="#8be7ff" stroke-width="3"/><path d="M90 90 L90 61 M90 90 L113 103" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M55 42 Q90 20 125 42 M55 138 Q90 160 125 138" fill="none" stroke="#c18cff" stroke-width="5"/>`);
+  if(n.includes("causal")||n.includes("reality anchor")||n.includes("reality stabilizer")) return wrap(glow+`<path d="M90 34 L110 69 L145 90 L110 111 L90 146 L70 111 L35 90 L70 69Z" fill="#334d72" stroke="#dce9f7" stroke-width="5"/><circle cx="90" cy="90" r="14" fill="#fff"/>`);
+  if(n.includes("multiverse")||n.includes("universe")||n.includes("omniverse")||n.includes("dimension")||n.includes("branch")||n.includes("parallel")||n.includes("cosmic")) return wrap(glow+`<g fill="none" stroke-width="5"><ellipse cx="90" cy="90" rx="58" ry="29" stroke="#8be7ff"/><ellipse cx="90" cy="90" rx="29" ry="58" stroke="#c18cff"/><circle cx="90" cy="90" r="11" fill="#fff" stroke="#fff"/><path d="M42 55 Q90 90 138 55 M42 125 Q90 90 138 125" stroke="#6f83ff"/></g>`);
+  if(n.includes("black hole")||n.includes("hawking")) return wrap(glow+`<circle cx="90" cy="90" r="40" fill="#050811" stroke="#ffb35c" stroke-width="9"/><circle cx="90" cy="90" r="16" fill="#000"/><path d="M43 90 Q90 48 137 90 Q90 132 43 90Z" fill="none" stroke="#ffcf70" stroke-width="4"/>`);
+  if(n.includes("dark matter")||n.includes("dark energy")||n.includes("gravity")) return wrap(glow+`<circle cx="90" cy="90" r="48" fill="#141c2b" stroke="#7c9cff" stroke-width="5"/><path d="M90 35 C120 58 120 122 90 145 C60 122 60 58 90 35Z" fill="none" stroke="#8be7ff" stroke-width="5"/><circle cx="90" cy="90" r="8" fill="#fff"/>`);
+  if(n.includes("graviton")||n.includes("planck")) return wrap(glow+`<circle cx="90" cy="90" r="38" fill="#33445f" stroke="#e2ecf8" stroke-width="4"/><path d="M90 30v25M90 125v25M30 90h25M125 90h25" stroke="#c18cff" stroke-width="6"/><circle cx="90" cy="90" r="10" fill="#fff"/>`);
+  if(n.includes("simulation")||n.includes("compiler")||n.includes("spacetime computer")) return wrap(glow+`<rect x="45" y="45" width="90" height="90" rx="14" fill="#1c2940" stroke="#dce8f5" stroke-width="4"/><path d="M65 70 H115 M65 90 H105 M65 110 H120" stroke="#6ee7b7" stroke-width="5" stroke-linecap="round"/><path d="M45 90 H28 M135 90 H152" stroke="#8be7ff" stroke-width="5"/>`);
+  if(n.includes("machine")) return wrap(glow+`<path d="M48 120 V68 L90 43 L132 68 V120Z" fill="#435570" stroke="#e2edf8" stroke-width="5"/><circle cx="90" cy="91" r="23" fill="#101827" stroke="#8be7ff" stroke-width="5"/><path d="M90 58v15M90 109v15M57 91h15M108 91h15" stroke="#ffcf70" stroke-width="5"/>`);
+  return wrap(glow+`<circle cx="90" cy="90" r="48" fill="#344a6d" stroke="#dce8f5" stroke-width="5"/><path d="M90 52v76M52 90h76" stroke="#8be7ff" stroke-width="5"/><circle cx="90" cy="90" r="12" fill="#fff"/>`);
 }
-function questionFor(level){
- const subject=subjectFor(level);
- const phase=phaseFor(level);
- const diff=difficultyFor(level);
- let pool=ALL_FACTS.filter(x=>x[3]===subject);
- if(!pool.length)return fallbackFor(subject,level);
- // Later stages deliberately prefer deeper concepts when such questions exist.
- const preferred=pool.filter((x,i)=>{
-   const score=(i*7+hash(level*19))%10;
-   return diff>=5 ? score>=3 : score<9;
- });
- pool=preferred.length?preferred:pool;
- const q=pool[hash(level*31)%pool.length];
- let opts=[q[1],...q[2]];
- // Harder stages use deterministic option shuffling and a mission wrapper.
- const mission=diff<=2
-  ? q[0]
-  : `${phase[2]} • ${q[0]}`;
- return {subject,q:mission,a:q[1],wrong:q[2],difficulty:DIFFICULTY_LABEL[diff],phase:phase[2],discovery:discoveryFor(level)};
-}
 
-const DEFAULT={level:1,xp:0,retryCount:0,completed:[],rewarded:[],maxUnlocked:1,materials:["Stone • Earth & Materials","Fire • Physics & Chemistry"]};
-let state=JSON.parse(localStorage.getItem("elementGameSave")||"null")||DEFAULT;
-state={...DEFAULT,...state};
-if(!Array.isArray(state.completed))state.completed=[];
-if(!Array.isArray(state.rewarded))state.rewarded=[];
-if(!Array.isArray(state.materials))state.materials=["Stone • Earth & Materials","Fire • Physics & Chemistry"];
-if(typeof state.retryCount!=="number")state.retryCount=0;
-if(state.level<1||state.level>TOTAL_LEVELS)state.level=1;
-let pending=false;
-
-function save(){
- localStorage.setItem("elementGameSave",JSON.stringify(state));
- const e=document.getElementById("saveStatus");if(e)e.textContent="Saved locally";
+function parseIngredients(text){
+  return text.split(" + ").map(x=>x.trim()).filter(Boolean);
 }
-function esc(s){return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;")}
+function hideFabricator(){
+  const panel=document.getElementById("fabricatorSuccess");
+  if(panel){panel.classList.remove("show");panel.setAttribute("aria-hidden","true");}
+}
+function showSuccessFabricator(recipe){
+  const panel=document.getElementById("fabricatorSuccess");
+  const visual=document.getElementById("fabricatorVisual");
+  const stateEl=document.getElementById("fabState");
+  const caption=document.getElementById("fabCaption");
+  if(!panel||!visual)return;
+  stateEl.textContent="SYNTHESIS COMPLETE";
+  stateEl.style.color="#6ee7b7";
+  const particles=Array.from({length:22},(_,i)=>`<i class="particle" style="--x:${((i*37)%180)-90}px;--y:${((i*61)%160)-80}px;left:${8+(i*13)%84}%;top:${10+(i*17)%78}%"></i>`).join("");
+  visual.className="fab-visual fab-success";
+  visual.innerHTML=`<div class="forge-particles">${particles}</div>
+    <div class="product-core"><div><div class="icon product-picture">${productArt(recipe[2])}</div>
+    <strong>${recipe[2]}</strong><small>DISCOVERY UNLOCKED</small></div></div>`;
+  caption.textContent=`${recipe[1]} → ${recipe[2]}`;
+  panel.classList.add("show");
+  panel.setAttribute("aria-hidden","false");
+}
 function render(){
- const l=state.level,q=questionFor(l);
- document.getElementById("level").textContent=`${l} / ${TOTAL_LEVELS}`;
- document.getElementById("era").textContent=q.subject;
+ document.getElementById("level").textContent=`${state.level} / 100`;
+ document.getElementById("era").textContent=eraFor(state.level)[0];
  document.getElementById("xp").textContent=state.xp;
- document.getElementById("retryCount").textContent=`${state.retryCount} / 3`;
- document.getElementById("discovery").textContent=`${state.completed.length} / ${TOTAL_LEVELS}`;
- document.getElementById("bar").style.width=`${Math.min(100,l/TOTAL_LEVELS*100)}%`;
- document.getElementById("missionTag").textContent=`LEVEL ${l} • ${q.subject.toUpperCase()}`;
- const d=q.discovery||discoveryFor(l); document.getElementById("missionTag").textContent=`LEVEL ${l} • ${q.subject.toUpperCase()} • ${d[3]} ${d[1]}`;
- const ph=phaseFor(l); document.getElementById("phase").textContent=ph[2]; document.getElementById("difficulty").textContent=q.difficulty||ph[3];
- document.getElementById("goal").textContent=q.q;
- document.getElementById("hint").textContent=`${q.difficulty} • ${q.phase||phaseFor(l)[2]} • Mission → Reason → Fabricate → Discover`;
- const opts=shuffle([{t:q.a,c:true},...q.wrong.map(t=>({t,c:false}))],l*73);
- document.getElementById("options").innerHTML=opts.map((x,i)=>`<button class="option" data-c="${x.c}"><span class="num">OPTION ${String.fromCharCode(65+i)}</span><strong>${esc(x.t)}</strong><small>Think carefully before selecting.</small></button>`).join("");
- document.querySelectorAll(".option").forEach(b=>b.onclick=()=>choose(b.dataset.c==="true"));
- document.getElementById("materials").innerHTML=state.materials.slice(-30).map(x=>`<span class="chip">${esc(x)}</span>`).join("");
- let html="";
- for(let n=5;n<=TOTAL_LEVELS;n+=5){
-   const s=scientistFor(n),done=state.rewarded.includes(n);
-   html+=`<div class="scientist ${done?"done":"locked"}"><div><b>${esc(s[0])}</b><br><span>Level ${n} • ${esc(s[1])}</span></div><span>${done?"✓":"🔒"}</span></div>`;
- }
- document.getElementById("scientists").innerHTML=html;
- document.getElementById("nextLevel").classList.add("hidden-next");
- const fab=document.getElementById("fabricatorSuccess");if(fab)fab.classList.remove("show");
+ const retryEl=document.getElementById("retryCount");
+ if(retryEl) retryEl.textContent=`${state.retryCount} / 3`;
+ document.getElementById("discovery").textContent=`${state.materials.length} / 100+`;
+ document.getElementById("bar").style.width=(state.level)+"%";
+ const r=currentRecipe();
+ hideFabricator();
+ const nextBtn=document.getElementById("nextLevel");
+ if(nextBtn){nextBtn.classList.add("hidden-next");nextBtn.classList.remove("next-level-show");}
+ document.getElementById("goal").textContent=`Create: ${r[0]}`;
+ document.getElementById("hint").textContent=`Field: ${r[3]} • Choose the scientifically valid recipe.`;
+ let correct=`${r[1]} → ${r[2]}`;
+ let opts=[correct];
+ for(let i=0;i<4;i++) opts.push(decoys[(state.level*3+i)%decoys.length]);
+ // deterministic shuffle
+ for(let i=opts.length-1;i>0;i--){let j=(state.level*7+i*11)% (i+1);[opts[i],opts[j]]=[opts[j],opts[i]]}
+ document.getElementById("options").innerHTML=opts.map((x,i)=>`<button class="option" data-v="${x.replaceAll('"','&quot;')}"><span class="num">OPTION ${i+1}</span><strong>${x.split(" → ")[0]}</strong></button>`).join("");
+ document.querySelectorAll(".option").forEach(b=>b.onclick=()=>choose(b.dataset.v));
+ document.getElementById("materials").innerHTML=state.materials.slice(-30).map(x=>`<span class="chip">${x}</span>`).join("");
+ document.getElementById("scientists").innerHTML=scientists.map(s=>`<div class="scientist ${state.rewarded.includes(s[0])?"done":"locked"}"><div><b>${s[1]}</b><br><span>Level ${s[0]}</span></div><span>${state.rewarded.includes(s[0])?"✓":"🔒"}</span></div>`).join("");
 }
-function productArt(answer,subject){
- const a=String(answer).toLowerCase();
- let kind="star";
- if(/dna|rna|codon|transcription|translation|mutation|gene|নিউক্লি/.test(a))kind="dna";
- else if(/cell|কোষ|mitochond|chloroplast|ক্লোরোপ্লাস্ট|রাইবোসোম|membrane|কোষপ্রাচীর/.test(a))kind="cell";
- else if(/plant|উদ্ভিদ|জাইলেম|ফ্লোয়েম|ক্লোরোফিল|অক্সিন|স্টোমাটা|পাতা|মূল/.test(a))kind="plant";
- else if(/fish|মাছ|ফুলকা|ব্যাঙ|কেঁচো|অক্টোপাস|তারামাছ|পোকা|arachnid|mollusc|annelid/.test(a))kind="animal";
- else if(/bacteria|ব্যাকটের|virus|ভাইরাস|biofilm|micro/.test(a))kind="microbe";
- else if(/lake|water|পানি|লিমন|secchi|eutroph|oxygen/.test(a))kind="lake";
- else if(/pcr|crispr|elisa|stem|insulin|ferment|recombinant/.test(a))kind="lab";
- else if(/hcl|nacl|mol|acid|base|catalyst|electron|oxid|reduction|বন্ধন|রাসায়নিক|অ্যাসিড|ক্ষার|benzene|pv =/.test(a))kind="chem";
- const label=answer.length>32?answer.slice(0,32)+"…":answer;
- const defs=`<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#6d5dfc"/><stop offset="1" stop-color="#32d6ff"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
- let body="";
- if(kind==="dna")body=`<path d="M58 18 C100 40 100 80 58 102 C16 124 16 164 58 186" fill="none" stroke="url(#g)" stroke-width="8"/><path d="M142 18 C100 40 100 80 142 102 C184 124 184 164 142 186" fill="none" stroke="url(#g)" stroke-width="8"/><g stroke="#dbe7ff" stroke-width="4">${[35,58,81,104,127,150,173].map(y=>`<line x1="58" y1="${y}" x2="142" y2="${y}"/>`).join("")}</g>`;
- else if(kind==="cell")body=`<ellipse cx="100" cy="100" rx="78" ry="62" fill="#172640" stroke="url(#g)" stroke-width="6"/><ellipse cx="100" cy="100" rx="22" ry="18" fill="#6d5dfc" filter="url(#glow)"/><g fill="none" stroke="#32d6ff" stroke-width="5"><ellipse cx="55" cy="75" rx="13" ry="8"/><ellipse cx="145" cy="75" rx="13" ry="8"/><ellipse cx="62" cy="133" rx="13" ry="8"/><ellipse cx="140" cy="133" rx="13" ry="8"/></g>`;
- else if(kind==="plant")body=`<path d="M100 180V72" stroke="url(#g)" stroke-width="8"/><path d="M100 110 C55 100 32 65 35 42 C72 45 100 67 100 110Z" fill="#243f55" stroke="#6ee7b7" stroke-width="5"/><path d="M100 130 C145 120 168 85 165 62 C128 65 100 87 100 130Z" fill="#243f55" stroke="#32d6ff" stroke-width="5"/><circle cx="100" cy="55" r="13" fill="#ffd36e" filter="url(#glow)"/>`;
- else if(kind==="animal")body=`<ellipse cx="100" cy="105" rx="70" ry="38" fill="#1b3146" stroke="url(#g)" stroke-width="6"/><path d="M38 105 L14 78 L18 128Z M162 105 L188 78 L182 128Z" fill="#223b55" stroke="#32d6ff" stroke-width="5"/><circle cx="145" cy="94" r="6" fill="#fff"/><path d="M45 145 Q100 180 155 145" fill="none" stroke="#6ee7b7" stroke-width="5"/>`;
- else if(kind==="microbe")body=`<circle cx="100" cy="100" r="62" fill="#183044" stroke="#6ee7b7" stroke-width="6"/><g fill="#32d6ff">${[[70,70],[120,65],[135,110],[82,125],[108,145]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="7"/>`).join("")}</g><path d="M42 146 C20 170 26 190 10 194 M158 54 C180 30 174 10 192 6" fill="none" stroke="#dbe7ff" stroke-width="4"/>`;
- else if(kind==="lake")body=`<path d="M20 128 Q55 105 90 128 T160 128 T210 128 V185 H20Z" fill="#173c56" stroke="#32d6ff" stroke-width="5"/><circle cx="100" cy="72" r="28" fill="#ffd36e" filter="url(#glow)"/><path d="M40 145 H160 M55 160 H175" stroke="#6d5dfc" stroke-width="4"/>`;
- else if(kind==="lab")body=`<path d="M82 28 H118 M88 28 V82 L45 160 Q42 174 58 178 H142 Q158 174 155 160 L112 82 V28" fill="#14253a" stroke="url(#g)" stroke-width="6"/><path d="M60 145 H140" stroke="#6ee7b7" stroke-width="8"/><circle cx="92" cy="132" r="7" fill="#32d6ff"/><circle cx="112" cy="120" r="6" fill="#ffd36e"/>`;
- else if(kind==="chem")body=`<circle cx="100" cy="100" r="28" fill="#6d5dfc" filter="url(#glow)"/><circle cx="100" cy="100" r="62" fill="none" stroke="#32d6ff" stroke-width="4"/><circle cx="100" cy="38" r="9" fill="#dbe7ff"/><circle cx="46" cy="132" r="9" fill="#dbe7ff"/><circle cx="154" cy="132" r="9" fill="#dbe7ff"/>`;
- else body=`<path d="M100 18 L118 72 L176 78 L132 112 L146 170 L100 138 L54 170 L68 112 L24 78 L82 72Z" fill="#6d5dfc" stroke="#32d6ff" stroke-width="5" filter="url(#glow)"/>`;
- return `<div class="artifact-wrap"><svg class="artifact-svg" viewBox="0 0 200 200" role="img" aria-label="${esc(answer)}">${defs}${body}</svg><div class="artifact-label">${esc(subject)} • ${esc(label)}</div></div>`;
+let pendingLevelUp=false;
+
+function choose(v){
+ const r=currentRecipe(), correct=`${r[1]} → ${r[2]}`;
+ const nextBtn=document.getElementById("nextLevel");
+ if(pendingLevelUp) return;
+
+ if(v!==correct){
+  state.retryCount=(state.retryCount||0)+1;
+  save();
+  document.getElementById("message").className="message bad";
+
+  if(state.retryCount>=3){
+   const oldLevel=state.level;
+   const newLevel=Math.max(1,oldLevel-5);
+   state.level=newLevel;
+   state.retryCount=0;
+   save();
+   document.querySelectorAll(".option").forEach(b=>b.disabled=true);
+   document.getElementById("message").textContent=oldLevel>1
+    ? `⚠ 3 mistakes! Penalty applied — Level ${oldLevel} → Level ${newLevel}. Rebuild the lost levels.`
+    : `⚠ 3 mistakes! You are already at Level 1. No lower level is available.`;
+   if(nextBtn) nextBtn.classList.add("hidden-next");
+   setTimeout(()=>render(),1100);
+  }else{
+   document.getElementById("message").textContent=`✕ Try Again — ${state.retryCount}/3 mistakes`;
+   hideFabricator();
+   if(nextBtn) nextBtn.classList.add("hidden-next");
+  }
+  return;
+ }
+
+ pendingLevelUp=true;
+ state.materials.push(r[2]);
+ state.xp+=100;
+ state.retryCount=0;
+ save();
+
+ document.getElementById("message").className="message good";
+ document.getElementById("message").textContent=`✓ Correct! ${r[2]} discovered.`;
+ document.querySelectorAll(".option").forEach(b=>b.disabled=true);
+ showSuccessFabricator(r);
+
+ if(nextBtn){
+  nextBtn.classList.add("hidden-next");
+  nextBtn.classList.remove("next-level-show");
+  setTimeout(()=>{
+   nextBtn.classList.remove("hidden-next");
+   nextBtn.classList.add("next-level-show");
+  },1300);
+ }
 }
 
-function choose(correct){
- if(pending)return;
- const msg=document.getElementById("message");
- if(!correct){
-   state.retryCount++;save();msg.className="message bad";
-   if(state.retryCount>=3){
-     const old=state.level,n=Math.max(1,old-3);state.level=n;state.retryCount=0;save();
-     document.querySelectorAll(".option").forEach(b=>b.disabled=true);
-     msg.textContent=old>1?`⚠ 3 mistakes — Level ${old} → ${n}. Review the harder concepts and try again.`:"⚠ 3 mistakes — Level 1 has no lower level.";
-     setTimeout(render,1100);
-   }else msg.textContent=`✕ Incorrect. ${state.retryCount}/3 mistakes — compare the terms again.`;
-   return;
+function advanceLevel(){
+ if(!pendingLevelUp) return;
+ const completedLevel=state.level;
+ if(completedLevel>=100){
+  state.level=100;
+  state.xp+=10000;
+  pendingLevelUp=false;
+  save();
+  document.getElementById("nextLevel")?.classList.add("hidden-next");
+  showReward(100);
+  return;
  }
- pending=true;
- const l=state.level,q=questionFor(l);
- if(!state.completed.includes(l))state.completed.push(l);
- state.xp+=100;state.retryCount=0;state.maxUnlocked=Math.max(state.maxUnlocked,Math.min(TOTAL_LEVELS,l+1));
- const d=q.discovery||discoveryFor(l); state.materials.push(`${d[1]} • ${d[4]} • Level ${l}`); save();
- msg.className="message good";msg.textContent=`✓ Correct! Level ${l} completed.`;
- document.querySelectorAll(".option").forEach(b=>b.disabled=true);
- const fab=document.getElementById("fabricatorSuccess");
- if(fab){
-   fab.classList.add("show");
-   document.getElementById("fabState").textContent="ENERGY DETECTED";
-   document.getElementById("energyState").textContent="ENERGY DETECTED • ANALYZING";
-   const d=q.discovery||discoveryFor(l); document.getElementById("fabCaption").textContent=`${d[3]} ${d[1]} • ${d[2]} • ${q.subject} • ${q.difficulty}`;
-   document.getElementById("fabricatorVisual").innerHTML=productArt(`${d[1]} — ${q.a}`,q.subject);
-   setTimeout(()=>{const e=document.getElementById("fabState"),s=document.getElementById("energyState"); if(e)e.textContent="FABRICATING ARTIFACT"; if(s)s.textContent="MATERIALS ASSEMBLING • STABILIZING"},300);
-   setTimeout(()=>{const e=document.getElementById("fabState"),s=document.getElementById("energyState"); if(e)e.textContent=l%5===0?"SCIENTIST MILESTONE READY":"ARTIFACT FABRICATED"; if(s)s.textContent="ARTIFACT STABLE • DISCOVERY COMPLETE"},1000);
- }
- const next=document.getElementById("nextLevel");
- next.textContent=l>=TOTAL_LEVELS?"CLAIM FINAL AWARD ★":"NEXT LEVEL →";
- setTimeout(()=>{next.classList.remove("hidden-next");next.classList.add("next-level-show")},450);
-}
-function advance(){
- if(!pending)return;
- const l=state.level;
- if(l%5===0){showReward(l);return}
- if(l>=TOTAL_LEVELS){showReward(TOTAL_LEVELS);return}
- state.level=l+1;pending=false;save();render();
-}
-function showReward(level){
- const s=scientistFor(level);
- if(!state.rewarded.includes(level))state.rewarded.push(level);
+ state.level=completedLevel+1;
+ state.retryCount=0;
+ pendingLevelUp=false;
  save();
- document.getElementById("awardLevel").textContent=`LEVEL ${level} • SCIENTIST AWARD`;
- document.getElementById("scientistName").textContent=s[0];
- document.getElementById("scientistField").textContent=s[1];
- document.getElementById("quoteEn").textContent=`“${s[2]}”`;
- document.getElementById("quoteBn").textContent=`“${s[3]}”`;
+ render();
+ const milestone=state.level-1;
+ if(milestone%5===0) setTimeout(()=>showReward(milestone),250);
+}
+
+function showReward(lvl){
+ const s=scientists.find(x=>x[0]===lvl);if(!s||state.rewarded.includes(lvl))return;
+ state.rewarded.push(lvl);save();
+ document.getElementById("scientistName").textContent=s[1];
+ document.getElementById("scientistQuote").textContent=s[2];
  document.getElementById("modal").classList.remove("hidden");
 }
-function continueReward(){
- document.getElementById("modal").classList.add("hidden");
- const l=state.level;
- if(l>=TOTAL_LEVELS){pending=false;save();render();return}
- state.level=l+1;pending=false;save();render();
-}
-document.getElementById("nextLevel").onclick=advance;
-document.getElementById("continue").onclick=continueReward;
-document.getElementById("reset").onclick=()=>{if(confirm("Reset all local progress and return to Level 1?")){localStorage.removeItem("elementGameSave");location.reload()}};
-
-/* Legacy-save repair: if the old game saved Level 100 as completed, unlock Tesla immediately. */
-if(state.level===100&&state.completed.includes(100)&&!state.rewarded.includes(100)){
- pending=true;setTimeout(()=>showReward(100),250);
-}
+document.getElementById("continue").onclick=()=>document.getElementById("modal").classList.add("hidden");
+document.getElementById("nextLevel").onclick=advanceLevel;
+document.getElementById("reset").onclick=()=>{if(confirm("Reset all local progress?")){localStorage.removeItem("elementGameSave");location.reload()}};
 render();save();

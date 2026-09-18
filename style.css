@@ -40,5 +40,10 @@ ol{color:#8391a9;line-height:1.8;padding-left:20px;font-size:13px}.danger{backgr
 @keyframes forgeSuccess{0%{transform:scale(.7);box-shadow:0 0 0 #6e7cff}55%{transform:scale(1.08);box-shadow:0 0 55px #6e7cff99}100%{transform:scale(1)}}
 @keyframes successPanelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes nextLevelIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+.artifact-wrap{width:min(100%,360px);display:flex;flex-direction:column;align-items:center;gap:8px;animation:artifactReveal .7s cubic-bezier(.2,.8,.2,1) both}.artifact-svg{width:150px;height:150px;overflow:visible;filter:drop-shadow(0 0 18px rgba(76,112,255,.22))}.artifact-label{max-width:100%;padding:7px 12px;border:1px solid #293751;border-radius:999px;background:#101827;color:#c6d3ed;font-size:11px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.artifact-wrap:after{content:"OBJECT DISCOVERED • VISUALIZED";font-size:8px;letter-spacing:1.8px;color:#6ee7b7;font-weight:900;animation:artifactPulse 1.5s ease-in-out infinite}.artifact-svg path,.artifact-svg circle,.artifact-svg ellipse{animation:artifactDraw .8s ease both}.fab-visual{min-height:170px;height:auto;padding:4px 0 8px}
+@keyframes artifactReveal{0%{opacity:0;transform:translateY(18px) scale(.72) rotate(-4deg)}55%{opacity:1;transform:translateY(-5px) scale(1.06) rotate(1deg)}100%{opacity:1;transform:none}}
+@keyframes artifactDraw{0%{opacity:0;filter:brightness(1.8)}100%{opacity:1;filter:none}}
+@keyframes artifactPulse{0%,100%{opacity:.45;letter-spacing:1.8px}50%{opacity:1;letter-spacing:2.2px}}
+
 @media(max-width:850px){main{grid-template-columns:1fr}.hud{grid-template-columns:1fr 1fr 1fr}.options{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){#app{padding:13px}header{flex-direction:column}.savebox{align-self:stretch;text-align:left}.hud{grid-template-columns:1fr 1fr}.options{grid-template-columns:1fr}.option{min-height:115px}.modalbox{padding:25px}}

@@ -1,68 +1,137 @@
+/* ELEMENT: Genesis to Multiverse — 5000 Mission Edition */
+const TOTAL_LEVELS=5000;
+const STORAGE_KEY='elementGameSave_v5000';
+
 const eras=[
-["Stone Age",1,10],["Bronze & Iron",11,20],["Classical Engineering",21,30],["Scientific Revolution",31,40],
-["Industrial Age",41,50],["Electrical Age",51,60],["Atomic Age",61,70],["Space Age",71,80],
-["Quantum Age",81,90],["Spacetime & Multiverse",91,100]
+ ['Stone Age Foundations',1,150],['Civilization & Materials',151,350],['School Science',351,800],['College Science',801,1300],
+ ['University & Honours',1301,1900],['Technology & ICT',1901,2400],['Life Sciences',2401,2850],['Cosmos & Quantum',2851,3300],
+ ['Bangladesh Career Arena',3301,3850],['Language & Humanities',3851,4250],['Anime & Pop Culture',4251,4550],['Sports & Current Affairs',4551,4750],
+ ['Islamic Knowledge & Hadith',4751,5000]
 ];
+
 const scientists=[
-[5,"Archimedes","You discovered the logic of machines."],[10,"Isaac Newton","The Earth era is complete. Motion and gravity await."],
-[15,"Michael Faraday","Fields can become technology."],[20,"James Watt","Engineering turns ideas into power."],
-[25,"Charles Darwin","Observe patterns; test every assumption."],[30,"Galileo Galilei","Measure the world, then question it."],
-[35,"Antoine Lavoisier","Matter changes form, but accounting matters."],[40,"James Clerk Maxwell","Electricity and magnetism speak one language."],
-[45,"Thomas Edison","Practical invention changes daily life."],[50,"Nikolaus Otto","Engines convert controlled energy into motion."],
-[55,"Nikola Tesla","Alternating current opens a new electrical age."],[60,"Marie Curie","The atom hides astonishing energy."],
-[65,"Ernest Rutherford","The atom has a nucleus."],[70,"Niels Bohr","Quantized structure changes our picture of matter."],
-[75,"Katherine Johnson","Precise mathematics can navigate space."],[80,"Alan Turing","Information itself can be engineered."],
-[85,"Richard Feynman","Nature does not have to be intuitive to be calculable."],[90,"Albert Einstein","Space and time are part of one structure."],
-[95,"Stephen Hawking","The universe challenges every boundary."],[100,"Nikola Tesla","You reached the Multiverse frontier."]
+ [5,'Al-Khwarizmi','Algorithms turn difficult problems into ordered steps.','অ্যালগরিদম কঠিন সমস্যাকে ধাপে ধাপে সমাধানের পথে নিয়ে যায়.'],
+ [10,'Ibn al-Haytham','Observe carefully, then test what you think you know.','মনোযোগ দিয়ে পর্যবেক্ষণ করো, তারপর যা জানো বলে মনে করো তা পরীক্ষা করো.'],
+ [15,'Al-Razi','Medicine advances when observation meets disciplined reasoning.','পর্যবেক্ষণ ও সুশৃঙ্খল যুক্তির মিলনেই চিকিৎসাবিজ্ঞান এগোয়.'],
+ [20,'Ibn Sina','Knowledge becomes useful when it can guide careful action.','জ্ঞান তখনই কার্যকর যখন তা সতর্ক কাজকে পথ দেখায়.'],
+ [25,'Al-Biruni','Measure the world with patience and precision.','ধৈর্য ও নির্ভুলতার সঙ্গে পৃথিবীকে পরিমাপ করো.'],
+ [30,'Al-Jazari','Engineering is the art of turning ideas into mechanisms.','ইঞ্জিনিয়ারিং হলো ধারণাকে কার্যকর যন্ত্রে রূপ দেওয়ার শিল্প.'],
+ [35,'Mariam al-Ijliya','Precision can turn a small instrument into a powerful tool.','নির্ভুলতা ছোট যন্ত্রকেও শক্তিশালী উপকরণে পরিণত করতে পারে.'],
+ [40,'Ibn al-Nafis','Question assumptions and examine evidence.','অনুমানকে প্রশ্ন করো এবং প্রমাণ পরীক্ষা করো.'],
+ [45,'Abbas Ibn Firnas','Experimentation is a bridge between imagination and engineering.','পরীক্ষা কল্পনা ও প্রকৌশলের মধ্যে সেতু তৈরি করে.'],
+ [50,'Banu Musa','Machines become meaningful when their principles are understood.','যন্ত্রের নীতিকে বুঝলে তার প্রকৃত অর্থ বোঝা যায়.'],
+ [55,'Ibn Battuta','The world is a laboratory of observations.','বিশ্ব নিজেই পর্যবেক্ষণের এক বিশাল পরীক্ষাগার.'],
+ [60,'Al-Zahrawi','Skill grows through practice, precision and responsibility.','অনুশীলন, নির্ভুলতা ও দায়িত্ববোধে দক্ষতা বাড়ে.'],
+ [65,'Al-Dinawari','Nature rewards careful classification and observation.','প্রকৃতি মনোযোগী শ্রেণিবিন্যাস ও পর্যবেক্ষণকে পুরস্কৃত করে.'],
+ [70,'Al-Idrisi','Maps transform scattered observations into usable knowledge.','মানচিত্র বিচ্ছিন্ন পর্যবেক্ষণকে ব্যবহারযোগ্য জ্ঞানে রূপ দেয়.'],
+ [75,'Al-Baitar','Biological knowledge grows from careful identification.','জীববৈজ্ঞানিক জ্ঞান সতর্ক সনাক্তকরণ থেকে সমৃদ্ধ হয়.'],
+ [80,'Thabit ibn Qurra','Mathematics gives structure to scientific reasoning.','গণিত বৈজ্ঞানিক যুক্তিকে কাঠামো দেয়.'],
+ [85,'Qusta ibn Luqa','Translation can carry knowledge across civilizations.','অনুবাদ সভ্যতার সীমানা পেরিয়ে জ্ঞান বহন করতে পারে.'],
+ [90,'Al-Farabi','Learning connects disciplines through disciplined thought.','শৃঙ্খলিত চিন্তার মাধ্যমে জ্ঞান বিভিন্ন শাখাকে যুক্ত করে.'],
+ [95,'Ibn al-Awwam','Agricultural knowledge begins with observing living systems.','কৃষিজ্ঞান জীবন্ত ব্যবস্থাকে পর্যবেক্ষণ দিয়ে শুরু হয়.'],
+ [100,'Nikola Tesla','You reached the first great technology frontier.','তুমি প্রথম বড় প্রযুক্তিগত সীমা অতিক্রম করেছ.'],
+ [500,'Isaac Newton','Keep testing the laws that govern motion.','গতিকে নিয়ন্ত্রণকারী নিয়মগুলো পরীক্ষা করে যাও.'],
+ [1000,'Marie Curie','The microscopic world can reshape the visible world.','অণুজগত দৃশ্যমান জগতকে বদলে দিতে পারে.'],
+ [1500,'Alan Turing','Information can become a machine for reasoning.','তথ্য যুক্তির যন্ত্রে পরিণত হতে পারে.'],
+ [2000,'Katherine Johnson','Precise mathematics can guide exploration.','নির্ভুল গণিত অনুসন্ধানের পথ দেখাতে পারে.'],
+ [2500,'Abdus Salam','Fundamental physics can reveal deep unity.','মৌলিক পদার্থবিজ্ঞান গভীর ঐক্যের রহস্য উন্মোচন করতে পারে.'],
+ [3000,'Stephen Hawking','The universe is an invitation to keep asking questions.','মহাবিশ্ব আরও প্রশ্ন করতে আমন্ত্রণ জানায়.'],
+ [3500,'Satyendra Nath Bose','A small theoretical idea can reshape physics.','একটি ছোট তাত্ত্বিক ধারণা পদার্থবিজ্ঞানকে বদলে দিতে পারে.'],
+ [4000,'Begum Rokeya','Education expands the possibilities of human life.','শিক্ষা মানুষের জীবনের সম্ভাবনাকে প্রসারিত করে.'],
+ [4500,'Jagadish Chandra Bose','Careful experiments can reveal hidden responses in nature.','সতর্ক পরীক্ষা প্রকৃতির গোপন প্রতিক্রিয়া প্রকাশ করতে পারে.'],
+ [5000,'Genesis Gate','Knowledge is a journey; use it with humility and responsibility.','জ্ঞান একটি যাত্রা; বিনয় ও দায়িত্বের সঙ্গে তা ব্যবহার করো.']
 ];
 
-// 100 levels, 5 choices each. Correct choice is randomized by a deterministic formula.
-const base=[
-["Stone Axe","Stone + Wood","Axe","cutting tool"],["Fire","Wood + Heat","Fire","energy"],["Clay Brick","Clay + Fire","Brick","construction"],["Copper Tool","Copper + Stone","Copper Tool","metallurgy"],["Bronze","Copper + Tin","Bronze","alloy"],
-["Iron","Iron Ore + Fire","Iron","metal"],["Steel","Iron + Carbon","Steel","alloy"],["Glass","Sand + Fire","Glass","material"],["Wheel","Wood + Stone","Wheel","mechanics"],["Lever","Wood + Stone","Lever","mechanics"],
-["Plough","Wood + Iron","Plough","agriculture"],["Concrete","Limestone + Water","Concrete","construction"],["Paper","Plant Fiber + Water","Paper","material"],["Ink","Carbon + Water","Ink","writing"],["Compass","Iron + Magnetism","Compass","navigation"],
-["Clock","Gear + Spring","Clock","precision"],["Printing Press","Paper + Ink","Printing Press","information"],["Steam Engine","Water + Heat","Steam Engine","power"],["Battery","Copper + Zinc + Acid","Battery","electricity"],["Telegraph","Wire + Battery","Telegraph","communication"],
-["Light Bulb","Glass + Wire + Vacuum","Light Bulb","electricity"],["Motor","Magnet + Wire + Electricity","Motor","electromagnetism"],["Generator","Coil + Magnet + Motion","Generator","induction"],["Radio","Electricity + Antenna","Radio","waves"],["Telephone","Electricity + Membrane","Telephone","communication"],
-["Transformer","Coil + Iron Core + AC","Transformer","power"],["Electron Tube","Vacuum + Metal + Voltage","Electron Tube","electronics"],["X-ray","Electron + Target + Vacuum","X-ray","radiation"],["Photocell","Light + Semiconductor","Photocell","electronics"],["Computer","Logic + Memory + Electricity","Computer","information"],
-["Transistor","Silicon + Doping + Voltage","Transistor","semiconductor"],["Integrated Circuit","Silicon + Transistors","Integrated Circuit","microelectronics"],["Laser","Atom + Cavity + Energy","Laser","photonics"],["Satellite","Rocket + Computer + Radio","Satellite","space"],["Rocket","Fuel + Oxidizer + Engine","Rocket","propulsion"],
-["Solar Cell","Silicon + Light","Solar Cell","energy"],["Nuclear Reactor","Uranium + Neutrons + Control","Nuclear Reactor","nuclear"],["Nuclear Bomb","Uranium + Neutron + Critical Mass","Nuclear Device","nuclear"],["Fusion Reactor","Plasma + Magnetic Field","Fusion Reactor","fusion"],["Particle Accelerator","Magnets + Vacuum + RF","Particle Accelerator","physics"],
-["Space Telescope","Mirror + Sensor + Orbit","Space Telescope","astronomy"],["GPS","Satellites + Atomic Clock + Radio","GPS","navigation"],["Space Station","Modules + Orbit + Life Support","Space Station","space"],["Ion Engine","Electric Field + Plasma","Ion Engine","propulsion"],["Quantum Computer","Qubit + Control + Cryogenics","Quantum Computer","quantum"],
-["Quantum Sensor","Qubit + Measurement","Quantum Sensor","quantum"],["Nanobot","Nano Machine + Control","Nanobot","nanotech"],["Graphene","Carbon + Layer + Energy","Graphene","materials"],["Artificial Intelligence","Computer + Data + Learning","AI","computing"],["Fusion Drive","Fusion + Magnetic Nozzle","Fusion Drive","propulsion"],
-["Antimatter Trap","Antimatter + Magnetic Field + Vacuum","Antimatter Trap","particle physics"],["Warp Metric","Energy + Spacetime Geometry","Warp Metric","relativity"],["Wormhole","Spacetime + Extreme Energy","Wormhole","spacetime"],["Time Dilation Engine","Velocity + Gravity + Atomic Clock","Time Dilation Engine","relativity"],["Time Machine","Causal Loop + Spacetime + Energy","Time Machine","time"],["Chronon Detector","Quantum Clock + Spacetime","Chronon Detector","time"],["Past Probe","Time Machine + Stable Coordinate","Past Probe","time"],["Future Probe","Time Machine + Future Coordinate","Future Probe","time"],["Causal Shield","Time Field + Information Barrier","Causal Shield","time"],["Multiverse Detector","Quantum Branch + Sensor","Multiverse Detector","multiverse"],
-["Branch Navigator","Multiverse Detector + AI","Branch Navigator","multiverse"],["Universe Hopper","Branch Navigator + Wormhole","Universe Hopper","multiverse"],["Parallel Matter","Matter + Branch Coordinate","Parallel Matter","multiverse"],["Reality Anchor","Exotic Matter + Spacetime","Reality Anchor","multiverse"],["Dimensional Map","Universe Data + Quantum Computer","Dimensional Map","multiverse"],["Multiverse Radio","Antenna + Branch Navigator","Multiverse Radio","multiverse"],["Alternate Earth","Universe Hopper + Earth Coordinate","Alternate Earth","multiverse"],["Timeline Library","Past Probe + Future Probe","Timeline Library","time"],["Causality Engine","Timeline Library + Reality Anchor","Causality Engine","causality"],
-["Quantum Gate","Qubit + Wormhole","Quantum Gate","quantum"],["Vacuum Energy Cell","Vacuum + Quantum Field","Vacuum Energy Cell","quantum field"],["Dark Matter Sensor","Gravity + Unknown Mass","Dark Matter Sensor","cosmology"],["Dark Energy Meter","Expansion + Precision Clock","Dark Energy Meter","cosmology"],["Black Hole Probe","Gravity + Shield + Sensor","Black Hole Probe","astrophysics"],["Hawking Radiation Lab","Black Hole + Quantum Sensor","Hawking Lab","quantum gravity"],["Graviton Detector","Mass + Quantum Sensor","Graviton Detector","quantum gravity"],["Planck Engine","Planck Scale + Energy","Planck Engine","quantum gravity"],["Spacetime Computer","Quantum Computer + Spacetime","Spacetime Computer","computation"],["Reality Simulator","Spacetime Computer + Universe Data","Reality Simulator","simulation"],
-["Universe Seed","Matter + Energy + Information","Universe Seed","cosmology"],["Universe Forge","Universe Seed + Causality Engine","Universe Forge","cosmology"],["Dimension Bridge","Universe Forge + Wormhole","Dimension Bridge","dimensions"],["Higher-Dimensional Lens","Dimension Bridge + Sensor","HD Lens","dimensions"],["Temporal Observatory","Timeline Library + HD Lens","Temporal Observatory","time"],["Infinite Archive","Timeline Library + Multiverse Radio","Infinite Archive","information"],["Causal Compiler","Information + Causality","Causal Compiler","computation"],["Reality Compiler","Causal Compiler + Universe Forge","Reality Compiler","reality"],["Multiverse Engine","Reality Compiler + Dimension Bridge","Multiverse Engine","multiverse"],["Omniverse Key","Multiverse Engine + Reality Anchor","Omniverse Key","multiverse"],
-["Time Traveler","Omniverse Key + Time Machine","Time Traveler","time"],["Timeline Repairer","Time Traveler + Causal Shield","Timeline Repairer","time"],["Universe Builder","Reality Compiler + Universe Seed","Universe Builder","cosmology"],["Parallel Civilization","Universe Builder + Alternate Earth","Parallel Civilization","civilization"],["Multiverse Civilization","Parallel Civilization + Universe Hopper","Multiverse Civilization","civilization"],["Cosmic Network","Multiverse Radio + Infinite Archive","Cosmic Network","communication"],["Causal Network","Cosmic Network + Causal Compiler","Causal Network","causality"],["Reality Stabilizer","Causal Network + Reality Anchor","Reality Stabilizer","reality"],["Multiverse Portal","Reality Stabilizer + Dimension Bridge","Multiverse Portal","multiverse"],["THE FINAL MACHINE","Multiverse Portal + Omniverse Key + Tesla Principle","Chrono-Multiverse Engine","final"]
+const FACTS=[["Chemistry","Which particle determines the atomic number of an element?","Proton",["Neutron","Electron","Photon"],"Think about the positively charged particles in the nucleus.","Atom"],["Chemistry","At room temperature, which state has a fixed volume but no fixed shape?","Liquid",["Solid","Gas","Plasma"],"It takes the shape of its container while keeping nearly constant volume.","Liquid"],["Chemistry","Which bond involves sharing electron pairs between atoms?","Covalent bond",["Ionic bond","Metallic bond","Hydrogen bond"],"Focus on electron sharing rather than transfer.","Molecule"],["Chemistry","What is the pH of a neutral solution at 25°C?","7",["0","5","14"],"Neutrality lies at the midpoint of the common 0–14 pH scale at this temperature.","pH"],["Chemistry","Which gas is most abundant in Earth’s atmosphere?","Nitrogen",["Oxygen","Carbon dioxide","Argon"],"The largest atmospheric fraction is not the gas humans breathe for respiration.","Nitrogen"],["Chemistry","Which element has the symbol Fe?","Iron",["Fluorine","Francium","Fermium"],"The symbol comes from the Latin name ferrum.","Iron"],["Chemistry","What type of reaction releases heat to the surroundings?","Exothermic",["Endothermic","Isothermal","Adiabatic"],"Its name contains the idea of heat moving outward.","Heat"],["Chemistry","Which subatomic particle has a negative electric charge?","Electron",["Proton","Neutron","Positron"],"It occupies the electron cloud around the nucleus.","Electron"],["Chemistry","Which substance is commonly used as a catalyst in the Haber process?","Iron",["Copper","Silver","Sodium chloride"],"The industrial ammonia process uses a transition-metal catalyst.","Iron"],["Physics","What is the SI unit of force?","Newton",["Joule","Watt","Pascal"],"Force is named after the scientist associated with classical mechanics.","Newton"],["Physics","Which quantity is measured in joules?","Energy",["Force","Power","Pressure"],"The joule is an SI derived unit for energy and work.","Energy"],["Physics","What is acceleration due to gravity near Earth’s surface approximately?","9.8 m/s²",["3.0 m/s²","6.67 m/s²","12.5 m/s²"],"It is close to ten metres per second squared.","Gravity"],["Physics","Which law states that an object remains at rest or uniform motion unless acted on by a net force?","Newton’s First Law",["Newton’s Second Law","Newton’s Third Law","Hooke’s Law"],"Think inertia.","Motion"],["Physics","Which phenomenon bends light as it passes from one medium to another?","Refraction",["Diffraction","Reflection","Polarization"],"The speed of light changes across media, changing its direction.","Light"],["Physics","Which wave property is measured in hertz?","Frequency",["Wavelength","Amplitude","Phase"],"Hertz counts cycles per second.","Wave"],["Physics","What carries electromagnetic waves through vacuum?","Oscillating electric and magnetic fields",["Mechanical particles","Sound pressure","Water molecules"],"Electromagnetic radiation does not require a material medium.","Photon"],["Biology","Which structure is the main site of ATP production in eukaryotic cells?","Mitochondrion",["Ribosome","Golgi apparatus","Lysosome"],"It is often called the cell’s energy-conversion organelle.","Mitochondrion"],["Biology","Which structure is absent in a typical animal cell?","Cell wall",["Cell membrane","Nucleus","Mitochondria"],"Animal cells have a flexible boundary but no rigid cellulose wall.","Animal Cell"],["Biology","What molecule carries hereditary information in most organisms?","DNA",["ATP","Glucose","Chlorophyll"],"Its double-helix sequence stores genetic information.","DNA"],["Biology","Which blood cells primarily transport oxygen?","Red blood cells",["White blood cells","Platelets","Plasma cells"],"They contain hemoglobin.","Blood"],["Biology","Which organ filters blood and produces urine?","Kidney",["Liver","Pancreas","Spleen"],"Its functional units are nephrons.","Kidney"],["Botany","Which pigment captures most light for photosynthesis in green plants?","Chlorophyll",["Keratin","Hemoglobin","Melanin"],"It gives many leaves their green appearance.","Leaf"],["Botany","Which tissue transports water upward in plants?","Xylem",["Phloem","Epidermis","Cambium"],"It mainly conducts water and mineral ions from roots.","Xylem"],["Botany","Which tissue transports sugars from photosynthetic tissues?","Phloem",["Xylem","Cork","Epidermis"],"Think food transport rather than water transport.","Phloem"],["Zoology","Which organ pumps blood through the vertebrate circulatory system?","Heart",["Lung","Kidney","Liver"],"It contracts rhythmically to generate blood flow.","Heart"],["Zoology","Which class includes frogs and salamanders?","Amphibia",["Reptilia","Aves","Mammalia"],"These vertebrates typically have aquatic larvae and terrestrial adults.","Amphibian"],["Biotechnology","Which technique amplifies a specific DNA region?","PCR",["ELISA","Chromatography","Titration"],"It repeatedly copies a selected DNA segment through cycles.","PCR"],["Biotechnology","What enzyme cuts DNA at specific recognition sequences?","Restriction enzyme",["Ligase","Amylase","Lipase"],"These enzymes are widely used in recombinant DNA work.","DNA"],["Microbiology","Which group lacks a membrane-bound nucleus?","Bacteria",["Fungi","Plants","Animals"],"They are prokaryotic organisms.","Bacterium"],["Microbiology","Which microorganism is used in bread fermentation?","Yeast",["Amoeba","Paramecium","Cyanobacteria"],"It converts sugars into carbon dioxide and ethanol under fermentation.","Yeast"],["Molecular Biology","Which process makes RNA from a DNA template?","Transcription",["Translation","Replication","Translocation"],"The product is RNA.","RNA"],["Molecular Biology","Which process uses mRNA to build a polypeptide?","Translation",["Transcription","Replication","Splicing"],"Ribosomes read codons during this process.","Protein"],["Limnology","What does limnology primarily study?","Inland waters",["Oceans only","Atmosphere only","Deserts only"],"Think lakes, rivers, wetlands and other inland aquatic systems.","Lake"],["Environmental Science","Which gas is a major anthropogenic greenhouse gas?","Carbon dioxide",["Helium","Neon","Nitrogen"],"It is released in large amounts by fossil-fuel combustion.","CO₂"],["ICT","What does CPU stand for?","Central Processing Unit",["Central Program Utility","Computer Primary Unit","Core Processing User"],"It is the main processor of a computer.","CPU"],["ICT","Which protocol is primarily used to transfer web pages securely?","HTTPS",["FTP","SMTP","POP3"],"Look for the secure version of HTTP.","Web"],["ICT","Which data structure follows FIFO order?","Queue",["Stack","Tree","Graph"],"First in, first out.","Queue"],["ICT","What does RAM provide?","Temporary working memory",["Permanent archival storage","Network routing","Power conversion"],"Its contents are typically volatile.","RAM"],["Mathematics","What is the derivative of x²?","2x",["x","x²","2"],"Use the power rule.","Calculus"],["Mathematics","What is the probability of rolling a 6 on a fair six-sided die?","1/6",["1/2","1/3","1/12"],"There is one favorable face among six equally likely faces.","Probability"],["Mathematics","What is the sum of the interior angles of a triangle?","180°",["90°","270°","360°"],"All Euclidean triangles have the same angle sum.","Triangle"],["Astronomy","Which star is at the center of our Solar System?","The Sun",["Sirius","Polaris","Betelgeuse"],"It is the star around which Earth orbits.","Sun"],["Astronomy","What is Earth’s natural satellite?","The Moon",["Mars","Europa","Titan"],"It is the only natural satellite of Earth.","Moon"],["Cosmology","What observation strongly supports cosmic expansion?","Galaxy redshift",["Solar eclipses","Ocean tides","Auroras"],"Distant galaxies show systematic spectral shifts toward longer wavelengths.","Galaxy"],["Quantum Science","Which principle says certain pairs of physical quantities cannot both be known with arbitrary precision?","Heisenberg uncertainty principle",["Archimedes’ principle","Pauli exclusion principle","Equivalence principle"],"It concerns limits on simultaneous precision of conjugate quantities.","Quantum"],["Quantum Science","What is the basic unit of quantum information?","Qubit",["Byte","Bit only","Pixel"],"It generalizes the classical bit using quantum states.","Qubit"],["Materials Science","Which material consists of a single layer of carbon atoms in a hexagonal lattice?","Graphene",["Silicon carbide","Kevlar","Teflon"],"It is a two-dimensional carbon material.","Graphene"],["Engineering","Which machine converts mechanical energy into electrical energy?","Generator",["Motor","Transformer","Compressor"],"Electromagnetic induction is central to its operation.","Generator"],["Engineering","Which device converts electrical energy into mechanical motion?","Motor",["Generator","Transformer","Rectifier"],"It produces torque from electromagnetic forces.","Motor"],["Bangladesh GK","What is the capital of Bangladesh?","Dhaka",["Chattogram","Rajshahi","Khulna"],"It is the national administrative capital.","Dhaka"],["Bangladesh GK","Which sea borders Bangladesh to the south?","Bay of Bengal",["Arabian Sea","Red Sea","Andaman Sea"],"Bangladesh opens to the northeastern part of the Indian Ocean.","Bay of Bengal"],["Bangladesh GK","What is the national language of Bangladesh?","Bangla",["English","Urdu","Arabic"],"It is the state language under the Constitution.","Bangla"],["Bangladesh GK","Which is the longest sea beach in Bangladesh commonly identified in geography questions?","Cox’s Bazar",["Kuakata","Patenga","Parki"],"It is famous for its long sandy coastline.","Cox’s Bazar"],["Bangladesh GK","Which river is one of the major rivers flowing through Bangladesh and forms part of the Padma system?","Jamuna",["Teesta only","Karnaphuli only","Sangu only"],"The Brahmaputra is known as Jamuna in Bangladesh.","Jamuna"],["Bangladesh GK","What is the currency of Bangladesh?","Taka",["Rupee","Riyal","Ringgit"],"The currency code is BDT.","Taka"],["Teacher Prep","Which approach places the learner’s activity at the center of instruction?","Learner-centered learning",["Teacher monologue only","Pure rote copying","No assessment learning"],"The learner actively participates in constructing understanding.","Learning"],["Teacher Prep","Formative assessment is mainly used to do what?","Improve learning during instruction",["Award a final certificate only","Rank schools nationally only","Replace teaching completely"],"It provides feedback while learning is still underway.","Assessment"],["Teacher Prep","Which assessment is usually conducted at the end of a course or unit to judge achievement?","Summative assessment",["Diagnostic assessment","Formative assessment","Informal observation only"],"It summarizes achievement after instruction.","Assessment"],["Teacher Prep","Which strategy asks learners to work together toward a shared task?","Cooperative learning",["Silent copying","Lecture-only teaching","Individual isolation"],"The key idea is structured collaboration.","Classroom"],["Teacher Prep","What is a lesson objective supposed to describe?","What learners should be able to do",["Only the teacher’s biography","Only classroom decoration","Only textbook price"],"Objectives focus on intended learning outcomes.","Lesson"],["Teacher Prep","Which Bloom level is associated with recalling facts?","Remember",["Create","Evaluate","Analyze"],"It is the basic recall level in the revised taxonomy.","Bloom"],["Teacher Prep","Which classroom practice gives specific information about how to improve performance?","Feedback",["Punishment only","Attendance marking","Seating arrangement"],"Useful feedback connects performance to improvement.","Feedback"],["Primary Teacher","For early-grade reading, which skill is foundational?","Phonological awareness",["Advanced calculus","Database normalization","Quantum tunnelling"],"Children need awareness of sounds and their relation to language.","Reading"],["Primary Teacher","Which teaching aid can make abstract counting concrete for young learners?","Manipulatives",["Only long lectures","Unrelated videos","Blank pages"],"Objects can represent quantities physically.","Counting"],["Primary Teacher","Why is child-friendly formative assessment useful?","It identifies learning gaps early",["It removes the need to teach","It guarantees perfect scores","It replaces the curriculum"],"Early feedback lets teachers adjust instruction.","Assessment"],["English Grammar","Which word is a pronoun?","They",["Quickly","Beautiful","Run"],"It stands in for a noun phrase.","Grammar"],["English Grammar","Which tense is used in “She has finished the work”?","Present perfect",["Past perfect","Simple past","Future perfect"],"The auxiliary has combines with a past participle.","Grammar"],["English Grammar","Which is the plural of “criterion”?","Criteria",["Criterions only","Criterionies","Criterias"],"The traditional plural is from Greek.","Grammar"],["Bangla Grammar","“সে বই পড়ে”—এখানে “সে” কোন পদ?","সর্বনাম",["বিশেষ্য","ক্রিয়া","অব্যয়"],"It replaces a noun/person reference.","বাংলা ব্যাকরণ"],["Bangla Grammar","“সুন্দর ফুল”—এখানে “সুন্দর” কোন পদ?","বিশেষণ",["বিশেষ্য","সর্বনাম","ক্রিয়া"],"It describes the noun “ফুল”.","বাংলা ব্যাকরণ"],["Bangla Grammar","“রহিম স্কুলে যায়”—এখানে “যায়” কী?","ক্রিয়া",["বিশেষণ","সর্বনাম","অব্যয়"],"It expresses the action/state.","বাংলা ব্যাকরণ"],["Bangla Grammar","“এবং” সাধারণত কোন পদ?","অব্যয়",["বিশেষ্য","ক্রিয়া","বিশেষণ"],"It connects words or clauses without changing form.","বাংলা ব্যাকরণ"],["Bangla Grammar","“অতি লোভে তাঁতি নষ্ট”—এটি কী ধরনের রচনা?","প্রবাদ",["উপসর্গ","সমাস","বিভক্তি"],"It is a traditional concise saying.","বাংলা ব্যাকরণ"],["Bangla Grammar","“রাজপুত্র” কোন সমাসের উদাহরণ?","ষষ্ঠী তৎপুরুষ",["দ্বন্দ্ব","বহুব্রীহি","অব্যয়ীভাব"],"Expand it as “রাজার পুত্র”.","সমাস"],["Bangla Grammar","“নীলকমল” কোন সমাস?","কর্মধারয়",["দ্বন্দ্ব","বহুব্রীহি","অব্যয়ীভাব"],"The first word qualifies the second.","সমাস"],["Bangla Grammar","“মা-বাবা” কোন সমাসের উদাহরণ?","দ্বন্দ্ব",["কর্মধারয়","ষষ্ঠী তৎপুরুষ","বহুব্রীহি"],"Both members are joined in a coordinated sense.","সমাস"],["Bangla Grammar","“অমানবিক” শব্দে “অ-” কী?","উপসর্গ",["প্রত্যয়","বিভক্তি","সমাস"],"It is attached before the root to modify meaning.","শব্দগঠন"],["Bangla Grammar","“ছেলেরা” শব্দে “রা” কী নির্দেশ করে?","বহুবচন",["কারক","সমাস","উপসর্গ"],"It marks plural human nouns in this form.","শব্দগঠন"],["Bangladesh GK","Which constitutional body conducts elections in Bangladesh?","Bangladesh Election Commission",["Bangladesh Bank","Public Service Commission only","National Board of Revenue"],"The Constitution establishes an Election Commission.","Election"],["Bangladesh GK","Which institution is Bangladesh’s central bank?","Bangladesh Bank",["Sonali Bank","Dhaka Stock Exchange","BSEC"],"It conducts central banking functions.","Bank"],["Job Prep","Which document is commonly used to summarize education and work experience for a job application?","CV/Resume",["Invoice","Ledger","Manifest"],"It presents qualifications and experience.","Career"],["Job Prep","What does KPI usually mean in organizational performance measurement?","Key Performance Indicator",["Known Process Index","Key Personnel Inventory","Knowledge Planning Interface"],"It is a measurable performance indicator.","KPI"],["Anime • One Piece","Who is the captain of the Straw Hat Pirates?","Monkey D. Luffy",["Roronoa Zoro","Trafalgar Law","Portgas D. Ace"],"Think of the character whose dream is to become Pirate King.","One Piece"],["Anime • One Piece","What is the name of Luffy’s signature straw hat?","Straw Hat",["Red Crown","Sun Hat","Pirate Cap"],"It is the source of the crew’s famous nickname.","One Piece"],["Anime • One Piece","Which swordsman is a core member of the Straw Hat crew?","Roronoa Zoro",["Sanji","Usopp","Franky"],"He is known for a three-sword style.","Zoro"],["Anime • Death Note","What is the name of the supernatural notebook in Death Note?","Death Note",["Black Ledger","Soul Book","Judgment Diary"],"Its title is also the series name.","Death Note"],["Anime • Death Note","What is the detective alias used by the genius investigator in Death Note?","L",["N","K","M"],"It is a single-letter alias.","L"],["Anime • Demon Slayer","What is the name of Tanjiro’s sister?","Nezuko Kamado",["Kanao Tsuyuri","Shinobu Kocho","Mitsuri Kanroji"],"She travels with Tanjiro and is transformed into a demon.","Demon Slayer"],["Anime • Demon Slayer","What breathing style does Tanjiro initially learn from Sakonji Urokodaki’s training?","Water Breathing",["Flame Breathing","Thunder Breathing","Mist Breathing"],"Its techniques are associated with flowing water.","Water Breathing"],["Anime • Bleach","Who is the protagonist of Bleach?","Ichigo Kurosaki",["Byakuya Kuchiki","Uryu Ishida","Renji Abarai"],"He is the orange-haired substitute Soul Reaper.","Bleach"],["Anime • Bleach","What is the name of Ichigo’s Zanpakuto?","Zangetsu",["Senbonzakura","Zabimaru","Hyōrinmaru"],"Its name is strongly associated with Ichigo.","Zangetsu"],["Anime • Naruto","Who is Naruto’s father?","Minato Namikaze",["Jiraiya","Kakashi Hatake","Hiruzen Sarutobi"],"He was the Fourth Hokage.","Naruto"],["Anime • Naruto","What is Naruto’s signature spinning chakra technique?","Rasengan",["Chidori","Amaterasu","Byakugan"],"It forms a rotating sphere of chakra.","Rasengan"],["Anime • Dr. Stone","Who is the scientific protagonist of Dr. Stone?","Senku Ishigami",["Taiju Oki","Gen Asagiri","Tsukasa Shishio"],"He aims to rebuild civilization through science.","Dr. Stone"],["Anime • Dr. Stone","What event petrifies humanity at the start of Dr. Stone?","A mysterious global petrification",["A solar flare only","A volcanic eruption","A worldwide flood"],"Humanity is turned to stone simultaneously.","Petrification"],["Anime • Attack on Titan","What are the giant humanoid beings called in Attack on Titan?","Titans",["Giants","Colossi","Golems"],"The series title names them directly.","Titan"],["Anime • Attack on Titan","Who is the protagonist of Attack on Titan?","Eren Yeager",["Armin Arlert","Levi Ackerman","Jean Kirstein"],"He begins the story seeking freedom beyond the walls.","Eren"],["Anime • Solo Leveling","What is the name of the protagonist in Solo Leveling?","Sung Jinwoo",["Cha Hae-In","Thomas Andre","Go Gunhee"],"He begins as a famously weak hunter.","Solo Leveling"],["Anime • Solo Leveling","What system grants Sung Jinwoo game-like growth?","The System",["The Archive","The Gate Core","The Monarch Engine"],"It displays quests, stats and rewards.","System"],["Anime • Wistoria Wand and Sword","What is Wistoria’s protagonist called?","Will Serfort",["Colette Loire","Julius Reinberg","Sion Ulster"],"He struggles to progress in a magical academy without magic.","Wistoria"],["Anime • Vinland Saga","Who is the central young warrior of Vinland Saga’s early story?","Thorfinn",["Canute","Askeladd","Thorkell"],"His story is driven by revenge and later transformation.","Vinland Saga"],["Anime • Vinland Saga","What historical region gives Vinland Saga its title?","Vinland",["Valhalla","Iceland","Jorvik"],"It refers to a Norse name for lands in North America.","Vinland"],["Anime • Fullmetal Alchemist","What is the surname of Edward and Alphonse?","Elric",["Rockbell","Mustang","Armstrong"],"The brothers are known collectively by this surname.","Fullmetal Alchemist"],["Anime • Hunter x Hunter","What is the name of the protagonist in Hunter x Hunter?","Gon Freecss",["Killua Zoldyck","Kurapika","Leorio"],"He sets out to become a Hunter and find his father.","Hunter x Hunter"],["Anime • My Hero Academia","What is the hero name of Izuku Midoriya?","Deku",["Kacchan","Shoto","All Might"],"It begins as a nickname and becomes his hero identity.","My Hero Academia"],["Anime • Haikyuu","What sport is central to Haikyuu!!?","Volleyball",["Basketball","Football","Baseball"],"The series centers on a school team and a net.","Haikyuu"],["Anime • Spy x Family","What is Anya Forger’s unusual ability?","Telepathy",["Telekinesis","Time travel","Invisibility"],"She can read minds.","Spy x Family"],["Anime • Frieren","What type of being is Frieren?","Elf",["Human","Demon","Dragon"],"She is a long-lived elven mage.","Frieren"],["Anime • Mob Psycho 100","What is Mob’s real first name?","Shigeo Kageyama",["Arataka Reigen","Ritsu Kageyama","Teruki Hanazawa"],"“Mob” is his nickname.","Mob Psycho 100"],["Anime • Sword Art Online","What is Kirito’s real name?","Kazuto Kirigaya",["Keita Kirigaya","Kirito Asuna","Kazuma Kirigaya"],"Kirito is his player name.","Sword Art Online"],["Anime • Haikyuu","What is Hinata’s main strength early in the series?","Jumping ability",["Serving power only","Blocking height","Left-handed setting"],"His athletic jumping becomes a major weapon despite his height.","Hinata"],["Marvel","What is Tony Stark’s superhero identity?","Iron Man",["Captain America","War Machine only","Doctor Strange"],"His armored suit is his defining technology.","Iron Man"],["Marvel","What is the name of Thor’s famous hammer?","Mjolnir",["Stormbreaker","Gungnir","Hofund"],"It is a legendary Asgardian weapon.","Thor"],["Marvel","What is the name of the fictional African nation associated with Black Panther?","Wakanda",["Genosha","Latveria","Sokovia"],"It is famous for vibranium.","Wakanda"],["Marvel","What metal is strongly associated with Captain America’s shield?","Vibranium",["Adamantium","Titanium","Uru"],"The shield is made from a fictional super-strong material.","Captain America"],["Marvel","Who is Peter Parker’s superhero identity?","Spider-Man",["Star-Lord","Ant-Man","Daredevil"],"He is a web-slinging hero from Queens.","Spider-Man"],["Marvel","What is Doctor Strange’s profession before becoming a sorcerer?","Surgeon",["Pilot","Engineer","Journalist"],"He was a highly skilled medical specialist.","Doctor Strange"],["Marvel","What is the name of the AI in Tony Stark’s early Iron Man system?","JARVIS",["FRIDAY only","ULTRON","KAREN"],"It is an acronym-based assistant associated with Stark.","JARVIS"],["Stranger Things","What is the name of the parallel dimension in Stranger Things?","The Upside Down",["The Backrooms","The Shadow Realm","The Netherworld"],"It mirrors Hawkins in a dangerous alternate form.","Stranger Things"],["Stranger Things","What is Eleven’s commonly used number/name?","Eleven",["Twelve","Eight","Nine"],"Her name comes from her laboratory designation.","Eleven"],["Wednesday","What school does Wednesday Addams attend in the series?","Nevermore Academy",["Ravenwood School","Hogwarts","Blackwood Academy"],"It is the gothic academy central to the story.","Wednesday"],["Wednesday","What is Wednesday Addams’s surname?","Addams",["Frump","Morticia","Gotham"],"She belongs to the famous Addams family.","Wednesday"],["FROM","What mysterious town traps the characters in From?","A town they cannot easily leave",["Hawkins","Riverdale","Sunnydale"],"The central mystery is the town’s inescapable nature.","From"],["Hatim","What is the name of the heroic protagonist of Hatim?","Hatim",["Ali","Sikandar","Salim"],"The title directly names the hero.","Hatim"],["Aladdin Naam Toh Suna Hoga","What magical being is central to Aladdin Naam Toh Suna Hoga?","Jinn",["Vampire","Dragon","Werewolf"],"The story uses a magical wish-granting jinn tradition.","Aladdin"],["Sports","Who won the 2026 FIFA World Cup?","Spain",["Argentina","France","Brazil"],"FIFA lists Spain as the 2026 champion after the final.","World Cup"],["Sports","Who was runner-up at the 2026 FIFA World Cup?","Argentina",["Spain","England","France"],"FIFA’s final standings place Argentina second.","World Cup"],["Sports","Which team finished third at the 2026 FIFA World Cup?","England",["France","Portugal","Brazil"],"FIFA lists England in third place.","World Cup"],["Sports","How many teams competed in the 2026 FIFA World Cup?","48",["32","36","40"],"The 2026 tournament expanded to 48 teams.","World Cup"],["Sports","How many matches were played in the 2026 FIFA World Cup?","104",["64","80","96"],"FIFA describes the tournament as a 104-match edition.","World Cup"],["Sports","Who scored Spain’s winning goal in the 2026 World Cup final?","Ferran Torres",["Lamine Yamal","Rodri","Nico Williams"],"FIFA’s final report says he scored in the 106th minute.","World Cup"],["Sports","Who won the 2026 FIFA World Cup Golden Ball?","Rodri",["Kylian Mbappe","Ferran Torres","Unai Simón"],"FIFA awarded the Golden Ball to Spain’s Rodri.","World Cup"],["Sports","Who won the 2026 FIFA World Cup Golden Boot?","Kylian Mbappe",["Rodri","Ferran Torres","Erling Haaland"],"FIFA reports ten goals for the tournament’s top scorer.","World Cup"],["Sports","Who won the 2026 FIFA World Cup Golden Glove?","Unai Simón",["Rodri","Emiliano Martínez","Kylian Mbappe"],"FIFA reports seven clean sheets for the Spanish goalkeeper.","World Cup"],["Sports","Which country hosted the 2026 FIFA World Cup with Canada and Mexico?","United States",["Brazil","England","Argentina"],"The 2026 event had three host countries.","World Cup"],["Islamic Knowledge","In Islamic belief, Who is the Creator of the heavens and the earth?","Allah — আল্লাহ",["The angels — ফেরেশতাগণ","Humanity — মানবজাতি","Nature itself — প্রকৃতি নিজেই"],"The Qur’anic worldview attributes creation to Allah.","Islamic Knowledge"],["Islamic Knowledge","Which is the first pillar of Islam?","Shahadah — শাহাদাহ",["Salah — সালাত","Zakah — যাকাত","Hajj — হজ"],"It is the testimony of faith.","Islam"],["Islamic Knowledge","How many obligatory daily prayers are there in Islam?","Five — পাঁচ",["Three — তিন","Seven — সাত","Ten — দশ"],"Think of the five daily prayer times.","Salah"],["Islamic Knowledge","Which month is associated with obligatory fasting for Muslims?","Ramadan — রমজান",["Muharram — মুহররম","Rajab — রজব","Safar — সফর"],"Fasting from dawn to sunset is obligatory in Ramadan for those obligated.","Ramadan"],["Hadith Studies","What does “mawdu‘” generally mean in hadith terminology?","Fabricated — জাল/বানোয়াট",["Weak only — শুধু যঈফ","Strong — সহীহ","Unknown narrator only — শুধু অজ্ঞাত রাবি"],"It refers to a report falsely attributed to the Prophet ﷺ.","Hadith"],["Hadith Studies","Why should a popular saying not automatically be called a hadith?","Its attribution needs verification",["Popularity proves authenticity","Any wise saying is hadith","A short saying is always sahih"],"Hadith attribution requires scholarly verification rather than popularity.","Hadith"],["Hadith Studies","In hadith study, what is isnad?","Chain of transmitters — রাবিদের সনদ",["Text only — শুধু মতন","Book title only — শুধু গ্রন্থের নাম","Translation only — শুধু অনুবাদ"],"Isnad refers to the chain through which a report is transmitted.","Isnad"],["Hadith Studies","Which category is distinct from fabricated (mawdu‘) hadith?","Da‘if — যঈফ",["Mawdu‘ — জাল","Invented quote — বানানো উক্তি","False attribution — মিথ্যা সম্বন্ধ"],"Da‘if means weak; it is not identical to mawdu‘.","Hadith"],["Hadith Studies","According to the methodology discussed in Hadiser Name Jaliyati, what is important before spreading a report as a hadith?","Verification of its attribution",["Counting social-media shares","Checking how emotional it sounds","Seeing whether it rhymes"],"The book emphasizes verification and the danger of attributing false statements to the Prophet ﷺ.","Hadith"],["Hadith Studies","Which source is specifically associated with Dr. Khandaker Abdullah Jahangir’s discussion of fabricated reports in this game?","Hadiser Name Jaliyati — হাদীসের নামে জালিয়াতি",["Riyad as-Salihin only","Sahih Bukhari only","A grammar textbook"],"The game uses the named book as a methodological source for this section.","Hadith"],["Chemistry","Which element has the chemical symbol O?","Oxygen",["Gold","Osmium","Oganesson"],"Its symbol is a single O.","Oxygen"],["Chemistry","Which acid is present in vinegar?","Acetic acid",["Sulfuric acid","Nitric acid","Hydrochloric acid"],"It is the main acid responsible for vinegar’s sourness.","Acid"],["Chemistry","Which gas is required for ordinary combustion?","Oxygen",["Nitrogen","Helium","Neon"],"Most common combustion reactions need an oxidizer; atmospheric oxygen is the usual one.","Oxygen"],["Physics","Which instrument measures electric current?","Ammeter",["Voltmeter","Barometer","Thermometer"],"It is connected to measure current in amperes.","Ammeter"],["Physics","Which unit measures electrical resistance?","Ohm",["Volt","Ampere","Coulomb"],"It is named after Georg Ohm.","Ohm"],["Physics","What is the speed of light in vacuum approximately?","3.0 × 10⁸ m/s",["3.0 × 10⁶ m/s","3.0 × 10⁵ km/s²","9.8 m/s²"],"The value is about three hundred million metres per second.","Light"],["Biology","Which organelle contains most of a eukaryotic cell’s genetic material?","Nucleus",["Ribosome","Lysosome","Centrosome"],"It houses the chromosomes in typical eukaryotic cells.","Nucleus"],["Biology","Which molecule is the main immediate energy currency of cells?","ATP",["DNA","RNA","Cellulose"],"Its phosphate bonds participate in cellular energy transfer.","ATP"],["Botany","What is the main function of stomata?","Gas exchange and regulation of water loss",["Seed dispersal","Root anchorage","Pollen formation"],"They are pores controlled by guard cells.","Stoma"],["Zoology","Which group of animals has feathers?","Birds",["Mammals","Amphibians","Molluscs"],"Feathers are a defining feature of birds.","Bird"],["ICT","Which language is commonly used to structure web pages?","HTML",["SQL","Python only","Bash"],"HTML defines the structure of web documents.","HTML"],["ICT","What does URL stand for?","Uniform Resource Locator",["Universal Routing Link","User Resource Layer","Unified Reference Language"],"It identifies the location of a resource on a network.","URL"],["ICT","Which technology is used to store key-value data in a simple text-like format in web browsers?","localStorage",["GPU","SMTP","BIOS"],"It persists string key-value pairs in the browser.","localStorage"],["Teacher Prep","Which principle asks teachers to adapt instruction to learner differences?","Differentiated instruction",["One-size-fits-all instruction","No-feedback teaching","Unstructured grading"],"It varies content, process or product according to learner needs.","Teaching"],["Teacher Prep","What is diagnostic assessment mainly used for?","Identifying prior knowledge and learning gaps",["Final certification only","School construction","Payroll processing"],"It helps identify starting points and misconceptions.","Assessment"],["Bangla Grammar","“আমি” কোন পুরুষের সর্বনাম?","উত্তম পুরুষ",["মধ্যম পুরুষ","নাম পুরুষ","নিরপেক্ষ পুরুষ"],"The speaker refers to themselves.","পুরুষ"],["Bangla Grammar","“তুমি” কোন পুরুষের সর্বনাম?","মধ্যম পুরুষ",["উত্তম পুরুষ","নাম পুরুষ","তৃতীয় পুরুষ"],"It addresses the listener.","পুরুষ"],["Bangla Grammar","“সে” কোন পুরুষের সর্বনাম?","নাম পুরুষ",["উত্তম পুরুষ","মধ্যম পুরুষ","প্রথম পুরুষ"],"It refers to someone other than speaker and listener.","পুরুষ"],["General Knowledge","Which planet is known as the Red Planet?","Mars",["Venus","Jupiter","Mercury"],"Iron-rich surface dust gives it a reddish appearance.","Mars"],["General Knowledge","Which is the largest planet in the Solar System?","Jupiter",["Saturn","Earth","Neptune"],"It is the most massive planet in our system.","Jupiter"],["General Knowledge","Which ocean is the largest?","Pacific Ocean",["Atlantic Ocean","Indian Ocean","Arctic Ocean"],"It covers the greatest area among the oceans.","Pacific"]];
+const PREFIXES=[
+ '','Mission: ','Scientific checkpoint: ','Knowledge scan: ','Challenge: ','Discovery gate: ','Archive test: ','Field test: ','Think precisely: ','Final choice: '
 ];
-const decoys=["Wood + Water","Stone + Air","Iron + Fire","Sand + Water","Copper + Wood","Carbon + Ice","Glass + Stone","Steam + Wood","Magnet + Paper","Salt + Metal","Air + Oil","Clay + Wood","Gold + Water","Light + Stone","Smoke + Ice","Hydrogen + Sand","Limestone + Metal","Plasma + Wood","Gravity + Paper","Energy + Clay"];
 
-let state=JSON.parse(localStorage.getItem("elementGameSave")||"null")||{level:1,xp:0,materials:["Wood","Stone"],rewarded:[]};
-if(typeof state.retryCount!=="number") state.retryCount=0;
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function shuffle(arr,seed){let a=arr.slice(),x=hash(String(seed));for(let i=a.length-1;i>0;i--){x=(Math.imul(x,1664525)+1013904223)>>>0;let j=x%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
 
-function save(){localStorage.setItem("elementGameSave",JSON.stringify(state));document.getElementById("saveStatus").textContent="Saved locally";}
-function eraFor(l){return eras.find(e=>l>=e[1]&&l<=e[2])||eras[9]}
-function currentRecipe(){return base[state.level-1]}
-
-const visualData={
-"Stone":"🪨","Wood":"🪵","Clay":"🟤","Fire":"🔥","Water":"💧","Heat":"♨️","Copper":"Cu","Tin":"Sn","Iron":"Fe","Carbon":"C",
-"Sand":"⌛","Magnetism":"🧲","Electricity":"⚡","Wire":"〰️","Vacuum":"◌","Silicon":"Si","Light":"☀️","Uranium":"U","Neutrons":"n",
-"Plasma":"🟣","Gravity":"🌐","Computer":"💻","Data":"▦","Learning":"🧠","Qubit":"Q","Cryogenics":"❄️","Quantum Field":"∿",
-"Spacetime":"🌀","Wormhole":"🕳️","Energy":"⚡","AI":"🤖","Universe Data":"🌌","Branch Coordinate":"⌘","Exotic Matter":"✦",
-"Planck Scale":"ℏ","Causality":"⏳","Reality":"◈","Dimension":"◇","Time Machine":"⏱️","Multiverse":"🌌"
-};
-function iconFor(name){
-  if(visualData[name]) return visualData[name];
-  const n=(name||"").toLowerCase();
-  if(n.includes("water")) return "💧"; if(n.includes("fire")||n.includes("heat")) return "🔥";
-  if(n.includes("wood")) return "🪵"; if(n.includes("stone")||n.includes("ore")) return "🪨";
-  if(n.includes("glass")) return "🔷"; if(n.includes("paper")) return "📜"; if(n.includes("engine")) return "⚙️";
-  if(n.includes("rocket")) return "🚀"; if(n.includes("satellite")) return "🛰️"; if(n.includes("computer")) return "💻";
-  if(n.includes("quantum")) return "⚛️"; if(n.includes("universe")||n.includes("multiverse")) return "🌌";
-  if(n.includes("time")) return "⏱️"; if(n.includes("black hole")) return "🕳️";
-  return "◆";
+function difficultyFor(level){
+ if(level<=350)return 'Foundation'; if(level<=800)return 'High School'; if(level<=1300)return 'College'; if(level<=1900)return 'University';
+ if(level<=2400)return 'Honours'; if(level<=3300)return 'Advanced'; if(level<=4250)return 'Career / Competitive'; if(level<=4750)return 'Specialist'; return 'Islamic Knowledge';
+}
+function eraFor(level){return eras.find(e=>level>=e[1]&&level<=e[2])||eras[eras.length-1]}
+function factFor(level){
+ const idx=(level-1)%FACTS.length;
+ const base=FACTS[idx];
+ const cycle=Math.floor((level-1)/FACTS.length);
+ const prefix=PREFIXES[(cycle+idx)%PREFIXES.length];
+ const options=shuffle([base[2],...base[3]],level*7919);
+ const answerIndex=options.indexOf(base[2]);
+ let q=prefix+base[1];
+ // Later cycles get context cues without changing the fact being tested.
+ if(cycle>0){
+   const modes=['In this scenario, ','From the knowledge archive, ','At this stage of the journey, ','For the next discovery, ','In a competitive exam-style checkpoint, '];
+   q=modes[cycle%modes.length]+base[1];
+ }
+ return {subject:base[0],question:q,options,answer:base[2],answerIndex,hint:base[4],artifact:base[5],seedIndex:idx,cycle};
 }
 
-// Real product illustrations are drawn as inline SVGs so the game remains fully offline.
+// ---------- CATEGORY SYSTEM ----------
+const CATEGORY_DEFS=[
+ {key:'science',label:'সাইন্স',icon:'🧪',subs:[['Chemistry','Chemistry'],['Physics','Physics'],['Biology','Biology'],['Botany','Botany'],['Zoology','Zoology'],['Biotechnology','Biotechnology'],['Microbiology','Microbiology'],['Molecular Biology','Molecular Biology'],['Limnology','Limnology'],['Quantum Science','Quantum Science'],['Materials Science','Materials Science'],['Engineering','Engineering'],['Astronomy','Astronomy'],['Cosmology','Cosmology'],['Environmental Science','Environmental Science'],['Mathematics','Mathematics']]},
+ {key:'anime',label:'এনিমে',icon:'🎴',subs:[]},
+ {key:'marvel',label:'Marvel',icon:'🦸',subs:[['Marvel','Marvel Universe']]},
+ {key:'jobs',label:'চাকরি / জব',icon:'💼',subs:[['Bangladesh GK','বাংলাদেশ সাধারণ জ্ঞান'],['Teacher Prep','Teacher Preparation'],['Primary Teacher','Primary Teacher'],['Job Prep','Job Preparation'],['English Grammar','English Grammar'],['Bangla Grammar','Bangla Grammar'],['General Knowledge','General Knowledge']]},
+ {key:'technology',label:'Technology / ICT',icon:'💻',subs:[['ICT','ICT']]},
+ {key:'entertainment',label:'Entertainment / TV',icon:'📺',subs:[['Stranger Things','Stranger Things'],['Wednesday','Wednesday'],['FROM','FROM'],['Hatim','Hatim'],['Aladdin Naam Toh Suna Hoga','Aladdin Naam Toh Suna Hoga']]},
+ {key:'sports',label:'Sports / Current Affairs',icon:'🏆',subs:[['Sports','Sports / World Cup / Current Affairs']]},
+ {key:'islamic',label:'Islamic Knowledge',icon:'☪️',subs:[['Islamic Knowledge','Islamic Knowledge'],['Hadith Studies','Hadith Studies']]}
+];
+function categoryForSubject(subject){
+ const s=String(subject||'');
+ if(s.startsWith('Anime • '))return {key:'anime',label:'এনিমে',sub:s.slice(8)};
+ if(s==='Marvel')return {key:'marvel',label:'Marvel',sub:'Marvel Universe'};
+ if(['Stranger Things','Wednesday','FROM','Hatim','Aladdin Naam Toh Suna Hoga'].includes(s))return {key:'entertainment',label:'Entertainment / TV',sub:s};
+ if(s==='Sports')return {key:'sports',label:'Sports / Current Affairs',sub:'Sports'};
+ if(s==='Islamic Knowledge'||s==='Hadith Studies')return {key:'islamic',label:'Islamic Knowledge',sub:s};
+ if(s==='ICT')return {key:'technology',label:'Technology / ICT',sub:s};
+ if(['Bangladesh GK','Teacher Prep','Primary Teacher','Job Prep','English Grammar','Bangla Grammar','General Knowledge'].includes(s))return {key:'jobs',label:'চাকরি / জব',sub:s};
+ return {key:'science',label:'সাইন্স',sub:s||'General Science'};
+}
+const CATEGORY_INDEX={};
+for(let level=1;level<=TOTAL_LEVELS;level++){
+ const q=factFor(level),c=categoryForSubject(q.subject),key=c.key+'::'+c.sub;
+ (CATEGORY_INDEX[key] ||= []).push(level);
+}
+function categoryDefinition(key){return CATEGORY_DEFS.find(x=>x.key===key)||null;}
+function subcategoriesFor(key){
+ const d=categoryDefinition(key);if(!d)return[];
+ if(d.subs.length)return d.subs;
+ const out=[];FACTS.forEach(f=>{const c=categoryForSubject(f[0]);if(c.key===key&&!out.some(x=>x[0]===c.sub))out.push([c.sub,c.sub])});return out;
+}
+function categoryPool(key,sub){return CATEGORY_INDEX[key+'::'+sub]||[];}
+function setCategoryMode(key,sub){
+ const pool=categoryPool(key,sub);
+ if(!pool.length){setMessage('এই সাব-ক্যাটাগরিতে এখনো কোনো মিশন পাওয়া যায়নি। অন্যটি নির্বাচন করুন।','bad');return;}
+ state.categoryMode=true;state.categoryKey=key;state.categorySub=sub;state.categoryCursor=0;state.retryCount=0;pendingLevelUp=false;save();
+ const panel=document.getElementById('modePanel'),browser=document.getElementById('categoryBrowser');if(panel)panel.classList.remove('open');if(browser)browser.classList.add('hidden-ui');render();
+}
+function exitCategoryMode(){state.categoryMode=false;state.categoryKey='';state.categorySub='';state.categoryCursor=0;state.retryCount=0;pendingLevelUp=false;save();render();}
+function categoryQ(){
+ const pool=categoryPool(state.categoryKey,state.categorySub);if(!pool.length)return factFor(state.level);
+ const idx=(Number(state.categoryCursor)||0)%pool.length,virtualLevel=pool[idx],q=factFor(virtualLevel);
+ return {...q,virtualLevel};
+}
+function currentQ(){return state.categoryMode?categoryQ():factFor(state.level)}
+function setMessage(text,kind=''){const el=document.getElementById('message');if(el){el.className='message '+kind;el.textContent=text||''}}
+
+const base={level:1,xp:0,retryCount:0,completed:[],maxUnlocked:1,rewarded:[],materials:['Stone','Wood'],replay:false,categoryMode:false,categoryKey:'',categorySub:'',categoryCursor:0,categoryCompleted:[]};
+let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null')}catch(e){saved=null}
+if(!saved){try{const old=JSON.parse(localStorage.getItem('elementGameSave')||'null');if(old){saved={level:Number(old.level)||1,xp:Number(old.xp)||0,retryCount:Number(old.retryCount)||0,completed:Array.isArray(old.completed)?old.completed:[],maxUnlocked:Math.max(1,Number(old.maxUnlocked)||Number(old.level)||1),rewarded:Array.isArray(old.rewarded)?old.rewarded:[],materials:Array.isArray(old.materials)?old.materials:['Stone','Wood']}}}catch(e){}}
+let state=Object.assign({},base,saved||{});
+state.completed=Array.isArray(state.completed)?state.completed:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.categoryCompleted=Array.isArray(state.categoryCompleted)?state.categoryCompleted:[];
+state.maxUnlocked=Math.min(TOTAL_LEVELS,Math.max(1,Number(state.maxUnlocked)||1));state.level=Math.min(TOTAL_LEVELS,Math.max(1,Number(state.level)||1));
+state.categoryMode=Boolean(state.categoryMode&&state.categoryKey&&state.categorySub);state.categoryCursor=Math.max(0,Number(state.categoryCursor)||0);
+let pendingLevelUp=false;let replaying=false;
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));const el=document.getElementById('saveStatus');if(el)el.textContent='Saved locally';}
+function isCompleted(level){return state.completed.includes(level)}
+function markCompleted(level){if(!isCompleted(level))state.completed.push(level)}
 function productArt(name){
   const n=(name||"").toLowerCase();
   const esc=s=>String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
@@ -130,136 +199,110 @@ function productArt(name){
   return wrap(glow+`<circle cx="90" cy="90" r="48" fill="#344a6d" stroke="#dce8f5" stroke-width="5"/><path d="M90 52v76M52 90h76" stroke="#8be7ff" stroke-width="5"/><circle cx="90" cy="90" r="12" fill="#fff"/>`);
 }
 
-function parseIngredients(text){
-  return text.split(" + ").map(x=>x.trim()).filter(Boolean);
+
+function iconFor(name){
+ const n=(name||'').toLowerCase();
+ if(n.includes('stone'))return '🪨'; if(n.includes('fire'))return '🔥'; if(n.includes('iron'))return 'Fe'; if(n.includes('copper'))return 'Cu';
+ if(n.includes('dna'))return '🧬'; if(n.includes('cell'))return '🔬'; if(n.includes('micro'))return '🦠'; if(n.includes('plant'))return '🌿';
+ if(n.includes('water')||n.includes('lake'))return '💧'; if(n.includes('computer')||n.includes('ict'))return '💻'; if(n.includes('quantum')||n.includes('qubit'))return '⚛️';
+ if(n.includes('galaxy')||n.includes('universe')||n.includes('cosmos'))return '🌌'; if(n.includes('black hole'))return '🕳️';
+ if(n.includes('anime'))return '🎴'; if(n.includes('world cup')||n.includes('sports'))return '🏆'; if(n.includes('islam'))return '☪️'; if(n.includes('hadith'))return '📖';
+ return '✦';
 }
-function hideFabricator(){
-  const panel=document.getElementById("fabricatorSuccess");
-  if(panel){panel.classList.remove("show");panel.setAttribute("aria-hidden","true");}
+function hideFabricator(){const p=document.getElementById('fabricatorSuccess');if(p){p.classList.remove('show');p.setAttribute('aria-hidden','true')}}
+function showSuccessFabricator(q){
+ const p=document.getElementById('fabricatorSuccess'),v=document.getElementById('fabricatorVisual'),cap=document.getElementById('fabCaption'),st=document.getElementById('fabState');
+ if(!p||!v)return;
+ st.textContent='DISCOVERY FABRICATED'; st.style.color='#6ee7b7';
+ const particles=Array.from({length:28},(_,i)=>`<i class="particle" style="--x:${((i*37)%180)-90}px;--y:${((i*61)%160)-80}px;left:${8+(i*13)%84}%;top:${10+(i*17)%78}%"></i>`).join('');
+ const icon=iconFor(q.artifact);
+ v.className='fab-visual fab-success';
+ v.innerHTML=`<div class="forge-particles">${particles}</div><div class="product-core"><div class="icon product-picture">${productArt(q.artifact)}</div><strong>${q.artifact}</strong><small>${q.subject.toUpperCase()}</small></div>`;
+ cap.textContent=`${q.subject} → ${q.artifact} • Mission complete`;
+ p.classList.add('show');p.setAttribute('aria-hidden','false');
 }
-function showSuccessFabricator(recipe){
-  const panel=document.getElementById("fabricatorSuccess");
-  const visual=document.getElementById("fabricatorVisual");
-  const stateEl=document.getElementById("fabState");
-  const caption=document.getElementById("fabCaption");
-  if(!panel||!visual)return;
-  stateEl.textContent="SYNTHESIS COMPLETE";
-  stateEl.style.color="#6ee7b7";
-  const particles=Array.from({length:22},(_,i)=>`<i class="particle" style="--x:${((i*37)%180)-90}px;--y:${((i*61)%160)-80}px;left:${8+(i*13)%84}%;top:${10+(i*17)%78}%"></i>`).join("");
-  visual.className="fab-visual fab-success";
-  visual.innerHTML=`<div class="forge-particles">${particles}</div>
-    <div class="product-core"><div><div class="icon product-picture">${productArt(recipe[2])}</div>
-    <strong>${recipe[2]}</strong><small>DISCOVERY UNLOCKED</small></div></div>`;
-  caption.textContent=`${recipe[1]} → ${recipe[2]}`;
-  panel.classList.add("show");
-  panel.setAttribute("aria-hidden","false");
+function renderMaterials(){const el=document.getElementById('materials');if(!el)return;el.innerHTML=state.materials.slice(-40).map(x=>`<span class="chip">${x}</span>`).join('')}
+function renderScientists(){
+ const el=document.getElementById('scientists');if(!el)return;
+ el.innerHTML=scientists.map(s=>`<div class="scientist ${state.rewarded.includes(s[0])?'done':'locked'}"><div><b>${s[1]}</b><br><span>Level ${s[0]}</span></div><span>${state.rewarded.includes(s[0])?'✓':'🔒'}</span></div>`).join('');
 }
+function renderLevelMap(){
+ const el=document.getElementById('levelMap');if(!el)return;
+ const start=Math.max(1,state.maxUnlocked-120); const end=state.maxUnlocked;
+ const html=[]; for(let l=start;l<=end;l++){const cls=l===state.level?'current':(isCompleted(l)?'done':'unlocked');html.push(`<button class="level-cell ${cls}" data-level="${l}">${l}</button>`)}
+ el.innerHTML=html.join('');el.querySelectorAll('[data-level]').forEach(b=>b.onclick=()=>loadLevel(Number(b.dataset.level)));
+ const info=document.getElementById('mapInfo');if(info)info.textContent=`Unlocked: ${state.maxUnlocked} / ${TOTAL_LEVELS} • Completed: ${state.completed.length}`;
+}
+function loadLevel(level){
+ level=Math.max(1,Math.min(TOTAL_LEVELS,Number(level)||1));
+ if(level>state.maxUnlocked){setMessage(`Level ${level} is not unlocked yet. Current unlocked limit: ${state.maxUnlocked}.`,'bad');return;}
+ state.categoryMode=false;state.categoryKey='';state.categorySub='';state.categoryCursor=0;
+ state.level=level;state.retryCount=0;replaying=isCompleted(level);pendingLevelUp=false;hideFabricator();
+ document.getElementById('levelMapModal')?.classList.add('hidden');save();render();
+}
+function escapeHTML(value){return String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]))}
 function render(){
- document.getElementById("level").textContent=`${state.level} / 100`;
- document.getElementById("era").textContent=eraFor(state.level)[0];
- document.getElementById("xp").textContent=state.xp;
- const retryEl=document.getElementById("retryCount");
- if(retryEl) retryEl.textContent=`${state.retryCount} / 3`;
- document.getElementById("discovery").textContent=`${state.materials.length} / 100+`;
- document.getElementById("bar").style.width=(state.level)+"%";
- const r=currentRecipe();
- hideFabricator();
- const nextBtn=document.getElementById("nextLevel");
- if(nextBtn){nextBtn.classList.add("hidden-next");nextBtn.classList.remove("next-level-show");}
- document.getElementById("goal").textContent=`Create: ${r[0]}`;
- document.getElementById("hint").textContent=`Field: ${r[3]} • Choose the scientifically valid recipe.`;
- let correct=`${r[1]} → ${r[2]}`;
- let opts=[correct];
- for(let i=0;i<4;i++) opts.push(decoys[(state.level*3+i)%decoys.length]);
- // deterministic shuffle
- for(let i=opts.length-1;i>0;i--){let j=(state.level*7+i*11)% (i+1);[opts[i],opts[j]]=[opts[j],opts[i]]}
- document.getElementById("options").innerHTML=opts.map((x,i)=>`<button class="option" data-v="${x.replaceAll('"','&quot;')}"><span class="num">OPTION ${i+1}</span><strong>${x.split(" → ")[0]}</strong></button>`).join("");
- document.querySelectorAll(".option").forEach(b=>b.onclick=()=>choose(b.dataset.v));
- document.getElementById("materials").innerHTML=state.materials.slice(-30).map(x=>`<span class="chip">${x}</span>`).join("");
- document.getElementById("scientists").innerHTML=scientists.map(s=>`<div class="scientist ${state.rewarded.includes(s[0])?"done":"locked"}"><div><b>${s[1]}</b><br><span>Level ${s[0]}</span></div><span>${state.rewarded.includes(s[0])?"✓":"🔒"}</span></div>`).join("");
+ const q=currentQ(),era=eraFor(state.level),diff=difficultyFor(state.level),c=categoryForSubject(q.subject);
+ document.getElementById('level').textContent=state.categoryMode?`FREE • ${state.categoryCursor+1}`:`${state.level} / ${TOTAL_LEVELS}`;
+ document.getElementById('era').textContent=c.label;document.getElementById('xp').textContent=state.xp;document.getElementById('retryCount').textContent=`${state.retryCount} / 3`;document.getElementById('discovery').textContent=`${state.completed.length} / ${TOTAL_LEVELS}`;
+ document.getElementById('bar').style.width=(state.maxUnlocked/TOTAL_LEVELS*100)+'%';
+ document.getElementById('phase').textContent=state.categoryMode?`${c.label.toUpperCase()} • ${state.categorySub.toUpperCase()}`:era[0].toUpperCase();document.getElementById('difficulty').textContent=state.categoryMode?'Category Practice':diff;
+ document.getElementById('missionTag').textContent=state.categoryMode?`CATEGORY • ${state.categorySub.toUpperCase()}`:`LEVEL ${state.level} • ${q.subject.toUpperCase()}`;
+ const modeTag=document.getElementById('modeTag');if(modeTag)modeTag.textContent=state.categoryMode?`WITH CATEGORY • ${state.categorySub}`:'RANDOM JOURNEY';
+ document.getElementById('goal').textContent=q.question;
+ const hintText=document.getElementById('hintText');if(hintText){hintText.textContent='A clue will appear here. Click HINT when you need help.';hintText.dataset.hint=q.hint||''}
+ const hintBtn=document.getElementById('hintBtn');if(hintBtn)hintBtn.textContent='💡 HINT';
+ setMessage(state.categoryMode?`Category Practice: ${c.label} → ${state.categorySub}. Main 5000-level progress is kept separate.`:(isCompleted(state.level)?'✓ This mission is already discovered. You can replay it anytime from the Level Map.':''),state.categoryMode?'':'good');
+ const opts=document.getElementById('options');opts.innerHTML=q.options.map((x,i)=>`<button class="option" data-i="${i}"><span class="num">OPTION ${String.fromCharCode(65+i)}</span><strong>${escapeHTML(x)}</strong><small>Choose carefully.</small></button>`).join('');opts.querySelectorAll('.option').forEach(b=>b.onclick=()=>choose(Number(b.dataset.i)));
+ hideFabricator();const next=document.getElementById('nextLevel');next.classList.add('hidden-next');next.classList.remove('next-level-show');
+ const exit=document.getElementById('exitCategory');if(exit)exit.classList.toggle('hidden-ui',!state.categoryMode);
+ renderMaterials();renderScientists();renderLevelMap();renderCategoryUI();
 }
-let pendingLevelUp=false;
-
-function choose(v){
- const r=currentRecipe(), correct=`${r[1]} → ${r[2]}`;
- const nextBtn=document.getElementById("nextLevel");
- if(pendingLevelUp) return;
-
- if(v!==correct){
-  state.retryCount=(state.retryCount||0)+1;
-  save();
-  document.getElementById("message").className="message bad";
-
+function showHint(){const q=currentQ(),box=document.getElementById('hintBox'),text=document.getElementById('hintText');if(!box||!text)return;text.textContent=q.hint||'Think about the key concept in the question.';box.classList.add('show');const btn=document.getElementById('hintBtn');if(btn)btn.textContent='💡 HINT SHOWN'}
+function choose(index){
+ if(pendingLevelUp)return;const q=currentQ();
+ if(index!==q.answerIndex){
+  state.retryCount++;save();setMessage(`✕ Not this time — ${state.retryCount}/3 mistakes. Use the Hint if needed.`,'bad');
   if(state.retryCount>=3){
-   const oldLevel=state.level;
-   const newLevel=Math.max(1,oldLevel-5);
-   state.level=newLevel;
-   state.retryCount=0;
-   save();
-   document.querySelectorAll(".option").forEach(b=>b.disabled=true);
-   document.getElementById("message").textContent=oldLevel>1
-    ? `⚠ 3 mistakes! Penalty applied — Level ${oldLevel} → Level ${newLevel}. Rebuild the lost levels.`
-    : `⚠ 3 mistakes! You are already at Level 1. No lower level is available.`;
-   if(nextBtn) nextBtn.classList.add("hidden-next");
-   setTimeout(()=>render(),1100);
-  }else{
-   document.getElementById("message").textContent=`✕ Try Again — ${state.retryCount}/3 mistakes`;
-   hideFabricator();
-   if(nextBtn) nextBtn.classList.add("hidden-next");
+   const old=state.level;state.retryCount=0;document.querySelectorAll('.option').forEach(b=>b.disabled=true);
+   if(state.categoryMode){const pool=categoryPool(state.categoryKey,state.categorySub);state.categoryCursor=(state.categoryCursor+1)%Math.max(1,pool.length);save();setMessage('⚠ 3 mistakes — category mission refreshed. Main journey progress is unchanged.','bad')}
+   else{const newL=Math.max(1,old-3);state.level=newL;save();setMessage(old>1?`⚠ 3 mistakes — Level ${old} → ${newL}. Your discovered levels remain unlocked in Level Map.`:'⚠ 3 mistakes — Level 1 is the beginning.','bad')}
+   setTimeout(render,1300);
   }
   return;
  }
-
- pendingLevelUp=true;
- state.materials.push(r[2]);
- state.xp+=100;
- state.retryCount=0;
- save();
-
- document.getElementById("message").className="message good";
- document.getElementById("message").textContent=`✓ Correct! ${r[2]} discovered.`;
- document.querySelectorAll(".option").forEach(b=>b.disabled=true);
- showSuccessFabricator(r);
-
- if(nextBtn){
-  nextBtn.classList.add("hidden-next");
-  nextBtn.classList.remove("next-level-show");
-  setTimeout(()=>{
-   nextBtn.classList.remove("hidden-next");
-   nextBtn.classList.add("next-level-show");
-  },1300);
+ pendingLevelUp=true;state.retryCount=0;document.querySelectorAll('.option').forEach(b=>b.disabled=true);
+ if(state.categoryMode){
+  const key=`${state.categoryKey}::${state.categorySub}::${q.virtualLevel}`;if(!state.categoryCompleted.includes(key))state.categoryCompleted.push(key);state.xp+=50;state.materials.push(q.artifact);save();setMessage(`✓ Correct! ${q.artifact} fabricated. Category mission complete.`,'good');showSuccessFabricator(q);const next=document.getElementById('nextLevel');setTimeout(()=>{next.classList.remove('hidden-next');next.classList.add('next-level-show')},1100);return;
  }
+ const firstTime=!isCompleted(state.level);if(firstTime){markCompleted(state.level);state.maxUnlocked=Math.max(state.maxUnlocked,Math.min(TOTAL_LEVELS,state.level+1));state.xp+=100;state.materials.push(q.artifact)}
+ save();setMessage(firstTime?`✓ Correct! ${q.artifact} fabricated. New level unlocked.`:`✓ Replay complete! ${q.artifact} rediscovered.`,'good');showSuccessFabricator(q);const next=document.getElementById('nextLevel');setTimeout(()=>{next.classList.remove('hidden-next');next.classList.add('next-level-show')},1100);
 }
-
 function advanceLevel(){
- if(!pendingLevelUp) return;
- const completedLevel=state.level;
- if(completedLevel>=100){
-  state.level=100;
-  state.xp+=10000;
-  pendingLevelUp=false;
-  save();
-  document.getElementById("nextLevel")?.classList.add("hidden-next");
-  showReward(100);
-  return;
- }
- state.level=completedLevel+1;
- state.retryCount=0;
- pendingLevelUp=false;
- save();
- render();
- const milestone=state.level-1;
- if(milestone%5===0) setTimeout(()=>showReward(milestone),250);
+ if(!pendingLevelUp)return;pendingLevelUp=false;
+ if(state.categoryMode){const pool=categoryPool(state.categoryKey,state.categorySub);state.categoryCursor=(state.categoryCursor+1)%Math.max(1,pool.length);state.retryCount=0;save();render();return}
+ const completedLevel=state.level;if(completedLevel<TOTAL_LEVELS)state.level=Math.min(TOTAL_LEVELS,completedLevel+1);state.retryCount=0;replaying=false;save();render();if(completedLevel%5===0)setTimeout(()=>showReward(completedLevel),250);
 }
-
-function showReward(lvl){
- const s=scientists.find(x=>x[0]===lvl);if(!s||state.rewarded.includes(lvl))return;
- state.rewarded.push(lvl);save();
- document.getElementById("scientistName").textContent=s[1];
- document.getElementById("scientistQuote").textContent=s[2];
- document.getElementById("modal").classList.remove("hidden");
+function showReward(level){
+ const s=scientists.find(x=>x[0]===level);if(!s||state.rewarded.includes(level))return;
+ state.rewarded.push(level);save();
+ document.getElementById('awardLevel').textContent=`LEVEL ${level} • SCIENTIST / DISCOVERY AWARD`;
+ document.getElementById('scientistName').textContent=s[1];
+ document.getElementById('scientistField').textContent=level===5000?'Genesis Gate':'Milestone Scientist';
+ document.getElementById('quoteEn').textContent=s[2];document.getElementById('quoteBn').textContent=s[3];
+ document.getElementById('modal').classList.remove('hidden');
 }
-document.getElementById("continue").onclick=()=>document.getElementById("modal").classList.add("hidden");
-document.getElementById("nextLevel").onclick=advanceLevel;
-document.getElementById("reset").onclick=()=>{if(confirm("Reset all local progress?")){localStorage.removeItem("elementGameSave");location.reload()}};
+function renderCategoryUI(){
+ const list=document.getElementById('categoryList'),browser=document.getElementById('categoryBrowser'),subArea=document.getElementById('subcategoryArea'),subList=document.getElementById('subcategoryList');if(!list||!browser||!subArea||!subList)return;
+ list.innerHTML=CATEGORY_DEFS.map(d=>`<button class="category-card ${state.categoryKey===d.key?'selected':''}" data-cat="${d.key}"><span>${d.icon}</span><strong>${d.label}</strong><small>${subcategoriesFor(d.key).length} sub-categories</small></button>`).join('');
+ list.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{const d=categoryDefinition(b.dataset.cat);if(!d)return;const subs=subcategoriesFor(d.key);subArea.classList.remove('hidden-ui');subList.innerHTML=subs.map(([value,label])=>`<button class="subcat-btn ${state.categorySub===value?'selected':''}" data-sub="${escapeHTML(value)}"><span>›</span>${escapeHTML(label)}</button>`).join('');subList.querySelectorAll('[data-sub]').forEach(x=>x.onclick=()=>setCategoryMode(d.key,x.dataset.sub));});
+}
+function openMissionSelect(){const panel=document.getElementById('modePanel');if(!panel)return;panel.classList.add('open');document.getElementById('categoryBrowser')?.classList.add('hidden-ui');document.getElementById('subcategoryArea')?.classList.add('hidden-ui')}
+function openCategoryBrowser(){const panel=document.getElementById('modePanel'),browser=document.getElementById('categoryBrowser');if(!panel||!browser)return;panel.classList.add('open');browser.classList.remove('hidden-ui');renderCategoryUI()}
+function resetSave(){if(confirm('Reset all local progress?')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem('elementGameSave');location.reload()}}
+document.getElementById('continue').onclick=()=>document.getElementById('modal').classList.add('hidden');
+document.getElementById('nextLevel').onclick=advanceLevel;document.getElementById('hintBtn').onclick=showHint;document.getElementById('levelMapBtn').onclick=()=>{renderLevelMap();document.getElementById('levelMapModal').classList.remove('hidden')};document.getElementById('closeMap').onclick=()=>document.getElementById('levelMapModal').classList.add('hidden');document.getElementById('reset').onclick=resetSave;
+document.getElementById('missionSelectBtn').onclick=openMissionSelect;document.getElementById('randomModeBtn').onclick=()=>{exitCategoryMode();document.getElementById('modePanel').classList.remove('open')};document.getElementById('categoryModeBtn').onclick=openCategoryBrowser;document.getElementById('closeModePanel').onclick=()=>document.getElementById('modePanel').classList.remove('open');document.getElementById('exitCategory').onclick=()=>{exitCategoryMode();document.getElementById('modePanel').classList.remove('open')};
+document.getElementById('jumpLevel').onclick=()=>{const v=Number(document.getElementById('levelSearch').value);if(v)loadLevel(v)};document.getElementById('levelSearch').onkeydown=e=>{if(e.key==='Enter'){const v=Number(e.target.value);if(v)loadLevel(v)}};
 render();save();
+openMissionSelect();

@@ -45,5 +45,12 @@ ol{color:#8391a9;line-height:1.8;padding-left:20px;font-size:13px}.danger{backgr
 @keyframes artifactDraw{0%{opacity:0;filter:brightness(1.8)}100%{opacity:1;filter:none}}
 @keyframes artifactPulse{0%,100%{opacity:.45;letter-spacing:1.8px}50%{opacity:1;letter-spacing:2.2px}}
 
+
+.journey-strip{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;margin:0 0 12px;border:1px solid #202c40;background:#0b111b;border-radius:12px;font-size:9px;letter-spacing:1.4px;color:#70809b}.journey-strip strong{color:#b8c8e8;font-size:10px}.journey-strip em{font-style:normal;color:#6ee7b7;font-weight:900}.fab-scan{display:flex;align-items:center;justify-content:center;gap:10px;height:24px;font-size:8px;letter-spacing:1.8px;color:#7e8eaa;font-weight:900}.fab-scan i{display:block;width:7px;height:7px;border-radius:50%;background:#46536d;box-shadow:0 0 0 transparent}.fabricator.show .fab-scan i{background:#6ee7b7;box-shadow:0 0 18px #6ee7b7;animation:scanPulse .7s ease-in-out infinite}.fabricator.show .fab-scan span{color:#6ee7b7;animation:scanText 1.2s ease both}.artifact-svg{animation:artifactFloat 3s ease-in-out infinite}.fabricator.show .artifact-svg{animation:artifactReveal .7s cubic-bezier(.2,.8,.2,1) both,artifactFloat 3s 1s ease-in-out infinite}.fabricator.show:before{content:"";position:absolute;left:8%;right:8%;top:46%;height:1px;background:linear-gradient(90deg,transparent,#6d5dfc,#32d6ff,transparent);opacity:.45;animation:scanLine 1.3s ease-in-out infinite}.fab-caption{position:relative;z-index:1}.phase-note{color:#8da0bf;font-size:10px}
+@keyframes scanPulse{0%,100%{transform:scale(.75);opacity:.55}50%{transform:scale(1.6);opacity:1}}
+@keyframes scanText{0%{opacity:.2;letter-spacing:1px}50%{opacity:1;letter-spacing:2.3px}100%{opacity:1}}
+@keyframes scanLine{0%{transform:translateY(-58px);opacity:0}25%{opacity:.8}100%{transform:translateY(62px);opacity:0}}
+@keyframes artifactFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
 @media(max-width:850px){main{grid-template-columns:1fr}.hud{grid-template-columns:1fr 1fr 1fr}.options{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){#app{padding:13px}header{flex-direction:column}.savebox{align-self:stretch;text-align:left}.hud{grid-template-columns:1fr 1fr}.options{grid-template-columns:1fr}.option{min-height:115px}.modalbox{padding:25px}}

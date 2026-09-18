@@ -1,58 +1,81 @@
 <!doctype html>
 <html lang="bn">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ELEMENT: Genesis to Multiverse — 5000 Mission Edition</title>
 <meta name="theme-color" content="#070a10">
-<meta name="description" content="A game-first 5000-level knowledge journey: science, technology, Bangladesh job preparation, Bangla grammar, anime, Marvel, entertainment, sports, current affairs and Islamic knowledge.">
+<meta name="description" content="ELEMENT: Genesis to Multiverse — a premium 5000-mission knowledge adventure with language, difficulty, categories and sub-category progression.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
-<header>
-  <div>
-    <div class="eyebrow">5000 LEVEL • 5000 KNOWLEDGE MISSIONS</div>
-    <h1>ELEMENT: Genesis to Multiverse</h1>
-    <p class="subtitle">Learn. Choose. Fabricate. Discover. From Stone Age to Omniverse.</p>
+<header class="topbar">
+  <div class="brand-block">
+    <div class="eyebrow">ELEMENT // GENESIS ENGINE</div>
+    <h1>ELEMENT: <span>Genesis to Multiverse</span></h1>
+    <p class="subtitle">Learn. Choose. Fabricate. Discover.</p>
   </div>
   <div class="header-actions">
-    <button id="missionSelectBtn" class="map-btn">MISSION SELECT</button>
-    <button id="levelMapBtn" class="map-btn">LEVEL MAP</button>
-    <div class="savebox">LOCAL SAVE<br><span id="saveStatus">Ready</span></div>
+    <button id="playHubBtn" class="premium-nav"><span>◈</span><b>PLAY HUB</b><small>Mission control</small></button>
+    <button id="levelMapBtn" class="premium-nav"><span>⌘</span><b>LEVEL ARCHIVE</b><small>Unlocked levels</small></button>
+    <div class="savebox"><span>LOCAL SAVE</span><b id="saveStatus">Ready</b></div>
   </div>
 </header>
 
-<section id="modePanel" class="mode-panel">
-  <div class="mode-head">
-    <div>
-      <span class="eyebrow">MISSION SELECT</span>
-      <h2>How do you want to play?</h2>
-      <p>Random keeps the 5000-level Genesis journey. Category Mode lets you practice a specific topic anytime.</p>
+<section id="setupScreen" class="setup-screen hidden">
+  <div class="setup-orbit"></div>
+  <div class="setup-box">
+    <div class="setup-brand">ELEMENT // GENESIS ENGINE <span>v6</span></div>
+    <h2 data-en="Choose your language" data-bn="ভাষা নির্বাচন করুন">ভাষা নির্বাচন করুন</h2>
+    <p data-en="Your first choice becomes the language of the entire game." data-bn="প্রথমে যে ভাষা বেছে নেবেন, পুরো গেমের প্রশ্ন ও উত্তর সেই ভাষাতেই দেখাবে।">প্রথমে যে ভাষা বেছে নেবেন, পুরো গেমের প্রশ্ন ও উত্তর সেই ভাষাতেই দেখাবে।</p>
+    <div class="setup-section-label">LANGUAGE / ভাষা</div>
+    <div class="language-grid">
+      <button class="lang-card active" data-lang="bn"><span>বাংলা</span><small>প্রশ্ন + উত্তর বাংলায়</small></button>
+      <button class="lang-card" data-lang="en"><span>English</span><small>Questions + answers in English</small></button>
     </div>
-    <button id="closeModePanel" class="secondary-btn mode-close">CLOSE</button>
+    <div class="setup-section-label">DIFFICULTY / কঠিনতার স্তর</div>
+    <div class="difficulty-grid">
+      <button class="difficulty-card active" data-diff="All"><b>ALL</b><span>সব লেভেল</span><small>Complete mission pool</small></button>
+      <button class="difficulty-card" data-diff="Easy"><b>EASY</b><span>সহজ</span><small>Foundation & recall</small></button>
+      <button class="difficulty-card" data-diff="Medium"><b>MEDIUM</b><span>মাঝারি</span><small>Concept & application</small></button>
+      <button class="difficulty-card" data-diff="Hard"><b>HARD</b><span>কঠিন</span><small>Deep & competitive</small></button>
+    </div>
+    <div class="setup-preview"><span>MISSION POOL</span><strong>5000</strong><small>Every sub-category has 83+ missions.</small></div>
+    <button id="setupContinue" class="setup-start">ENTER GENESIS ENGINE →</button>
+    <button id="setupSettingsBtn" class="setup-secondary">Change these later from Play Hub</button>
   </div>
-  <div class="mode-grid">
-    <button id="randomModeBtn" class="mode-card active">
-      <span class="mode-icon">🎲</span><strong>RANDOM</strong><small>Continue the main 5000-level journey</small>
-    </button>
-    <button id="categoryModeBtn" class="mode-card">
-      <span class="mode-icon">🧭</span><strong>WITH CATEGORY</strong><small>Choose a category, then select one or more sub-categories</small>
-    </button>
-  </div>
-  <div id="categoryBrowser" class="category-browser hidden-ui">
-    <div class="category-title">SELECT CATEGORY</div>
-    <div id="categoryList" class="category-list"></div>
-    <div id="subcategoryArea" class="subcategory-area hidden-ui">
-      <div class="category-title">SELECT ONE OR MORE SUB-CATEGORIES</div>
-      <div id="subcategoryList" class="subcategory-list"></div>
+</section>
+
+<section id="playHub" class="hub-overlay hidden">
+  <div class="hub-box">
+    <div class="hub-head">
+      <div><div class="eyebrow">MISSION CONTROL</div><h2>Choose your route</h2><p>Language and difficulty apply to every mission. Category levels unlock progressively.</p></div>
+      <button id="closePlayHub" class="icon-close">×</button>
+    </div>
+    <div class="route-grid">
+      <button id="randomPlayBtn" class="route-card"><span>✦</span><div><b>RANDOM JOURNEY</b><small>All 5000 missions in Genesis order</small></div><strong>→</strong></button>
+      <div class="route-card category-route"><span>◎</span><div><b>WITH CATEGORY</b><small>Choose a category + one or more sub-categories</small></div><strong>01</strong></div>
+    </div>
+    <div class="hub-controls">
+      <div><label>LANGUAGE</label><div class="mini-choice"><button class="lang-card-mini" data-lang="bn">বাংলা</button><button class="lang-card-mini" data-lang="en">English</button></div></div>
+      <div><label>DIFFICULTY</label><div class="mini-choice diff-mini"><button data-diff="All">ALL</button><button data-diff="Easy">EASY</button><button data-diff="Medium">MEDIUM</button><button data-diff="Hard">HARD</button></div></div>
+    </div>
+    <div class="category-browser">
+      <div class="browser-label">CATEGORY MATRIX</div>
+      <div id="categoryList" class="category-list"></div>
+      <div id="subcategoryArea" class="subcategory-area hidden-ui">
+        <div class="subhead"><div><b>SUB-CATEGORY MATRIX</b><small>Select one or multiple</small></div><span id="subCountBadge">0 selected</span></div>
+        <div id="subcategoryList" class="subcategory-list"></div>
+        <div class="subcat-actions"><button id="selectAllSubs" class="secondary-btn">SELECT ALL</button><button id="clearSubs" class="secondary-btn">CLEAR</button><button id="startCategory" class="start-category-btn">START CATEGORY →</button></div>
+        <div id="selectionInfo" class="selection-info"></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="hud">
   <div><b>LEVEL</b><span id="level">1 / 5000</span></div>
-  <div><b>SUBJECT</b><span id="era">Chemistry</span></div>
+  <div><b>SUBJECT</b><span id="era">সাইন্স</span></div>
   <div><b>XP</b><span id="xp">0</span></div>
   <div><b>MISTAKES</b><span id="retryCount">0 / 3</span></div>
   <div><b>DISCOVERED</b><span id="discovery">0 / 5000</span></div>
@@ -60,99 +83,30 @@
 
 <main>
 <section class="gamecard">
-  <div class="journey-strip">
-    <span>GENESIS PATH</span>
-    <strong id="phase">STONE AGE FOUNDATIONS</strong>
-    <em id="difficulty">Foundation</em>
-  </div>
+  <div class="journey-strip"><span>GENESIS PATH</span><strong id="phase">STONE AGE FOUNDATIONS</strong><em id="difficulty">Foundation</em></div>
   <div class="progress"><div id="bar"></div></div>
-
   <div class="mission">
-    <span id="missionTag">LEVEL 1 • CHEMISTRY</span>
-    <span id="modeTag" class="mode-tag">RANDOM JOURNEY</span>
+    <div class="mission-meta"><span id="missionTag">LEVEL 1</span><span id="modeTag" class="mode-tag">RANDOM JOURNEY</span><button id="categoryMapBtn" class="map-inline hidden-ui">CATEGORY ARCHIVE</button></div>
     <h2 id="goal">Loading mission…</h2>
-    <p>Choose the most precise answer. Every correct answer fabricates a discovery.</p>
+    <p class="mission-subtitle">Every correct answer fabricates a discovery.</p>
   </div>
-
-  <div class="hint-row">
-    <button id="hintBtn" class="hint-btn">💡 HINT</button>
-    <div id="hintBox" class="hint-box"><span>HINT</span><p id="hintText">A clue will appear here.</p></div>
-  </div>
-
+  <div class="hint-row"><button id="hintBtn" class="hint-btn">💡 HINT</button><div id="hintBox" class="hint-box"><span>HINT</span><p id="hintText">প্রয়োজনে HINT চাপুন।</p></div></div>
   <div id="options" class="options"></div>
   <div id="message" class="message"></div>
-
-  <div id="fabricatorSuccess" class="fabricator success-only" aria-hidden="true">
-    <div class="fab-head"><span>KNOWLEDGE FABRICATOR</span><span id="fabState">CORE STANDBY</span></div>
-    <div class="fab-scan"><span>DISCOVERY ENERGY</span><i></i></div>
-    <div id="fabricatorVisual" class="fab-visual" aria-live="polite"></div>
-    <div class="fab-caption" id="fabCaption"></div>
-  </div>
-
-  <div class="next-actions">
-    <button id="nextLevel" class="next-level hidden-next">NEXT LEVEL →</button>
-    <button id="exitCategory" class="secondary-btn hidden-ui">BACK TO RANDOM JOURNEY</button>
-  </div>
-
-  <div class="inventory">
-    <div class="invhead"><h3>DISCOVERED ARTIFACTS</h3><button id="reset" class="danger">RESET SAVE</button></div>
-    <div id="materials" class="chips"></div>
-  </div>
+  <div id="fabricatorSuccess" class="fabricator success-only" aria-hidden="true"><div class="fab-head"><span>KNOWLEDGE FABRICATOR</span><span id="fabState">CORE STANDBY</span></div><div class="fab-scan"><span>DISCOVERY ENERGY</span><i></i></div><div id="fabricatorVisual" class="fab-visual"></div><div class="fab-caption" id="fabCaption"></div></div>
+  <div class="next-actions"><button id="nextLevel" class="next-level hidden-next">NEXT LEVEL →</button><button id="exitCategory" class="secondary-btn hidden-ui">← BACK TO RANDOM JOURNEY</button></div>
+  <div class="inventory"><div class="invhead"><h3>DISCOVERED ARTIFACTS</h3><button id="reset" class="danger">RESET SAVE</button></div><div id="materials" class="chips"></div></div>
 </section>
-
 <aside class="side">
-  <div class="panel">
-    <h3>SCIENTIST MILESTONES</h3>
-    <div id="scientists"></div>
-  </div>
-  <div class="panel">
-    <h3>GAME RULES</h3>
-    <ol>
-      <li>The question is a mission inside the Genesis-to-Omniverse journey.</li>
-      <li>Correct answer → Fabricator → animated discovery → XP → next level.</li>
-      <li>Hint gives a clue connected to the answer; it is optional.</li>
-      <li>Three mistakes apply a 3-level penalty, but previously unlocked levels stay unlocked.</li>
-      <li>Use LEVEL MAP anytime to replay any unlocked level.</li>
-      <li>School foundations gradually rise through High School, College, University, Honours and specialist/competitive levels.</li>
-      <li>Career missions include Bangladesh teacher preparation, Bangla grammar, ICT, GK and job-style questions.</li>
-      <li>Anime, Marvel, TV/streaming, sports and current-affairs missions appear naturally in the journey.</li>
-      <li>Evolution questions are excluded. The final Islamic/Hadith sector uses bilingual English + Bangla questions and options.</li>
-    </ol>
-  </div>
-  <div class="panel source-note">
-    <h3>HADITH STUDY NOTE</h3>
-    <p>Hadith-identification missions focus on verification, isnad, terminology and the distinction between sahih, da'if and mawdu'. The source framing follows the named work <b>হাদীসের নামে জালিয়াতি</b> by Dr. Khandaker Abdullah Jahangir rather than inventing unattributed hadith claims.</p>
-  </div>
+  <div class="panel"><h3>SCIENTIST MILESTONES</h3><div id="scientists"></div></div>
+  <div class="panel"><h3>GAME RULES</h3><ol><li>Random Journey contains the full 5000-mission Genesis route.</li><li>Choose a language first; the active language controls question and answer display.</li><li>Category Mode creates its own progressive level track.</li><li>Select multiple sub-categories; their missions are merged into one category-level pool.</li><li>Every sub-category has at least 83 missions in this build.</li><li>Correct answer → Fabricator → discovery → XP → next level.</li><li>Previously unlocked Random and Category levels remain replayable.</li></ol></div>
+  <div class="panel source-note"><h3>KNOWLEDGE NOTE</h3><p>Technical names and proper nouns may remain in their standard form inside Bengali mode where that is clearer.</p></div>
 </aside>
 </main>
 </div>
 
-<div id="modal" class="modal hidden">
-  <div class="modalbox reward-box">
-    <div class="medal">★</div>
-    <div class="eyebrow">SCIENTIST / DISCOVERY REWARD</div>
-    <div id="awardLevel" class="award-level">LEVEL 5</div>
-    <h2 id="scientistName"></h2>
-    <div id="scientistField" class="scientist-field"></div>
-    <p id="quoteEn" class="quote en"></p>
-    <p id="quoteBn" class="quote bn"></p>
-    <button id="continue">CONTINUE JOURNEY</button>
-  </div>
-</div>
+<div id="modal" class="modal hidden"><div class="modalbox reward-box"><div class="medal">★</div><div class="eyebrow">SCIENTIST / DISCOVERY REWARD</div><div id="awardLevel" class="award-level">LEVEL 5</div><h2 id="scientistName"></h2><div id="scientistField" class="scientist-field"></div><p id="quoteEn" class="quote en"></p><p id="quoteBn" class="quote bn"></p><button id="continue">CONTINUE JOURNEY</button></div></div>
 
-<div id="levelMapModal" class="modal hidden">
-  <div class="modalbox map-box">
-    <div class="eyebrow">UNLOCKED LEVEL ARCHIVE</div>
-    <h2>LEVEL MAP</h2>
-    <p id="mapInfo" class="map-info">Unlocked: 1 / 5000</p>
-    <div class="jump-row">
-      <input id="levelSearch" type="number" min="1" max="5000" placeholder="Level number">
-      <button id="jumpLevel">GO</button>
-    </div>
-    <div id="levelMap" class="level-map"></div>
-    <button id="closeMap" class="secondary-btn">CLOSE MAP</button>
-  </div>
-</div>
+<div id="levelMapModal" class="modal hidden"><div class="modalbox map-box"><div class="eyebrow">LEVEL ARCHIVE</div><h2 id="mapTitle">LEVEL MAP</h2><p id="mapInfo" class="map-info">Unlocked: 1 / 5000</p><div class="jump-row"><input id="levelSearch" type="number" min="1" max="5000" placeholder="Level number"><button id="jumpLevel">GO</button></div><div id="levelMap" class="level-map"></div><button id="closeMap" class="secondary-btn">CLOSE ARCHIVE</button></div></div>
 <script src="game.js"></script>
-</body>
-</html>
+</body></html>

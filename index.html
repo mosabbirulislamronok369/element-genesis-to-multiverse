@@ -2,10 +2,10 @@
 <html lang="bn">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ELEMENT: Genesis to Multiverse — Verified Unique Edition</title>
+<title>ELEMENT: Genesis to Multiverse — Verified Unique + 500-Level Genesis Game</title>
 <meta name="theme-color" content="#070a10">
 <meta name="description" content="ELEMENT: Genesis to Multiverse — a premium verified-unique knowledge adventure with language, difficulty, categories and sub-category progression.">
-<link rel="stylesheet" href="style.css?v=15.0.0">
+<link rel="stylesheet" href="style.css?v=16.0.0">
 </head>
 <body>
 <div id="app">
@@ -17,7 +17,7 @@
   </div>
   <div class="header-actions">
     <button id="playHubBtn" class="premium-nav"><span>◈</span><b>PLAY HUB</b><small>Mission control</small></button>
-    <button id="levelMapBtn" class="premium-nav"><span>⌘</span><b>LEVEL ARCHIVE</b><small>Unlocked levels</small></button><button id="challengeTopBtn" class="premium-nav challenge-nav"><span>⚡</span><b>CHALLENGE</b><small>Timed arena</small></button>
+    <button id="levelMapBtn" class="premium-nav"><span>⌘</span><b>LEVEL ARCHIVE</b><small>Unlocked levels</small></button><button id="gameTopBtn" class="premium-nav game-nav"><span>🎮</span><b>GAME • 500</b><small>Genesis build mode</small></button><button id="challengeTopBtn" class="premium-nav challenge-nav"><span>⚡</span><b>CHALLENGE</b><small>Timed arena</small></button>
     <div class="savebox"><span>LOCAL SAVE</span><b id="saveStatus">Ready</b></div>
   </div>
 </header>
@@ -25,7 +25,7 @@
 <section id="setupScreen" class="setup-screen hidden">
   <div class="setup-orbit"></div>
   <div class="setup-box">
-    <div class="setup-brand">ELEMENT // GENESIS ENGINE <span>V14</span></div>
+    <div class="setup-brand">ELEMENT // GENESIS ENGINE <span>V16</span></div>
     <h2 data-en="Choose your language" data-bn="ভাষা নির্বাচন করুন">ভাষা নির্বাচন করুন</h2>
     <p data-en="Your first choice becomes the language of the entire game." data-bn="প্রথমে যে ভাষা বেছে নেবেন, পুরো গেমের প্রশ্ন ও উত্তর সেই ভাষাতেই দেখাবে।">প্রথমে যে ভাষা বেছে নেবেন, পুরো গেমের প্রশ্ন ও উত্তর সেই ভাষাতেই দেখাবে।</p>
     <div class="setup-section-label">LANGUAGE / ভাষা</div>
@@ -53,7 +53,8 @@
       <button id="closePlayHub" class="icon-close">×</button>
     </div>
     <div class="route-grid">
-      <button id="randomPlayBtn" class="route-card"><span>✦</span><div><b>RANDOM JOURNEY</b><small>All 5000 missions in Genesis order</small></div><strong>→</strong></button>
+      <button id="gameModeBtn" class="route-card game-route"><span>🎮</span><div><b>GENESIS GAME • 500 LEVELS</b><small>Build inventions from Stone Age → Smartphone → AI → Multiverse</small></div><strong>500</strong></button>
+      <button id="randomPlayBtn" class="route-card"><span>✦</span><div><b>RANDOM JOURNEY</b><small>All unique missions in Genesis order</small></div><strong>→</strong></button>
       <div class="route-card category-route"><span>◎</span><div><b>WITH CATEGORY</b><small>Choose a category + one or more sub-categories</small></div><strong>01</strong></div>
     <div class="advanced-routes">
       <button id="challengeOpenBtn" class="advanced-route challenge-route"><span>⚡</span><div><b>CHALLENGE MODE</b><small>Set 3–60 minutes • choose categories • continuous questions</small></div><strong>TIME</strong></button>
@@ -91,19 +92,19 @@
 </section>
 
 <section class="hud">
-  <div><b>LEVEL</b><span id="level">1 / 5000</span></div>
+  <div><b>LEVEL</b><span id="level">GAME 1 / 500</span></div>
   <div><b>SUBJECT</b><span id="era">সাইন্স</span></div>
   <div><b>XP</b><span id="xp">0</span></div>
   <div><b>MISTAKES</b><span id="retryCount">0 / 3</span></div>
-  <div><b>DISCOVERED</b><span id="discovery">0 / 5000</span></div>
+  <div><b>DISCOVERED</b><span id="discovery">0 / 500</span></div>
 </section>
 
 <main>
 <section class="gamecard">
-  <div class="journey-strip"><span>GENESIS PATH</span><strong id="phase">STONE AGE FOUNDATIONS</strong><em id="difficulty">Foundation</em></div>
+  <div class="journey-strip"><span>GENESIS PATH</span><strong id="phase">STONE AGE FOUNDATIONS</strong><em id="difficulty">Foundation</em></div><div id="gameBuildTrack" class="game-build-track hidden-ui"><div><span>BUILD TRACK</span><b id="gameBuildTitle">Stone Age</b></div><div class="game-build-next"><small>NEXT DISCOVERY</small><strong id="gameBuildNext">Stone Shelter</strong></div><div class="game-build-count"><b id="gameBuildLevel">1 / 500</b><span>GAME LEVEL</span></div></div>
   <div class="progress"><div id="bar"></div></div>
   <div id="challengeTimer" class="challenge-timer hidden-ui">⚡ <b>05:00</b><span>CHALLENGE TIME</span></div><div class="mission">
-    <div class="mission-meta"><span id="missionTag">LEVEL 1</span><span id="modeTag" class="mode-tag">RANDOM JOURNEY</span><button id="categoryMapBtn" class="map-inline hidden-ui">CATEGORY ARCHIVE</button></div>
+    <div class="mission-meta"><span id="missionTag">LEVEL 1</span><span id="modeTag" class="mode-tag">RANDOM JOURNEY</span><button id="categoryMapBtn" class="map-inline hidden-ui">CATEGORY ARCHIVE</button><button id="gameMapBtn" class="map-inline hidden-ui">GAME ARCHIVE</button></div>
     <h2 id="goal">Loading mission…</h2>
     <p class="mission-subtitle">Every correct answer fabricates a discovery.</p>
   </div>
@@ -122,9 +123,9 @@
 </main>
 </div>
 
-<div id="modal" class="modal hidden"><div class="modalbox reward-box"><div class="medal">★</div><div class="eyebrow">SCIENTIST / DISCOVERY REWARD</div><div id="awardLevel" class="award-level">LEVEL 5</div><h2 id="scientistName"></h2><div id="scientistField" class="scientist-field"></div><p id="quoteEn" class="quote en"></p><p id="quoteBn" class="quote bn"></p><button id="continue">CONTINUE JOURNEY</button></div></div>
+<div id="modal" class="modal hidden"><div class="modalbox reward-box"><div class="medal">★</div><div class="eyebrow" id="rewardEyebrow">SCIENTIST / DISCOVERY REWARD</div><div id="awardLevel" class="award-level">LEVEL 5</div><h2 id="scientistName"></h2><div id="scientistField" class="scientist-field"></div><p id="quoteEn" class="quote en"></p><p id="quoteBn" class="quote bn"></p><button id="continue">CONTINUE JOURNEY</button></div></div>
 
 <div id="levelMapModal" class="modal hidden"><div class="modalbox map-box"><div class="eyebrow">LEVEL ARCHIVE</div><h2 id="mapTitle">LEVEL ARCHIVE</h2><p id="mapInfo" class="map-info">Unlocked: 1 / 5000</p><div class="jump-row"><input id="levelSearch" type="number" min="1" max="5000" placeholder="Level number"><button id="jumpLevel">GO</button></div><div id="levelMap" class="level-map"></div><button id="closeMap" class="secondary-btn">CLOSE ARCHIVE</button></div></div>
 <div id="challengeResultModal" class="modal hidden"><div class="modalbox challenge-result-box"><div class="medal">⚡</div><div class="eyebrow">CHALLENGE RESULT</div><h2 id="challengeResultTitle">Challenge Complete</h2><div id="challengeResultStats" class="result-stats"></div><button id="challengeResultClose">RETURN TO PLAY HUB</button></div></div>
-<script src="game.js?v=15.0.0"></script>
+<script src="game.js?v=16.0.0"></script>
 </body></html>

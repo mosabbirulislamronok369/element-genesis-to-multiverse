@@ -898,3 +898,125 @@ button,input,select{font:inherit}button:focus-visible,input:focus-visible,select
   .language-grid,.difficulty-grid{grid-template-columns:1fr}
   .setup-box h2{font-size:34px !important}
 }
+
+/* =========================================================
+   V15 — NCTB premium class/subject/chapter selector
+   ========================================================= */
+.nctb-select-row{
+  display:grid !important;
+  grid-template-columns:1fr 1.45fr;
+  gap:16px;
+  align-items:start;
+}
+.nctb-field{min-width:0}
+.nctb-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(86px,1fr));
+  gap:8px;
+  margin-top:8px;
+}
+.nctb-choice-grid.subject-grid{
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+}
+.nctb-choice{
+  appearance:none;
+  border:1px solid rgba(133,164,224,.20);
+  background:linear-gradient(145deg,rgba(18,31,52,.96),rgba(8,16,29,.96));
+  color:#aebbd2;
+  min-height:42px;
+  padding:9px 11px;
+  border-radius:12px;
+  font:800 12px/1.15 inherit;
+  cursor:pointer;
+  transition:.18s ease;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 5px 15px rgba(0,0,0,.12);
+}
+.nctb-choice:hover{
+  transform:translateY(-1px);
+  border-color:rgba(104,222,255,.45);
+  color:#eaf8ff;
+}
+.nctb-choice.active{
+  color:#eaffff;
+  border-color:rgba(98,222,255,.75);
+  background:linear-gradient(145deg,rgba(21,66,87,.98),rgba(12,32,51,.98));
+  box-shadow:0 0 0 1px rgba(98,222,255,.13),0 9px 24px rgba(50,188,230,.12);
+}
+.native-sync-select{
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+  overflow:hidden !important;
+}
+.chapter-list{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  max-height:360px;
+  overflow:auto;
+  padding:4px 3px 5px 1px;
+}
+.chapter-check{
+  position:relative;
+  display:flex !important;
+  align-items:center;
+  gap:11px;
+  min-height:68px;
+  padding:11px 12px !important;
+  border:1px solid rgba(135,164,225,.17) !important;
+  border-radius:15px !important;
+  background:linear-gradient(145deg,rgba(17,29,49,.92),rgba(8,15,27,.94)) !important;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.chapter-check:hover{
+  transform:translateY(-1px);
+  border-color:rgba(103,224,255,.38) !important;
+}
+.chapter-check.selected{
+  border-color:rgba(100,225,255,.72) !important;
+  background:linear-gradient(145deg,rgba(17,56,72,.96),rgba(9,24,39,.98)) !important;
+  box-shadow:0 0 0 1px rgba(100,225,255,.10),0 10px 25px rgba(38,175,220,.10);
+}
+.chapter-check input{position:absolute;opacity:0;pointer-events:none}
+.chapter-checkmark{
+  flex:0 0 25px;
+  width:25px;height:25px;
+  display:grid;place-items:center;
+  border-radius:8px;
+  border:1px solid rgba(140,165,216,.25);
+  color:transparent;
+  background:#0b1525;
+  font-weight:950;
+}
+.chapter-check.selected .chapter-checkmark{
+  color:#061019;
+  background:linear-gradient(135deg,#78edff,#68b7ff);
+  border-color:transparent;
+}
+.chapter-check div{min-width:0;flex:1}
+.chapter-check b{
+  display:block;
+  color:#eaf1ff;
+  font-size:13px;
+  line-height:1.3;
+}
+.chapter-check small{
+  display:block;
+  margin-top:4px;
+  color:#7386a4;
+  font-size:10px;
+  font-weight:700;
+}
+.chapter-check em{
+  font-style:normal;
+  color:#617594;
+  font:900 11px/1 inherit;
+  letter-spacing:1px;
+}
+@media(max-width:760px){
+ .nctb-select-row{grid-template-columns:1fr !important}
+ .chapter-list{grid-template-columns:1fr !important;max-height:420px}
+}

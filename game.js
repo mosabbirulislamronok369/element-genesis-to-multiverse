@@ -246,9 +246,75 @@ const V13_ANIME_EXPANSION=[
 ];
 SEED_FACTS.push(...V13_ANIME_EXPANSION);
 
+const V15_ANIME_EXPANSION=[
+["Anime • One Piece","What is the main treasure that gives the series its title?","The One Piece",["The All Blue","The Grand Line","The Red Line"],"It is the legendary treasure sought by pirates.","One Piece"],
+["Anime • One Piece","What is Luffy’s family name?","Monkey D.",["Gol D.","Portgas D.","Donquixote D."],"His full name begins with Monkey D.","Luffy"],
+["Anime • One Piece","What is Zoro’s fighting style famous for?","Three-Sword Style",["Two-Sword Style","Six-Sword Style","Bare-Hand Style"],"He uses a sword in each hand and one in his mouth.","Zoro"],
+["Anime • One Piece","What is Nami’s role on the Straw Hat crew?","Navigator",["Doctor","Shipwright","Cook"],"She charts routes and reads weather patterns.","Nami"],
+["Anime • One Piece","What is Sanji’s dream related to?","The All Blue",["Laugh Tale","Wano Country","Fish-Man Island"],"He searches for a legendary sea said to contain fish from every ocean.","Sanji"],
+["Anime • One Piece","What ability lets Robin sprout copies of body parts?","Hana Hana no Mi",["Gomu Gomu no Mi","Mera Mera no Mi","Ope Ope no Mi"],"Her Devil Fruit allows her to bloom body parts on surfaces.","Robin"],
+["Anime • One Piece","What is Chopper’s species?","Reindeer",["Wolf","Fox","Dog"],"He is a reindeer who gained human-like abilities through a Devil Fruit.","Chopper"],
+["Anime • One Piece","What makes Franky unusual among the Straw Hats?","He is a cyborg shipwright",["He is a Shinigami","He is a giant","He is a Marine"],"His body contains extensive mechanical modifications.","Franky"],
+["Anime • One Piece","What is Brook’s Devil Fruit?","Yomi Yomi no Mi",["Hana Hana no Mi","Bara Bara no Mi","Mera Mera no Mi"],"It allowed his soul to return after death.","Brook"],
+["Anime • One Piece","Which power system includes Observation Haki?","Haki",["Nen","Quirk","Breathing Styles"],"Observation, Armament and Conqueror’s are types of Haki.","Haki"],
+["Anime • One Piece","What does Armament Haki primarily allow a user to do?","Harden attacks or defenses",["Read minds","Teleport instantly","Control weather only"],"It can strengthen the body or weapons and affect certain Devil Fruit users.","Armament Haki"],
+["Anime • One Piece","What is Conqueror’s Haki associated with?","Overwhelming the will of others",["Healing wounds","Reading Poneglyphs","Changing into a fish"],"It is a rare form of Haki associated with supreme will.","Conqueror’s Haki"],
+["Anime • One Piece","What is a Poneglyph?","An ancient stone inscription",["A Marine ship","A Devil Fruit","A cooking recipe"],"These indestructible stones preserve important historical information.","Poneglyph"],
+["Anime • One Piece","What is Laugh Tale?","The final island associated with the One Piece treasure",["A Marine headquarters","A village in East Blue","A ship"],"Roger reached the island at the end of his journey.","Laugh Tale"],
+["Anime • One Piece","Who is Ace to Luffy?","His sworn older brother",["His biological son","His uncle","His navigator"],"Ace and Luffy formed a sworn brotherhood with Sabo.","Ace"],
+["Anime • One Piece","Who is Sabo to Luffy?","His sworn brother",["His doctor","His father","His shipwright"],"Sabo, Ace and Luffy became sworn brothers.","Sabo"],
+["Anime • One Piece","What is Garp’s position in the Marines?","Vice Admiral",["Pirate King","Yonko","Warlord"],"Garp is a legendary Marine hero and vice admiral.","Garp"],
+["Anime • One Piece","What is Trafalgar Law’s Devil Fruit?","Ope Ope no Mi",["Mera Mera no Mi","Hana Hana no Mi","Yomi Yomi no Mi"],"It lets him create a surgical operating room-like space.","Law"],
+["Anime • One Piece","What is Wano Country known for?","Its samurai culture",["Being a Marine base","Being a sky island","Being the Red Line"],"Wano is strongly associated with samurai and closed borders.","Wano"],
+["Anime • One Piece","What is Marineford?","A major Marine headquarters and battlefield",["A pirate ship","A Poneglyph","A sky island"],"The Paramount War takes place there.","Marineford"],
+["Anime • One Piece","What is the Calm Belt?","A sea region with little or no wind",["A mountain range","A desert","A city"],"It lies alongside the Grand Line and is dangerous for ships.","Calm Belt"],
+["Anime • One Piece","Which organization is the World Government’s main military force?","Marines",["Straw Hats","Revolutionary Army only","Roger Pirates"],"The Marines enforce World Government authority at sea.","Marines"],
+["Anime • One Piece","Who leads the Revolutionary Army?","Monkey D. Dragon",["Shanks","Dracule Mihawk","Buggy"],"Dragon is Luffy’s father and the Revolutionary Army leader.","Dragon"],
+["Anime • One Piece","What is Dracule Mihawk famous for?","World’s greatest swordsman",["Being Pirate King","Being a Marine Admiral","Building ships"],"He is known for unmatched swordsmanship.","Mihawk"],
+["Anime • One Piece","What is the Thousand Sunny made to do?","Serve as the Straw Hat crew’s main ship",["Transport Marines","Store Poneglyphs only","Guard Marineford"],"Franky built it as the crew’s next major ship.","Thousand Sunny"],
+["Anime • One Piece","What is the Grand Line?","A dangerous sea route crossing the world",["A mountain","A government building","A Devil Fruit"],"It is the central maritime route of the story.","Grand Line"],
+["Anime • One Piece","What is a Yonko?","One of the four powerful pirate emperors",["A Marine rank","A type of Devil Fruit","A sword"],"Yonko are among the most influential pirates.","Yonko"],
+["Anime • One Piece","What is the Red Line?","A huge continent-like landmass circling the world",["A pirate crew","A sea current","A Devil Fruit"],"It intersects the Grand Line.","Red Line"],
+["Anime • One Piece","What is the Void Century?","A mysterious century of erased world history",["A pirate festival","A Marine rank","A cooking era"],"Its history is connected to the Poneglyphs and World Government secrecy.","Void Century"],
+["Anime • One Piece","What is the Revolutionary Army primarily opposing?","The World Government",["The Straw Hats","The Going Merry","The Grand Line"],"Its central conflict is against World Government authority.","Revolutionary Army"],
+
+["Anime • Death Note","What is Light Yagami’s goal after obtaining the notebook?","To create a world he controls as Kira",["To become a detective","To join the SPK","To become a Shinigami"],"He adopts the identity of Kira and seeks to reshape society.","Light Yagami"],
+["Anime • Death Note","What is L’s famous detective alias?","L",["Kira","K","Near"],"He conceals his real name behind the single-letter alias.","L"],
+["Anime • Death Note","What must generally be known to use the Death Note on a person?","The person’s name and face",["Only their address","Only their age","Their blood type"],"The rules require knowledge of the name and a clear mental image of the face.","Death Note Rule"],
+["Anime • Death Note","What happens if the cause of death is not specified within the allowed time?","The default heart attack rule applies",["The victim becomes a Shinigami","The notebook disappears","L dies"],"The notebook has default rules when no specific cause is set.","Death Note Rule"],
+["Anime • Death Note","Who is Light’s father?","Soichiro Yagami",["Watari","Aizawa","Matsuda"],"He is a senior police officer involved in the Kira investigation.","Soichiro"],
+["Anime • Death Note","Who is Misa Amane?","A model and Kira supporter",["An FBI director","A Shinigami","L’s sister"],"She becomes the Second Kira and receives Shinigami Eyes.","Misa"],
+["Anime • Death Note","Which Shinigami is connected to Misa?","Rem",["Ryuk","Gelus only","Sidoh"],"Rem watches over Misa and cares about her safety.","Rem"],
+["Anime • Death Note","Which Shinigami originally owned the notebook that reaches Light?","Ryuk",["Rem","Gelus","Sidoh"],"Ryuk drops the notebook into the human world out of boredom.","Ryuk"],
+["Anime • Death Note","What does Ryuk especially enjoy eating?","Apples",["Oranges","Rice","Chocolate"],"Apples are a recurring joke and preference for Ryuk.","Ryuk"],
+["Anime • Death Note","What is the cost of the Shinigami Eye deal?","Half of the human’s remaining lifespan",["All memories","Their notebook","Their identity"],"The deal trades half of the remaining lifespan for the ability.","Shinigami Eyes"],
+["Anime • Death Note","Who is Near?","A successor candidate to L",["A Shinigami","Light’s father","An FBI agent"],"He is raised at Wammy’s House and later leads the SPK.","Near"],
+["Anime • Death Note","Who is Mello?","Another Wammy’s House successor candidate",["A Shinigami","A police captain","Light’s cousin"],"Mello competes with Near to succeed L.","Mello"],
+["Anime • Death Note","What does Wammy’s House do?","Educates gifted children",["Trains Marines","Creates Death Notes","Runs a hospital"],"It is the institution associated with L and his successors.","Wammy’s House"],
+["Anime • Death Note","What is the SPK?","A group formed to investigate Kira",["A school","A Shinigami clan","A Japanese idol agency"],"Near leads the international investigation group.","SPK"],
+["Anime • Death Note","Who is Teru Mikami?","A devoted Kira follower and prosecutor",["An FBI agent","A Shinigami","L’s assistant"],"Light uses Mikami as an important proxy in the later story.","Mikami"],
+["Anime • Death Note","Who is Kiyomi Takada?","A television news presenter connected to Kira",["A police detective","A Shinigami","A Wammy student"],"She becomes an important intermediary for Light.","Takada"],
+["Anime • Death Note","What is the Yotsuba Group connected to?","A corporate Kira investigation",["The Grand Line","Wammy’s House","The Marines"],"The Yotsuba arc involves a company executive using the Death Note.","Yotsuba"],
+["Anime • Death Note","What happens when Light relinquishes ownership of the Death Note?","He loses memories connected to it",["He becomes a Shinigami","He gains immortality","He gains L’s memories"],"Ownership and memory are linked by the notebook rules.","Memory"],
+["Anime • Death Note","What is the purpose of the fake L broadcast?","To provoke Kira and learn about Kira’s location or nature",["To advertise a school","To summon Ryuk","To destroy the notebook"],"L uses a deceptive broadcast as a test.","L Broadcast"],
+["Anime • Death Note","What is Watari’s role?","L’s trusted assistant and support figure",["A Shinigami","Kira’s prosecutor","A pirate"],"Watari handles logistics and supports L.","Watari"],
+["Anime • Death Note","What is the relationship between Light and the Japanese Task Force?","Light works with them while secretly being Kira",["They never meet","They are all Shinigami","They are all pirates"],"Light participates in the investigation while hiding his identity.","Task Force"],
+["Anime • Death Note","What does the Death Note primarily cause?","The death of named humans under its rules",["Teleportation","Weather control","Time travel"],"The notebook is a supernatural killing tool.","Death Note"],
+["Anime • Death Note","What is the main conflict between Light and L?","A battle of deduction and deception",["A cooking contest","A sports tournament","A pirate war"],"Both attempt to discover and outmaneuver the other.","Mind Game"],
+["Anime • Death Note","What is Kira’s public image to some supporters?","A judge who punishes criminals",["A pirate king","A police chief","A Shinigami prince"],"Supporters view Kira’s killings as punishment of criminals.","Kira"],
+["Anime • Death Note","What is the Shinigami Realm?","The world inhabited by Shinigami",["A human police station","A school","A pirate island"],"Shinigami originate from this supernatural realm.","Shinigami Realm"],
+["Anime • Death Note","What happens if a human makes the Shinigami Eye deal?","They can see a person’s name and remaining lifespan",["They can read minds","They can revive anyone","They become immortal"],"The eyes reveal identifying information about humans.","Eye Deal"],
+["Anime • Death Note","What is the central mystery L tries to solve?","Who Kira is",["Where the One Piece is","Who built the Titans","Who controls the Avengers"],"Identifying Kira is the core investigation.","Kira Investigation"],
+["Anime • Death Note","Which character is associated with the name Kira before Light’s identity is fully established?","Light Yagami",["Mello","Watari","Soichiro"],"Light becomes the central human behind the Kira identity.","Kira"],
+["Anime • Death Note","What is the role of Rem toward Misa?","Protective Shinigami",["Police detective","Wammy teacher","FBI agent"],"Rem has strong concern for Misa’s survival.","Rem"],
+["Anime • Death Note","What is the notebook rule about writing a person’s name?","The writer must correctly identify the intended person",["Any nickname always works","Only fingerprints matter","The face is irrelevant"],"The rules connect the written name with the person’s face.","Notebook Rule"]
+];
+SEED_FACTS.push(...V15_ANIME_EXPANSION);
+
+
 let TOTAL_LEVELS=0;
-const STORAGE_KEY='elementGameSave_v7000';
-const SETUP_KEY='elementGameSetup_v7000';
+const STORAGE_KEY='elementGameSave_v8000';
+const SETUP_KEY='elementGameSetup_v8000';
 
 const CATEGORY_DEFS=[
  {key:'science',label:'সাইন্স',icon:'🧪',subs:[['Chemistry','Chemistry'],['Physics','Physics'],['Biology','Biology'],['Botany','Botany'],['Zoology','Zoology'],['Biotechnology','Biotechnology'],['Microbiology','Microbiology'],['Molecular Biology','Molecular Biology'],['Limnology','Limnology'],['Environmental Science','Environmental Science'],['Mathematics','Mathematics'],['Astronomy','Astronomy'],['Cosmology','Cosmology'],['Quantum Science','Quantum Science'],['Materials Science','Materials Science'],['Engineering','Engineering']]},
@@ -461,6 +527,14 @@ const BN_DIRECT={
 const BN_MISSION_STEMS=[
 'মিশন সমাধান করুন: {q}','সঠিক উত্তর নির্ধারণ করুন: {q}','জ্ঞান যাচাই: {q}','আবিষ্কার চেকপয়েন্ট: {q}','সঠিকটি বেছে নিন: {q}','গবেষণা গেট: {q}','ফিল্ড চ্যালেঞ্জ: {q}','আর্কাইভ চ্যালেঞ্জ: {q}','ভেবে উত্তর দিন: {q}','চেকপয়েন্টের উত্তর দিন: {q}','জেনেসিস টেস্ট: {q}','মাস্টারি চেকপয়েন্ট: {q}','এক্সপ্লোরার মিশন: {q}','স্কলার চেকপয়েন্ট: {q}','নির্ভুলতা পরীক্ষা: {q}','কনসেপ্ট লক: {q}','তথ্য যাচাই: {q}','দ্রুত রিভিউ: {q}','গভীর চিন্তার মিশন: {q}','ফ্রন্টিয়ার চেকপয়েন্ট: {q}','ল্যাবরেটরি গেট: {q}','ক্যারিয়ার চেকপয়েন্ট: {q}','চ্যালেঞ্জ চেম্বার: {q}','মিশন কন্ট্রোল: {q}','রিসার্চ চেকপয়েন্ট: {q}','আর্কাইভ টেস্ট: {q}','ধারণা যাচাই: {q}','জ্ঞান গেট: {q}','ডিসকভারি মিশন: {q}','স্কলার গেট: {q}','এক্সপার্ট চেকপয়েন্ট: {q}','প্রতিযোগিতামূলক পরীক্ষা: {q}','বিষয়ভিত্তিক চেকপয়েন্ট: {q}','মাস্টারি গেট: {q}','রিজনিং স্টেশন: {q}','কনসেপ্ট চ্যালেঞ্জ: {q}','লার্নিং ফ্রন্টিয়ার: {q}','প্রিসিশন আর্কাইভ: {q}','রিসার্চ ভল্ট: {q}','প্রশ্ন চেম্বার: {q}','মাস্টারি চেম্বার: {q}','ফাইনাল ফ্রন্টিয়ার: {q}','স্পেশালিস্ট চেকপয়েন্ট: {q}','অ্যাডভান্সড মিশন: {q}','গভীর অধ্যয়ন মিশন: {q}','টপিক লক: {q}','নলেজ লক: {q}','মিশন সিল: {q}','ডিসকভারি প্রোটোকল: {q}','রিসার্চ প্রোটোকল: {q}','মাস্টারি প্রোটোকল: {q}','জেনেসিস প্রোটোকল: {q}','ফ্রন্টিয়ার প্রোটোকল: {q}','ওমনিভার্স প্রোটোকল: {q}','ফ্যাক্ট চেক: {q}','প্রমাণ যাচাই: {q}','অধ্যয়ন গেট: {q}','বোর্ড প্রস্তুতি চেকপয়েন্ট: {q}','বিশ্ববিদ্যালয় চেকপয়েন্ট: {q}','অনার্স রিভিউ: {q}','শিক্ষক প্রস্তুতি চেকপয়েন্ট: {q}','কনসেপ্ট মাস্টারি: {q}','অ্যানালাইসিস চেকপয়েন্ট: {q}','রিভিশন স্টেশন: {q}','জ্ঞান ভল্ট: {q}','শিক্ষা মিশন: {q}','উত্তর যাচাই করুন: {q}','এই তথ্যটি শনাক্ত করুন: {q}','সেরা উত্তরটি নির্ধারণ করুন: {q}','সঠিক তথ্যটি খুঁজুন: {q}','বিষয়টি বিশ্লেষণ করুন: {q}','পরবর্তী ডিসকভারি: {q}','নলেজ ফোর্জ: {q}','মিশন আর্কাইভ: {q}','স্টাডি ভল্ট: {q}','রিসার্চ স্টেশন: {q}','ফ্যাক্ট ভেরিফিকেশন: {q}','ডিপ রিকল: {q}','অ্যাপ্লিকেশন চেকপয়েন্ট: {q}','রিজনিং গেট: {q}','এক্সপার্ট রিভিউ: {q}','টপিক মাস্টারি: {q}','সাবজেক্ট আর্কাইভ: {q}','অ্যাডভান্সড রিকল: {q}','ইন্ডিপেন্ডেন্ট থিংকিং: {q}','কনসেপ্ট ফ্রন্টিয়ার: {q}','চ্যালেঞ্জ আর্কাইভ: {q}','মিশন ব্রিফ: {q}','থিংক-অ্যান্ড-আনসার: {q}','প্রশ্নটি মনোযোগ দিয়ে পড়ুন: {q}','নলেজ স্ক্যান: {q}','মাস্টারি রিভিউ: {q}','ডিসকভারি গেট: {q}','এভিডেন্স চেক: {q}','ক্যারিয়ার গেট: {q}','কম্পিটিটিভ গেট: {q}','ল্যাব চেক: {q}','ফিল্ড প্রশ্ন: {q}','আর্কাইভ প্রোটোকল: {q}','রিসার্চ ভল্ট চেক: {q}','শিক্ষার্থী চ্যালেঞ্জ: {q}','শিক্ষক ট্র্যাক: {q}','অলিম্পিয়াড স্টাইল চেক: {q}','কনসেপ্ট লকড চ্যালেঞ্জ: {q}','ফাইনাল উত্তর চেক: {q}','ডিপ-স্টাডি চেকপয়েন্ট: {q}','ফ্রন্টিয়ার মিশন: {q}','এক্সপ্লোরেশন গেট: {q}','জ্ঞান পরীক্ষা: {q}','রিভিশন চ্যালেঞ্জ: {q}','মাস্টারি প্রশ্ন: {q}','স্পেশালিস্ট রিভিউ: {q}','স্কিল চেকপয়েন্ট: {q}','অ্যাপ্লাই অ্যান্ড রিজন: {q}','স্মার্ট রিকল: {q}','নলেজ ট্রায়াল: {q}','ডিসকভারি ট্রায়াল: {q}','এক্সপার্ট গেট: {q}','চূড়ান্ত যাচাই: {q}','সঠিক তথ্য নির্বাচন করুন: {q}','বিষয়ভিত্তিক পরীক্ষা: {q}','মিশন স্টেশন: {q}','অ্যানালাইসিস গেট: {q}','প্রমাণভিত্তিক উত্তর দিন: {q}','শিক্ষা আর্কাইভ: {q}','জ্ঞান চেম্বার: {q}','রিজনিং চ্যালেঞ্জ: {q}','কনসেপ্ট স্টেশন: {q}','মাস্টারি স্টেশন: {q}','ফ্যাক্ট স্টেশন: {q}','ডিসকভারি ভল্ট: {q}','স্টাডি চেকপয়েন্ট: {q}','গভীর রিভিশন: {q}','উচ্চতর যাচাই: {q}','বিশেষজ্ঞ চেক: {q}','কঠিন চ্যালেঞ্জ: {q}','নির্ভুলতা গেট: {q}','জ্ঞান অভিযান: {q}','অধ্যয়ন মিশন: {q}','রিসার্চ মিশন: {q}','ফাইনাল ফ্রন্টিয়ার মিশন: {q}'
 ];
+const NCTB_CHEM_BN={
+'What does chemistry mainly study?':'রসায়ন প্রধানত কী নিয়ে অধ্যয়ন করে?','Which laboratory practice is safest when heating a test tube?':'টেস্ট টিউব গরম করার সময় কোন ল্যাবরেটরি পদ্ধতিটি সবচেয়ে নিরাপদ?','Which SI unit is commonly used for amount of substance?':'পদার্থের পরিমাণের জন্য সাধারণত কোন SI একক ব্যবহার করা হয়?','Which state has a fixed volume but no fixed shape?':'কোন অবস্থার নির্দিষ্ট আয়তন আছে কিন্তু নির্দিষ্ট আকার নেই?','Which state is highly compressible because particles are far apart?':'কোন অবস্থা অত্যন্ত সংকোচনীয়, কারণ কণাগুলো পরস্পর থেকে অনেক দূরে থাকে?','What happens to most substances when heated?':'বেশিরভাগ পদার্থকে উত্তপ্ত করলে কী ঘটে?','Which particle has a positive elementary charge?':'কোন কণার মৌলিক বৈদ্যুতিক আধান ধনাত্মক?','Which particle has no electric charge?':'কোন কণার কোনো বৈদ্যুতিক আধান নেই?','Which particle occupies the electron cloud?':'কোন কণা ইলেকট্রন মেঘে অবস্থান করে?','What is the atomic number of an element equal to?':'কোনো মৌলের পারমাণবিক সংখ্যা কিসের সমান?','What does the mass number represent?':'ভরসংখ্যা কী নির্দেশ করে?','What are atoms of the same element with different neutron numbers called?':'একই মৌলের কিন্তু ভিন্ন সংখ্যক নিউট্রনযুক্ত পরমাণুকে কী বলে?','Which scientist is associated with the nuclear model of the atom?':'পরমাণুর নিউক্লীয় মডেলের সঙ্গে কোন বিজ্ঞানীর নাম যুক্ত?','Who proposed the periodic law associated with the periodic table?':'পর্যায় সারণির সঙ্গে সম্পর্কিত পর্যায় সূত্র কে প্রস্তাব করেছিলেন?','What generally happens to atomic radius across a period from left to right?':'একটি পর্যায়ে বাম থেকে ডানে গেলে সাধারণত পারমাণবিক ব্যাসার্ধের কী পরিবর্তন হয়?','Which group contains the alkali metals?':'কোন গ্রুপে ক্ষার ধাতুগুলো রয়েছে?','Which group contains the halogens?':'কোন গ্রুপে হ্যালোজেনগুলো রয়েছে?','Which group contains the noble gases?':'কোন গ্রুপে নিষ্ক্রিয় গ্যাসগুলো রয়েছে?','What type of bond forms by transfer of electrons?':'ইলেকট্রন স্থানান্তরের মাধ্যমে কোন ধরনের বন্ধন গঠিত হয়?','What type of bond forms by sharing electron pairs?':'ইলেকট্রন জোড়া ভাগাভাগির মাধ্যমে কোন ধরনের বন্ধন গঠিত হয়?','What is the usual charge of a sodium ion?':'সোডিয়াম আয়নের সাধারণ আধান কত?','What is the usual charge of a chloride ion?':'ক্লোরাইড আয়নের সাধারণ আধান কত?','What does one mole contain approximately?':'এক মোলের মধ্যে আনুমানিক কতটি কণা থাকে?','What is molar mass measured in?':'মোলার ভর কোন এককে মাপা হয়?','What is the molar mass of water approximately?':'পানির মোলার ভর আনুমানিক কত?','Which equation represents a balanced chemical reaction?':'কোন সমীকরণটি একটি সুষম রাসায়নিক বিক্রিয়া নির্দেশ করে?','What is oxidation commonly associated with?':'জারণ সাধারণত কিসের সঙ্গে সম্পর্কিত?','What is reduction commonly associated with?':'বিজারণ সাধারণত কিসের সঙ্গে সম্পর্কিত?','What is a catalyst?':'অনুঘটক কী?','What does an exothermic reaction do?':'তাপমোচী বিক্রিয়া কী করে?','What does an endothermic reaction do?':'তাপশোষী বিক্রিয়া কী করে?','What is the pH of a neutral aqueous solution at 25°C?':'২৫°C তাপমাত্রায় নিরপেক্ষ জলীয় দ্রবণের pH কত?','A solution with pH 3 is how compared with pH 7?':'pH ৭-এর তুলনায় pH ৩-এর দ্রবণ কেমন?','Which ion is characteristic of acidic aqueous solutions?':'অম্লীয় জলীয় দ্রবণের বৈশিষ্ট্যসূচক আয়ন কোনটি?','Which ion is characteristic of basic aqueous solutions?':'ক্ষারীয় জলীয় দ্রবণের বৈশিষ্ট্যসূচক আয়ন কোনটি?','What is formed when an acid reacts with a base in neutralization?':'নিরপেক্ষকরণে অম্ল ও ক্ষার বিক্রিয়া করলে কী তৈরি হয়?','Which acid is commonly found in vinegar?':'ভিনেগারে সাধারণত কোন অম্ল থাকে?','Which gas is needed for ordinary combustion?':'সাধারণ দহনের জন্য কোন গ্যাস প্রয়োজন?','Rusting of iron requires oxygen and what else?':'লোহায় মরিচা ধরার জন্য অক্সিজেনের পাশাপাশি আর কী প্রয়োজন?','Which metal is commonly extracted from bauxite?':'বক্সাইট থেকে সাধারণত কোন ধাতু নিষ্কাশন করা হয়?','Which metal is commonly obtained from hematite?':'হেমাটাইট থেকে সাধারণত কোন ধাতু পাওয়া যায়?','Which non-metal is essential for respiration?':'শ্বসনের জন্য কোন অধাতু অপরিহার্য?','Which fossil fuel is a major source of hydrocarbons?':'কোন জীবাশ্ম জ্বালানি হাইড্রোকার্বনের একটি প্রধান উৎস?','What is the main combustible component of natural gas?':'প্রাকৃতিক গ্যাসের প্রধান দাহ্য উপাদান কী?','What is an organic compound mainly characterized by?':'জৈব যৌগ প্রধানত কী দ্বারা চিহ্নিত হয়?','Which hydrocarbon is saturated and contains only single C–C bonds?':'কোন হাইড্রোকার্বন সম্পৃক্ত এবং এতে শুধু একক C–C বন্ধন থাকে?','Which hydrocarbon contains a carbon-carbon double bond?':'কোন হাইড্রোকার্বনে কার্বন-কার্বন দ্বিবন্ধন থাকে?','Which hydrocarbon contains a carbon-carbon triple bond?':'কোন হাইড্রোকার্বনে কার্বন-কার্বন ত্রিবন্ধন থাকে?','Which alcohol is commonly represented by CH₃OH?':'CH₃OH দ্বারা সাধারণত কোন অ্যালকোহলকে প্রকাশ করা হয়?','Which alcohol is commonly present in alcoholic beverages?':'মদ্যপ পানীয়তে সাধারণত কোন অ্যালকোহল থাকে?','What is the main purpose of a fume hood in a laboratory?':'ল্যাবরেটরিতে ফিউম হুডের প্রধান উদ্দেশ্য কী?','Which instrument is commonly used to measure liquid volume accurately in a laboratory?':'ল্যাবরেটরিতে তরলের আয়তন নির্ভুলভাবে মাপতে কোন যন্ত্র ব্যবহার করা হয়?','Which instrument measures mass in a laboratory?':'ল্যাবরেটরিতে কোন যন্ত্র ভর মাপে?','What is a solution?':'দ্রবণ কী?','What is the solute in a solution?':'দ্রবণে দ্রব কী?','What is the solvent?':'দ্রাবক কী?','What does concentration describe?':'ঘনমাত্রা কী নির্দেশ করে?','Which process separates a soluble solid from a solution by removing solvent?':'দ্রাবক অপসারণ করে দ্রবণ থেকে দ্রবণীয় কঠিন পদার্থ আলাদা করার প্রক্রিয়া কোনটি?','Which method separates an insoluble solid from a liquid?':'তরল থেকে অদ্রবণীয় কঠিন পদার্থ আলাদা করার পদ্ধতি কোনটি?','Which method separates liquids using different boiling points?':'ভিন্ন স্ফুটনাঙ্ক ব্যবহার করে তরল পৃথক করার পদ্ধতি কোনটি?','What is a precipitate?':'অবক্ষেপ কী?'
+};
+const NCTB_CHEM_OPTION_BN={
+'Chemistry':'রসায়ন','Matter and its changes':'পদার্থ ও এর পরিবর্তন','Only planets':'শুধু গ্রহ','Only living cells':'শুধু জীবন্ত কোষ','Only numbers':'শুধু সংখ্যা','Point it away from people':'মানুষের দিক থেকে দূরে ধরে','Hold it toward the face':'মুখের দিকে ধরে','Seal it tightly':'শক্ত করে বন্ধ করে','Touch the hot end':'গরম প্রান্তে হাত দিয়ে','Mole':'মোল','Gram':'গ্রাম','Litre':'লিটার','Kelvin':'কেলভিন','Liquid':'তরল','Solid':'কঠিন','Gas':'গ্যাস','Plasma':'প্লাজমা','Particles gain kinetic energy':'কণাগুলোর গতিশক্তি বৃদ্ধি পায়','Particles stop moving':'কণাগুলো চলা বন্ধ করে','Mass becomes zero':'ভর শূন্য হয়ে যায়','Atoms disappear':'পরমাণু অদৃশ্য হয়ে যায়','Proton':'প্রোটন','Electron':'ইলেকট্রন','Neutron':'নিউট্রন','Photon':'ফোটন','Number of protons':'প্রোটনের সংখ্যা','Number of neutrons':'নিউট্রনের সংখ্যা','Mass number':'ভরসংখ্যা','Only electrons':'শুধু ইলেকট্রন','Only protons':'শুধু প্রোটন','Only neutrons':'শুধু নিউট্রন','Isotopes':'আইসোটোপ','Ions':'আয়ন','Allotropes':'অ্যালোট্রপ','Molecules':'অণু','Ernest Rutherford':'আর্নেস্ট রাদারফোর্ড','Dmitri Mendeleev':'দিমিত্রি মেন্ডেলিভ','Avogadro':'অ্যাভোগাড্রো','Boyle':'বয়েল','It tends to decrease':'সাধারণত কমে','It always doubles':'সবসময় দ্বিগুণ হয়','It tends to increase greatly':'সাধারণত অনেক বেড়ে যায়','It becomes zero':'শূন্য হয়ে যায়','Group 1':'গ্রুপ ১','Group 2':'গ্রুপ ২','Group 17':'গ্রুপ ১৭','Group 18':'গ্রুপ ১৮','Ionic bond':'আয়নিক বন্ধন','Covalent bond':'সমযোজী বন্ধন','Metallic bond':'ধাতব বন্ধন','Nuclear bond':'নিউক্লীয় বন্ধন','+1':'+১','-1':'−১','+2':'+২','0':'০','6.022 × 10²³ particles':'৬.০২২ × ১০²³টি কণা','6.022 × 10² particles':'৬.০২২ × ১০²টি কণা','9.8 × 10²³ particles':'৯.৮ × ১০²³টি কণা','3.0 × 10⁸ particles':'৩.০ × ১০⁸টি কণা','g/mol':'গ্রাম/মোল','kg only':'শুধু কেজি','L/mol':'লিটার/মোল','mol/g²':'মোল/গ্রাম²','18 g/mol':'১৮ গ্রাম/মোল','2 g/mol':'২ গ্রাম/মোল','16 g/mol':'১৬ গ্রাম/মোল','44 g/mol':'৪৪ গ্রাম/মোল','2H₂ + O₂ → 2H₂O':'2H₂ + O₂ → 2H₂O','H₂ + O₂ → H₂O₂':'H₂ + O₂ → H₂O₂','H₂ + O₂ → H₂O':'H₂ + O₂ → H₂O','H₂ + 2O₂ → H₂O':'H₂ + 2O₂ → H₂O','Loss of electrons':'ইলেকট্রন ত্যাগ','Gain of protons':'প্রোটন গ্রহণ','Loss of neutrons':'নিউট্রন ত্যাগ','Gain of nuclei':'নিউক্লিয়াস গ্রহণ','Gain of electrons':'ইলেকট্রন গ্রহণ','A substance that changes reaction rate without being consumed overall':'সামগ্রিকভাবে ক্ষয় না হয়ে বিক্রিয়ার হার পরিবর্তন করে এমন পদার্থ','A permanent product':'স্থায়ী উৎপাদ','A solvent only':'শুধু দ্রাবক','A reactant that disappears completely':'সম্পূর্ণ বিলীন হয়ে যাওয়া বিক্রিয়ক','Releases heat to surroundings':'পরিবেশে তাপ ছেড়ে দেয়','Absorbs all heat':'সব তাপ শোষণ করে','Stops particle motion':'কণার গতি থামিয়ে দেয়','Creates matter':'পদার্থ সৃষ্টি করে','Absorbs heat from surroundings':'পরিবেশ থেকে তাপ শোষণ করে','Always releases heat':'সবসময় তাপ ছেড়ে দেয়','Destroys energy':'শক্তি ধ্বংস করে','Produces no energy change':'কোনো শক্তি পরিবর্তন ঘটায় না','More acidic':'আরও অম্লীয়','More basic':'আরও ক্ষারীয়','Neutral':'নিরপেক্ষ','Always salty':'সবসময় লবণাক্ত','H⁺':'H⁺','OH⁻':'OH⁻','Na⁺':'Na⁺','Cl⁻':'Cl⁻','Salt and water':'লবণ ও পানি','Only oxygen':'শুধু অক্সিজেন','Only metal':'শুধু ধাতু','Only hydrogen gas':'শুধু হাইড্রোজেন গ্যাস','Acetic acid':'অ্যাসিটিক অ্যাসিড','Sulfuric acid':'সালফিউরিক অ্যাসিড','Nitric acid':'নাইট্রিক অ্যাসিড','Hydrochloric acid':'হাইড্রোক্লোরিক অ্যাসিড','Oxygen':'অক্সিজেন','Nitrogen':'নাইট্রোজেন','Helium':'হিলিয়াম','Neon':'নিয়ন','Moisture':'আর্দ্রতা','Pure nitrogen':'বিশুদ্ধ নাইট্রোজেন','Only sunlight':'শুধু সূর্যালোক','Aluminium':'অ্যালুমিনিয়াম','Copper':'তামা','Iron':'লোহা','Sodium':'সোডিয়াম','Calcium':'ক্যালসিয়াম','Petroleum':'পেট্রোলিয়াম','Quartz':'কোয়ার্টজ','Limestone only':'শুধু চুনাপাথর','Salt':'লবণ','Methane':'মিথেন','Carbon monoxide':'কার্বন মনোক্সাইড','Carbon-based molecular frameworks':'কার্বনভিত্তিক আণবিক কাঠামো','Only metals':'শুধু ধাতু','Only salts':'শুধু লবণ','Only water':'শুধু পানি','Alkane':'অ্যালকেন','Alkene':'অ্যালকিন','Alkyne':'অ্যালকাইন','Arene only':'শুধু অ্যারিন','Alcohol':'অ্যালকোহল','Methanol':'মিথানল','Ethanol':'ইথানল','Propanol':'প্রোপানল','Ethanoic acid':'ইথানোইক অ্যাসিড','To remove hazardous vapours from the breathing zone':'শ্বাস নেওয়ার এলাকার ক্ষতিকর বাষ্প দূর করতে','To increase flame temperature':'শিখার তাপমাত্রা বাড়াতে','To store books':'বই রাখতে','To measure pH':'pH মাপতে','Graduated cylinder':'গ্র্যাজুয়েটেড সিলিন্ডার','Thermometer':'থার্মোমিটার','Balance only':'শুধু ব্যালেন্স','Microscope':'মাইক্রোস্কোপ','Balance':'ব্যালেন্স','Burette':'বিউরেট','pH paper':'pH পেপার','A homogeneous mixture':'সমসত্ত্ব মিশ্রণ','A pure element only':'শুধু বিশুদ্ধ মৌল','A solid crystal only':'শুধু কঠিন স্ফটিক','A gas atom only':'শুধু গ্যাস পরমাণু','The substance that is dissolved':'যে পদার্থ দ্রবীভূত হয়','The container':'পাত্র','Only the solvent':'শুধু দ্রাবক','The thermometer':'থার্মোমিটার','The component that dissolves the solute':'যে উপাদান দ্রবকে দ্রবীভূত করে','Only the solid product':'শুধু কঠিন উৎপাদ','Only the gas':'শুধু গ্যাস','The precipitate':'অবক্ষেপ','Amount of solute relative to a given amount of solution or solvent':'নির্দিষ্ট পরিমাণ দ্রবণ বা দ্রাবকের তুলনায় দ্রবের পরিমাণ','Only colour':'শুধু রং','Only temperature':'শুধু তাপমাত্রা','Only pressure':'শুধু চাপ','Evaporation':'বাষ্পীভবন','Filtration only':'শুধু পরিস্রবণ','Magnetism':'চুম্বকত্ব','Sedimentation only':'শুধু অবক্ষেপণ','Filtration':'পরিস্রবণ','Distillation only':'শুধু পাতন','Chromatography only':'শুধু ক্রোমাটোগ্রাফি','Sublimation only':'শুধু ঊর্ধ্বপাতন','Distillation':'পাতন','Magnetic separation':'চৌম্বকীয় পৃথকীকরণ','Decantation only':'শুধু ডিক্যান্টেশন','An insoluble solid formed in a solution reaction':'দ্রবণ বিক্রিয়ায় তৈরি অদ্রবণীয় কঠিন পদার্থ','A dissolved gas':'দ্রবীভূত গ্যাস','A pure solvent':'বিশুদ্ধ দ্রাবক','A catalyst only':'শুধু অনুঘটক'
+};
+function nctbChemBnOption(v){return NCTB_CHEM_OPTION_BN[String(v)]||bnOption(v)}
+
 function bnQuestion(text){
  let s=String(text||'').trim();
  if(BN_DIRECT[s])return BN_DIRECT[s];
@@ -541,7 +615,7 @@ function nctbChapters(cls,subject){
   '6|বিজ্ঞান':['বৈজ্ঞানিক প্রক্রিয়া','জীব ও পরিবেশ','পদার্থের বৈশিষ্ট্য','বল ও গতি','শক্তি','আলো','তাপ','পৃথিবী ও মহাকাশ'],
   '9-10|গণিত':['বাস্তব সংখ্যা','সেট ও ফাংশন','বীজগাণিতিক রাশি','সূচক ও লগারিদম','এক চলকবিশিষ্ট সমীকরণ','জ্যামিতি','পরিমিতি','ত্রিকোণমিতি','পরিসংখ্যান'],
   '9-10|পদার্থবিজ্ঞান':['ভৌত রাশি ও পরিমাপ','গতি','বল','কাজ ও শক্তি','পদার্থের অবস্থা ও চাপ','তাপের প্রভাব','তরঙ্গ ও শব্দ','আলোর প্রতিফলন','আলোর প্রতিসরণ','স্থির বিদ্যুৎ','চল বিদ্যুৎ','চুম্বকত্ব','আধুনিক পদার্থবিজ্ঞান'],
-  '9-10|রসায়ন':['পদার্থের গঠন','পরমাণুর গঠন','পদার্থের অবস্থা','পর্যায় সারণি','রাসায়নিক বন্ধন','রাসায়নিক বিক্রিয়া','মোল ধারণা','অম্ল ক্ষার লবণ','ধাতু ও অধাতু','জৈব রসায়নের প্রাথমিক ধারণা'],
+  '9-10|রসায়ন':['রসায়নের ধারণা','পদার্থের অবস্থা','পদার্থের গঠন','পর্যায় সারণি','রাসায়নিক বন্ধন','মোলের ধারণা ও রাসায়নিক গণনা','রাসায়নিক বিক্রিয়া','রসায়ন ও শক্তি','এসিড-ক্ষার সমতা','খনিজ সম্পদ: ধাতু ও অধাতু','খনিজ সম্পদ: জীবাশ্ম','আমাদের জীবনে রসায়ন'],
   '9-10|জীববিজ্ঞান':['কোষ ও এর গঠন','কোষ বিভাজন','কোষ রসায়ন','অণুজীব','শৈবাল ও ছত্রাক','ব্রায়োফাইটা ও টেরিডোফাইটা','নগ্নবীজী ও আবৃতবীজী','উদ্ভিদের প্রজনন','জীবের শ্রেণিবিন্যাস','জেনেটিক্স ও বিবর্তন'],
   '9-10|উচ্চতর গণিত':['বীজগাণিতিক রাশি','জ্যামিতি','ত্রিকোণমিতি','সমীকরণ','সূচক ও লগারিদম','সম্ভাবনা','ভেক্টর','স্থানাঙ্ক জ্যামিতি','পরিসংখ্যান']
  };
@@ -549,16 +623,108 @@ function nctbChapters(cls,subject){
  const base=Array.from({length:10},(_,i)=>`অধ্যায় ${i+1}`);
  return base;
 }
-const BASE_STATE={level:1,xp:0,retryCount:0,completed:[],maxUnlocked:1,rewarded:[],materials:['Stone','Wood'],categoryMode:false,categoryKey:'',categorySubs:[],categoryCursor:0,categoryProgress:{},language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0};
+const NCTB_SUBJECT_SEED_MAP={
+  'বাংলা':['Bangla Grammar'],
+  'English':['English Grammar'],
+  'গণিত':['Mathematics'],
+  'উচ্চতর গণিত':['Mathematics'],
+  'বিজ্ঞান':['Physics','Biology','Botany','Zoology','Environmental Science'],
+  'পদার্থবিজ্ঞান':['Physics'],
+  'রসায়ন':['Chemistry'],
+  'জীববিজ্ঞান':['Biology','Botany','Zoology','Biotechnology','Microbiology','Molecular Biology'],
+  'তথ্য ও যোগাযোগ প্রযুক্তি':['ICT'],
+  'ডিজিটাল প্রযুক্তি':['ICT'],
+  'বাংলাদেশ ও বিশ্বপরিচয়':['Bangladesh GK'],
+  'ইসলাম শিক্ষা':['Islamic Knowledge','Hadith Studies'],
+  'ইসলাম ও নৈতিক শিক্ষা':['Islamic Knowledge','Hadith Studies'],
+  'ক্যারিয়ার শিক্ষা':['Job Prep','Teacher Prep','Primary Teacher']
+};
+
+// 2026 Class 9-10 Chemistry practice bank. These are original MCQs aligned to the chapter themes;
+// they are not copied textbook passages. The NCTB engine uses Chemistry-only seeds for the Chemistry subject.
+const NCTB_CHEMISTRY_PACK=[
+['What does chemistry mainly study?','Matter and its changes',['Only planets','Only living cells','Only numbers'],'Chemistry deals with composition, properties and transformations of matter.','Chemistry'],
+['Which laboratory practice is safest when heating a test tube?','Point it away from people',['Hold it toward the face','Seal it tightly','Touch the hot end'],'Heated contents can suddenly eject.','Lab Safety'],
+['Which SI unit is commonly used for amount of substance?','Mole',['Gram','Litre','Kelvin'],'Amount of substance is measured in moles.','Mole'],
+['Which state has a fixed volume but no fixed shape?','Liquid',['Solid','Gas','Plasma'],'A liquid flows and takes the container shape.','Matter'],
+['Which state is highly compressible because particles are far apart?','Gas',['Solid','Liquid','Crystal'],'Gas particles have large average separations.','Gas'],
+['What happens to most substances when heated?','Particles gain kinetic energy',['Particles stop moving','Mass becomes zero','Atoms disappear'],'Heating generally increases particle motion.','Heat'],
+['Which particle has a positive elementary charge?','Proton',['Electron','Neutron','Photon'],'The proton is positively charged.','Proton'],
+['Which particle has no electric charge?','Neutron',['Proton','Electron','Positron'],'A neutron is electrically neutral.','Neutron'],
+['Which particle occupies the electron cloud?','Electron',['Proton','Neutron','Nucleus'],'Electrons are found outside the nucleus.','Electron'],
+['What is the atomic number of an element equal to?','Number of protons',['Number of neutrons','Mass number','Number of shells'],'Atomic number is defined by proton count.','Atomic Number'],
+['What does the mass number represent?','Protons plus neutrons',['Only electrons','Only protons','Only neutrons'],'Mass number counts nucleons.','Mass Number'],
+['What are atoms of the same element with different neutron numbers called?','Isotopes',['Ions','Allotropes','Molecules'],'Isotopes share proton number but differ in neutrons.','Isotope'],
+['Which scientist is associated with the nuclear model of the atom?','Ernest Rutherford',['Dmitri Mendeleev','Avogadro','Boyle'],'Rutherford’s scattering experiment supported a nuclear atom.','Rutherford'],
+['Who proposed the periodic law associated with the periodic table?','Dmitri Mendeleev',['Rutherford','Faraday','Pasteur'],'Mendeleev organized elements by recurring properties.','Periodic Table'],
+['What generally happens to atomic radius across a period from left to right?','It tends to decrease',['It always doubles','It tends to increase greatly','It becomes zero'],'Effective nuclear attraction generally increases across a period.','Atomic Radius'],
+['Which group contains the alkali metals?','Group 1',['Group 2','Group 17','Group 18'],'Lithium, sodium and potassium are Group 1 elements.','Alkali Metals'],
+['Which group contains the halogens?','Group 17',['Group 1','Group 2','Group 18'],'Fluorine and chlorine are halogens.','Halogens'],
+['Which group contains the noble gases?','Group 18',['Group 1','Group 17','Group 16'],'Helium, neon and argon are noble gases.','Noble Gases'],
+['What type of bond forms by transfer of electrons?','Ionic bond',['Covalent bond','Metallic bond','Hydrogen bond'],'Ionic bonding involves oppositely charged ions.','Ionic Bond'],
+['What type of bond forms by sharing electron pairs?','Covalent bond',['Ionic bond','Metallic bond','Nuclear bond'],'Covalent bonds involve shared electron pairs.','Covalent Bond'],
+['What is the usual charge of a sodium ion?','+1',['-1','+2','0'],'Sodium loses one valence electron.','Sodium Ion'],
+['What is the usual charge of a chloride ion?','-1',['+1','+2','0'],'Chlorine commonly gains one electron.','Chloride Ion'],
+['What does one mole contain approximately?','6.022 × 10²³ particles',['6.022 × 10² particles','9.8 × 10²³ particles','3.0 × 10⁸ particles'],'This is Avogadro’s constant.','Avogadro Constant'],
+['What is molar mass measured in?','g/mol',['kg only','L/mol','mol/g²'],'Molar mass is mass per mole.','Molar Mass'],
+['What is the molar mass of water approximately?','18 g/mol',['2 g/mol','16 g/mol','44 g/mol'],'H₂O has two H atoms and one O atom.','Water'],
+['Which equation represents a balanced chemical reaction?','2H₂ + O₂ → 2H₂O',['H₂ + O₂ → H₂O₂','H₂ + O₂ → H₂O','H₂ + 2O₂ → H₂O'],'The number of each atom is conserved.','Balanced Equation'],
+['What is oxidation commonly associated with?','Loss of electrons',['Gain of protons','Loss of neutrons','Gain of nuclei'],'In electron-transfer terms, oxidation is loss of electrons.','Oxidation'],
+['What is reduction commonly associated with?','Gain of electrons',['Loss of electrons','Gain of protons','Loss of nuclei'],'Reduction is electron gain.','Reduction'],
+['What is a catalyst?','A substance that changes reaction rate without being consumed overall',['A permanent product','A solvent only','A reactant that disappears completely'],'Catalysts provide an alternative reaction pathway.','Catalyst'],
+['What does an exothermic reaction do?','Releases heat to surroundings',['Absorbs all heat','Stops particle motion','Creates matter'],'Exothermic reactions release energy as heat.','Exothermic'],
+['What does an endothermic reaction do?','Absorbs heat from surroundings',['Always releases heat','Destroys energy','Produces no energy change'],'Endothermic processes require energy input.','Endothermic'],
+['What is the pH of a neutral aqueous solution at 25°C?','7',['0','5','14'],'Neutral water is approximately pH 7 at 25°C.','pH'],
+['A solution with pH 3 is how compared with pH 7?','More acidic',['More basic','Neutral','Always salty'],'Lower pH indicates greater acidity in the usual aqueous scale.','Acidity'],
+['Which ion is characteristic of acidic aqueous solutions?','H⁺',['OH⁻ only','Na⁺ only','Cl⁻ only'],'Acidity is associated with hydrogen ions.','Acid'],
+['Which ion is characteristic of basic aqueous solutions?','OH⁻',['H⁺ only','Na⁺ only','Cl⁻ only'],'Bases in water are associated with hydroxide ions.','Base'],
+['What is formed when an acid reacts with a base in neutralization?','Salt and water',['Only oxygen','Only metal','Only hydrogen gas'],'Neutralization commonly forms salt and water.','Neutralization'],
+['Which acid is commonly found in vinegar?','Acetic acid',['Sulfuric acid','Nitric acid','Hydrochloric acid'],'Acetic acid gives vinegar its characteristic acidity.','Acetic Acid'],
+['Which gas is needed for ordinary combustion?','Oxygen',['Nitrogen','Helium','Neon'],'Oxygen is the common atmospheric oxidizer for combustion.','Combustion'],
+['Rusting of iron requires oxygen and what else?','Moisture',['Helium','Pure nitrogen','Only sunlight'],'Water/moisture is involved in ordinary rusting.','Rust'],
+['Which metal is commonly extracted from bauxite?','Aluminium',['Copper','Iron','Sodium'],'Bauxite is the principal ore of aluminium.','Aluminium'],
+['Which metal is commonly obtained from hematite?','Iron',['Aluminium','Sodium','Calcium'],'Hematite is an iron ore.','Iron Ore'],
+['Which non-metal is essential for respiration?','Oxygen',['Neon','Argon','Helium'],'Aerobic respiration uses oxygen.','Oxygen'],
+['Which fossil fuel is a major source of hydrocarbons?','Petroleum',['Quartz','Limestone only','Salt'],'Petroleum is a mixture rich in hydrocarbons.','Petroleum'],
+['What is the main combustible component of natural gas?','Methane',['Oxygen','Nitrogen','Carbon monoxide'],'Methane is the main component of natural gas.','Methane'],
+['What is an organic compound mainly characterized by?','Carbon-based molecular frameworks',['Only metals','Only salts','Only water'],'Organic chemistry primarily studies carbon compounds.','Organic Chemistry'],
+['Which hydrocarbon is saturated and contains only single C–C bonds?','Alkane',['Alkene','Alkyne','Arene only'],'Alkanes are saturated hydrocarbons.','Alkane'],
+['Which hydrocarbon contains a carbon-carbon double bond?','Alkene',['Alkane','Alkyne','Salt'],'Alkenes contain at least one C=C bond.','Alkene'],
+['Which hydrocarbon contains a carbon-carbon triple bond?','Alkyne',['Alkane','Alkene','Alcohol'],'Alkynes contain at least one C≡C bond.','Alkyne'],
+['Which alcohol is commonly represented by CH₃OH?','Methanol',['Ethanol','Propanol','Ethanoic acid'],'CH₃OH is methanol.','Methanol'],
+['Which alcohol is commonly present in alcoholic beverages?','Ethanol',['Methanol','Propanol only','Ethanoic acid'],'Ethanol is the principal beverage alcohol.','Ethanol'],
+['What is the main purpose of a fume hood in a laboratory?','To remove hazardous vapours from the breathing zone',['To increase flame temperature','To store books','To measure pH'],'A fume hood controls exposure to volatile hazards.','Fume Hood'],
+['Which instrument is commonly used to measure liquid volume accurately in a laboratory?','Graduated cylinder',['Thermometer','Balance only','Microscope'],'A graduated cylinder is designed for liquid-volume measurement.','Graduated Cylinder'],
+['Which instrument measures mass in a laboratory?','Balance',['Burette','Thermometer','pH paper'],'A balance measures mass.','Laboratory Balance'],
+['What is a solution?','A homogeneous mixture',['A pure element only','A solid crystal only','A gas atom only'],'A solution is homogeneous at the macroscopic level.','Solution'],
+['What is the solute in a solution?','The substance that is dissolved',['The container','Only the solvent','The thermometer'],'The solute is dispersed in the solvent.','Solute'],
+['What is the solvent?','The component that dissolves the solute',['Only the solid product','Only the gas','The precipitate'],'The solvent is the dissolving medium.','Solvent'],
+['What does concentration describe?','Amount of solute relative to a given amount of solution or solvent',['Only colour','Only temperature','Only pressure'],'Concentration quantifies how much solute is present.','Concentration'],
+['Which process separates a soluble solid from a solution by removing solvent?','Evaporation',['Filtration only','Magnetism','Sedimentation only'],'Evaporation leaves dissolved solid behind.','Evaporation'],
+['Which method separates an insoluble solid from a liquid?','Filtration',['Distillation only','Chromatography only','Sublimation only'],'A filter retains insoluble solid particles.','Filtration'],
+['Which method separates liquids using different boiling points?','Distillation',['Filtration','Magnetic separation','Decantation only'],'Distillation relies on vaporization and condensation.','Distillation'],
+['What is a precipitate?','An insoluble solid formed in a solution reaction',['A dissolved gas','A pure solvent','A catalyst only'],'A precipitate separates as a solid from solution.','Precipitate']
+];
+
+const BASE_STATE={level:1,xp:0,retryCount:0,completed:[],maxUnlocked:1,rewarded:[],materials:['Stone','Wood'],categoryMode:false,categoryKey:'',categorySubs:[],categoryCursor:0,categoryProgress:{},language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0,replayLevel:false};
 let state={...BASE_STATE};
-try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(saved)state={...BASE_STATE,...saved};else{const legacy=JSON.parse(localStorage.getItem('elementGameSave_v5000')||localStorage.getItem('elementGameSave')||'null');if(legacy)state={...BASE_STATE,level:Number(legacy.level)||1,xp:Number(legacy.xp)||0,retryCount:Number(legacy.retryCount)||0,completed:Array.isArray(legacy.completed)?legacy.completed:[],maxUnlocked:Number(legacy.maxUnlocked)||Number(legacy.level)||1,rewarded:Array.isArray(legacy.rewarded)?legacy.rewarded:[],materials:Array.isArray(legacy.materials)?legacy.materials:['Stone','Wood'],language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0};}}catch(e){}
-state.completed=Array.isArray(state.completed)?state.completed:[];state.categorySeenBase=state.categorySeenBase&&typeof state.categorySeenBase==='object'?state.categorySeenBase:{};state.seenMissionIds=Array.isArray(state.seenMissionIds)?state.seenMissionIds:[];state.challengeSeenIds=Array.isArray(state.challengeSeenIds)?state.challengeSeenIds:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.materials=Array.isArray(state.materials)?state.materials:['Stone','Wood'];state.categorySubs=Array.isArray(state.categorySubs)?state.categorySubs:[];state.categoryProgress=state.categoryProgress&&typeof state.categoryProgress==='object'?state.categoryProgress:{};state.maxUnlocked=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.maxUnlocked)||1));state.level=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.level)||1));if(!['en','bn'].includes(state.language))state.language='bn';if(!DIFFICULTIES.includes(state.difficulty))state.difficulty='All';state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStats=state.challengeStats&&typeof state.challengeStats==='object'?state.challengeStats:{total:0,correct:0,wrong:0};state.nctbChapters=Array.isArray(state.nctbChapters)?state.nctbChapters:[];state.nctbClass=state.nctbClass||'6';state.nctbSubject=state.nctbSubject||'গণিত';state.challengeMode=false;state.nctbMode=false;
+try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(saved)state={...BASE_STATE,...saved};else{const legacy=JSON.parse(localStorage.getItem('elementGameSave_v5000')||localStorage.getItem('elementGameSave')||'null');if(legacy)state={...BASE_STATE,level:Number(legacy.level)||1,xp:Number(legacy.xp)||0,retryCount:Number(legacy.retryCount)||0,completed:Array.isArray(legacy.completed)?legacy.completed:[],maxUnlocked:Number(legacy.maxUnlocked)||Number(legacy.level)||1,rewarded:Array.isArray(legacy.rewarded)?legacy.rewarded:[],materials:Array.isArray(legacy.materials)?legacy.materials:['Stone','Wood'],language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0,replayLevel:false};}}catch(e){}
+state.completed=Array.isArray(state.completed)?state.completed:[];state.categorySeenBase=state.categorySeenBase&&typeof state.categorySeenBase==='object'?state.categorySeenBase:{};state.seenMissionIds=Array.isArray(state.seenMissionIds)?state.seenMissionIds:[];state.challengeSeenIds=Array.isArray(state.challengeSeenIds)?state.challengeSeenIds:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.materials=Array.isArray(state.materials)?state.materials:['Stone','Wood'];state.categorySubs=Array.isArray(state.categorySubs)?state.categorySubs:[];state.categoryProgress=state.categoryProgress&&typeof state.categoryProgress==='object'?state.categoryProgress:{};state.maxUnlocked=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.maxUnlocked)||1));state.level=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.level)||1));if(!['en','bn'].includes(state.language))state.language='bn';if(!DIFFICULTIES.includes(state.difficulty))state.difficulty='All';state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStats=state.challengeStats&&typeof state.challengeStats==='object'?state.challengeStats:{total:0,correct:0,wrong:0};state.nctbChapters=Array.isArray(state.nctbChapters)?state.nctbChapters:[];state.nctbClass=state.nctbClass||'6';state.nctbSubject=state.nctbSubject||'গণিত';state.challengeMode=false;state.nctbMode=false;state.replayLevel=Boolean(state.replayLevel);
 let pendingLevelUp=false;
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));const el=document.getElementById('saveStatus');if(el)el.textContent=state.language==='bn'?'লোকালি সেভ হয়েছে':'Saved locally'}
 function isCompleted(level){return state.completed.includes(level)}
 function markCompleted(level){if(!isCompleted(level))state.completed.push(level)}
 function getRandomPool(){const list=MISSION_BANK.filter(m=>state.difficulty==='All'||m.difficulty===state.difficulty);return list.length?list:MISSION_BANK}
-function randomMission(){const pool=getRandomPool();const idx=Math.max(0,Math.min(pool.length-1,state.level-1));return pool[idx]}
+function randomMission(){
+ const pool=getRandomPool();
+ if(!pool.length)return null;
+ const idx=Math.max(0,Math.min(pool.length-1,state.level-1));
+ const direct=pool[idx];
+ if(state.replayLevel)return direct;
+ if(direct && !state.seenMissionIds.includes(direct.id))return direct;
+ const fresh=pool.filter(q=>!state.seenMissionIds.includes(q.id));
+ return fresh[0]||null;
+}
 function categoryPool(){if(!state.categoryKey||!state.categorySubs.length)return[];let pool=MISSION_BANK.filter(m=>m.categoryKey===state.categoryKey&&state.categorySubs.includes(m.subCategory));if(state.difficulty!=='All')pool=pool.filter(m=>m.difficulty===state.difficulty);return pool}
 function categorySessionKey(){return `${state.categoryKey}|${[...state.categorySubs].sort().join(',')}|${state.difficulty}`}
 function categoryProgress(){const key=categorySessionKey();if(!state.categoryProgress[key])state.categoryProgress[key]={unlocked:1,completed:[],seenIds:[],seenBases:[]};const p=state.categoryProgress[key];p.seenIds=Array.isArray(p.seenIds)?p.seenIds:[];p.seenBases=Array.isArray(p.seenBases)?p.seenBases:[];p.unlocked=Math.max(1,Math.min(categoryPool().length||1,Number(p.unlocked)||1));p.completed=Array.isArray(p.completed)?p.completed:[];return p}
@@ -568,10 +734,16 @@ function currentQ(){
  if(!state.categoryMode)return randomMission();
  const pool=categoryPool();
  const idx=Math.max(0,Math.min(pool.length-1,(Number(state.categoryCursor)||0)));
- return pool[idx]||pool[0]||randomMission();
+ const direct=pool[idx];
+ const p=categoryProgress();
+ if(state.replayLevel)return direct||pool[0]||randomMission();
+ if(direct && !p.seenIds.includes(direct.id))return direct;
+ const fresh=pool.filter(x=>!p.seenIds.includes(x.id));
+ return fresh[0]||null;
 }
 function displayText(text){return state.language==='bn'?bnText(text):String(text??'')}
-function displayQuestion(q){if(state.language==='bn')return bnMissionQuestion(q);return q.question}
+function displayQuestion(q){if(state.nctbMode){const core=state.language==='bn'?nctbChemBnQuestion(q.baseQuestion):String(q.baseQuestion||q.question);return `${state.language==='bn'?'অধ্যায়':'Chapter'}: ${q.subCategory} — ${core}`}if(state.language==='bn')return bnMissionQuestion(q);return q.question}
+function nctbChemBnQuestion(text){return NCTB_CHEM_BN[String(text)]||bnQuestion(text)}
 function levelCount(){return getRandomPool().length}
 function categoryLevelCount(){return categoryPool().length}
 function categoryDefinitionForQuestion(q){return categoryDefinition(q.categoryKey)||CATEGORY_DEFS[0]}
@@ -597,27 +769,52 @@ function showSuccessFabricator(q){const p=document.getElementById('fabricatorSuc
 function renderMaterials(){const el=document.getElementById('materials');if(el)el.innerHTML=state.materials.slice(-40).map(x=>`<span class="chip">${escapeHTML(displayText(x))}</span>`).join('')}
 function renderScientists(){const el=document.getElementById('scientists');if(!el)return;el.innerHTML=scientistsBase.map(s=>`<div class="scientist ${state.rewarded.includes(s[0])?'done':'locked'}"><div><b>${escapeHTML(s[1])}</b><br><span>${state.language==='bn'?'লেভেল':'Level'} ${s[0]}</span></div><span>${state.rewarded.includes(s[0])?'✓':'🔒'}</span></div>`).join('')}
 function renderLevelMap(){const el=document.getElementById('levelMap');if(!el)return;const total=state.categoryMode?categoryLevelCount():levelCount(),p=state.categoryMode?categoryProgress():{unlocked:Math.min(state.maxUnlocked,total),completed:state.completed};const maxUnlocked=Math.max(1,Math.min(total,p.unlocked||1));const start=Math.max(1,maxUnlocked-120),end=maxUnlocked;let html='';for(let l=start;l<=end;l++){const done=state.categoryMode?p.completed.includes(l):isCompleted(l);const cur=l===(state.categoryCursor+1)&&state.categoryMode || (!state.categoryMode&&l===state.level);html+=`<button class="level-cell ${cur?'current':done?'done':'unlocked'}" data-level="${l}">${l}</button>`}el.innerHTML=html;el.querySelectorAll('[data-level]').forEach(b=>b.onclick=()=>loadMapLevel(Number(b.dataset.level)));const info=document.getElementById('mapInfo');if(info)info.textContent=state.categoryMode?`${state.language==='bn'?'Category Level':'Category Level'} ${Math.min(state.categoryCursor+1,maxUnlocked)} / ${total} • ${state.categorySubs.join(' + ')}`:`${state.language==='bn'?'Unlocked':'Unlocked'}: ${state.maxUnlocked} / ${TOTAL_LEVELS}`}
-function loadMapLevel(level){if(state.categoryMode){const p=categoryProgress();if(level>p.unlocked){setMessage(state.language==='bn'?`এই category-তে Level ${level} এখনো unlock হয়নি।`:`Category Level ${level} is not unlocked yet.`,'bad');return}state.categoryCursor=level-1;pendingLevelUp=false;hideFabricator();document.getElementById('levelMapModal')?.classList.add('hidden');render();return}if(level>state.maxUnlocked){setMessage(`Level ${level} is not unlocked yet.`,'bad');return}state.level=level;state.retryCount=0;pendingLevelUp=false;hideFabricator();document.getElementById('levelMapModal')?.classList.add('hidden');render();save()}
+function loadMapLevel(level){if(state.categoryMode){const p=categoryProgress();if(level>p.unlocked){setMessage(state.language==='bn'?`এই category-তে Level ${level} এখনো unlock হয়নি।`:`Category Level ${level} is not unlocked yet.`,'bad');return}state.categoryCursor=level-1;state.replayLevel=true;pendingLevelUp=false;hideFabricator();document.getElementById('levelMapModal')?.classList.add('hidden');render();return}if(level>state.maxUnlocked){setMessage(`Level ${level} is not unlocked yet.`,'bad');return}state.level=level;state.replayLevel=true;state.retryCount=0;pendingLevelUp=false;hideFabricator();document.getElementById('levelMapModal')?.classList.add('hidden');render();save()}
 function challengePool(){let p=MISSION_BANK.filter(m=>state.categoryKey===m.categoryKey&&state.categorySubs.includes(m.subCategory));if(state.difficulty!=='All')p=p.filter(m=>m.difficulty===state.difficulty);p=[...new Map(p.map(x=>[x.id,x])).values()];return shuffle(p,`${state.categoryKey}|${state.categorySubs.join(',')}|${state.difficulty}|challenge`)}
+function nctbSubjectSeeds(){
+ const mapped=NCTB_SUBJECT_SEED_MAP[state.nctbSubject]||[state.nctbSubject];
+ if(state.nctbSubject==='রসায়ন') return NCTB_CHEMISTRY_PACK.map((x,i)=>['Chemistry',x[0],x[1],x[2],x[3],x[4],i]);
+ let seeds=[];
+ for(const subject of mapped) seeds.push(...SEED_FACTS.filter(f=>String(f[0])===subject));
+ return seeds;
+}
 function nctbPool(){
  const chapters=state.nctbChapters||[]; const out=[];
- const subjectSeeds=SEED_FACTS.filter(f=>String(f[0])===String(state.nctbSubject) || (state.nctbSubject==='বিজ্ঞান'&&['Physics','Biology','Botany','Zoology','Environmental Science'].includes(f[0])) || (state.nctbSubject==='গণিত'&&f[0]==='Mathematics') || (state.nctbSubject==='তথ্য ও যোগাযোগ প্রযুক্তি'&&f[0]==='ICT'));
- const seeds=subjectSeeds.length?subjectSeeds:SEED_FACTS.filter(f=>['General Knowledge','Bangladesh GK'].includes(f[0]));
- for(const chapter of chapters){
-   const seen=new Set(); let i=0;
-   while(seen.size<40){
-     const seed=seeds[i%seeds.length];
+ const seeds=nctbSubjectSeeds();
+ if(!chapters.length||!seeds.length)return out;
+ const forms=state.nctbSubject==='রসায়ন' ? [
+  'Board practice: {q}', 'Concept check: {q}', 'Chapter mastery: {q}', 'Exam checkpoint: {q}',
+  'Application check: {q}', 'Recall test: {q}', 'Precision check: {q}', 'Understanding check: {q}',
+  'MCQ checkpoint: {q}', 'Scholar checkpoint: {q}'
+ ] : [
+  'Board practice: {q}', 'Concept check: {q}', 'Chapter mastery: {q}', 'Exam checkpoint: {q}',
+  'Application check: {q}', 'Recall test: {q}', 'Precision check: {q}', 'Understanding check: {q}',
+  'MCQ checkpoint: {q}', 'Scholar checkpoint: {q}'
+ ];
+ chapters.forEach((chapter,chapterIndex)=>{
+   const seen=new Set();
+   // Always create exactly 40 unique displayed questions per selected chapter when a subject pack exists.
+   for(let i=0;i<40;i++){
+     const seed=seeds[(i+chapterIndex*17)%seeds.length];
+     const form=forms[(i+chapterIndex)%forms.length];
      const base=String(seed[1]);
-     const templates=['Chapter checkpoint: {q}','Concept checkpoint: {q}','Recall checkpoint: {q}','Application checkpoint: {q}','Board-practice checkpoint: {q}','Study checkpoint: {q}','Precision checkpoint: {q}','Understanding check: {q}','Exam-style checkpoint: {q}','Mastery checkpoint: {q}'];
-     const question=`${templates[i%templates.length].replace('{q}',base)} • ${chapter} • Q${i+1}`;
-     if(seen.has(question)){i++;continue}seen.add(question);
-     const options=shuffle([seed[2],...seed[3]],hash(`${state.nctbClass}|${state.nctbSubject}|${chapter}|${i}`));
-     out.push({id:`nctb-${state.nctbClass}-${state.nctbSubject}-${chapter}-${i}`,categoryKey:'nctb',subCategory:chapter,subject:state.nctbSubject,baseQuestion:base,question,answer:seed[2],options,answerIndex:options.indexOf(seed[2]),hint:seed[4],artifact:chapter,difficulty:i%3===0?'Hard':i%3===1?'Medium':'Easy',nctb:true});
-     i++;
+     const question=`${form.replace('{q}',base)} • ${chapter} • ${i+1}`;
+     const fingerprint=question.toLowerCase();
+     if(seen.has(fingerprint)){continue}
+     seen.add(fingerprint);
+     const options=shuffle([seed[2],...seed[3]],hash(`nctb-v15|${state.nctbClass}|${state.nctbSubject}|${chapter}|${i}`));
+     out.push({
+       id:`nctb-v15-${state.nctbClass}-${hash(state.nctbSubject)}-${hash(chapter)}-${i}`,
+       categoryKey:'nctb',subCategory:chapter,subject:state.nctbSubject,
+       baseQuestion:base,question,answer:seed[2],options,answerIndex:options.indexOf(seed[2]),
+       hint:seed[4],artifact:seed[5]||chapter,difficulty:i%3===0?'Hard':i%3===1?'Medium':'Easy',nctb:true,
+       nctbChapterIndex:chapterIndex,nctbQuestionNo:i+1
+     });
    }
- }
+ });
  return out;
 }
+
 function nctbQuestionTemplate(subject,chapter,i){
  const forms=[
   `Which learning point is the primary focus of ${chapter}?`,
@@ -720,11 +917,12 @@ function flashAnswer(kind){
 function pickFreshFromPool(pool, usedIds){
   if(!pool.length)return null;
   const fresh=pool.filter(q=>!usedIds.includes(q.id));
-  return fresh.length?fresh[0]:pool[0];
+  return fresh.length?fresh[0]:null;
 }
 
 function render(){
  const q=currentQ();
+ if(!q){const msg=state.language==='bn'?'এই মোডের সব আলাদা প্রশ্ন সম্পন্ন হয়েছে। নতুন প্রশ্নের জন্য অন্য category/sub-category বেছে নিন।':'All unique questions in this mode are complete. Choose another category/sub-category for new questions.';setMessage(msg,'good');const goal=document.getElementById('goal');if(goal)goal.textContent=msg;const opts=document.getElementById('options');if(opts)opts.innerHTML='';return}
  const cat=categoryDefinitionForQuestion(q);
  const total=state.challengeMode?(state.challengePool?.length||1):state.nctbMode?nctbPool().length:state.categoryMode?categoryLevelCount():levelCount();
  const current=state.challengeMode?Math.min(total,(state.challengeIndex||0)+1):state.nctbMode?Math.min(total,(state.nctbCursor||0)+1):state.categoryMode?Math.min(total,(state.categoryCursor||0)+1):Math.min(total,state.level);
@@ -740,9 +938,9 @@ function render(){
  document.getElementById('missionTag').textContent=state.challengeMode?`CHALLENGE • ${q.subCategory.toUpperCase()}`:state.nctbMode?`NCTB • ${q.subCategory.toUpperCase()}`:state.categoryMode?`CATEGORY • ${q.subCategory.toUpperCase()}`:`LEVEL ${current} • ${q.subCategory.toUpperCase()}`;
  const modeTag=document.getElementById('modeTag');if(modeTag)modeTag.textContent=state.challengeMode?'⚡ CHALLENGE MODE':state.nctbMode?'📚 NCTB 2026':state.categoryMode?`CATEGORY LEVEL • ${current}`:'RANDOM JOURNEY';
  const goal=document.getElementById('goal');
- goal.innerHTML=state.language==='en'?`<span class="q-en">${escapeHTML(q.question)}</span>`:`<span class="q-bn">${escapeHTML(bnMissionQuestion(q))}</span>`;
+ goal.innerHTML=`<span class="q-${state.language}">${escapeHTML(displayQuestion(q))}</span>`;
  const opts=document.getElementById('options');
- opts.innerHTML=q.options.map((x,i)=>`<button class="option" data-i="${i}"><span class="num">${String.fromCharCode(65+i)}</span><strong>${escapeHTML(state.language==='bn'?bnOption(x):String(x))}</strong>${state.challengeMode?'':'<small></small>'}</button>`).join('');
+ opts.innerHTML=q.options.map((x,i)=>`<button class="option" data-i="${i}"><span class="num">${String.fromCharCode(65+i)}</span><strong>${escapeHTML(state.language==='bn'?(state.nctbMode&&state.nctbSubject==='রসায়ন'?nctbChemBnOption(x):bnOption(x)):String(x))}</strong>${state.challengeMode?'':'<small></small>'}</button>`).join('');
  opts.querySelectorAll('.option').forEach(b=>b.onclick=()=>choose(Number(b.dataset.i)));
  resetQuestionUI();
  setMessage(state.challengeMode?(state.language==='bn'?`সময়: ${formatTimer(Math.max(0,state.challengeDuration*60-Math.floor((Date.now()-state.challengeStartedAt)/1000)))} • প্রশ্ন শেষ না হওয়া পর্যন্ত এগোবে।`:`Time: ${formatTimer(Math.max(0,state.challengeDuration*60-Math.floor((Date.now()-state.challengeStartedAt)/1000)))} • Questions continue until time is up.`):state.nctbMode?(state.language==='bn'?`${q.subCategory} • ${current} / ${total} • প্রতি অধ্যায়ে 40টি আলাদা checkpoint।`:`${q.subCategory} • ${current} / ${total} • 40 chapter checkpoints.`):state.categoryMode?(state.language==='bn'?`${cat.label} → ${q.subCategory} • ${current} / ${total} • Category progress আলাদা করে save হয়।`:`${cat.label} → ${q.subCategory} • ${current} / ${total} • Category progress is saved separately.`):(isCompleted(state.level)?'✓ Discovered already — replay anytime from Level Archive.':''),state.challengeMode?'':'good');
@@ -780,6 +978,7 @@ function choose(index){
 
  if(state.nctbMode){
    if(!correct){
+     state.retryCount++;
      playAnswerSound('wrong');
      flashAnswer('wrong');
      setMessage(state.language==='bn'?'✕ ভুল উত্তর। আবার চেষ্টা করুন।':'✕ Incorrect. Try again.','bad');
@@ -787,7 +986,7 @@ function choose(index){
    }
    playAnswerSound('correct');
    flashAnswer('correct');
-   state.xp+=15;state.nctbCursor++;rememberMission(q.id);save();
+   state.xp+=15;state.nctbCursor++;state.retryCount=0;rememberMission(q.id);save();
    showSuccessFabricator(q);
    setMessage(state.language==='bn'?'✓ অধ্যায় checkpoint সম্পন্ন।':'✓ Chapter checkpoint complete.','good');
    if(state.nctbCursor>=nctbPool().length){state.nctbMode=false;state.nctbCursor=0;setTimeout(()=>render(),700);return}
@@ -797,7 +996,6 @@ function choose(index){
  if(!correct){
    state.retryCount++;
    playAnswerSound('wrong');
-   flashAnswer('wrong');
 
    if(state.retryCount>=3){
      const oldLevel=state.categoryMode ? (state.categoryCursor+1) : state.level;
@@ -842,10 +1040,10 @@ function choose(index){
  playAnswerSound('correct');
  flashAnswer('correct');
  document.querySelectorAll('.option').forEach(b=>b.disabled=true);
- if(state.categoryMode){const p=categoryProgress();if(!p.completed.includes(state.categoryCursor+1))p.completed.push(state.categoryCursor+1);p.unlocked=Math.max(p.unlocked,Math.min(categoryPool().length,state.categoryCursor+2));state.xp+=50;state.materials.push(q.artifact);save();setMessage(state.language==='bn'?`✓ সঠিক! ${displayText(q.artifact)} তৈরি হয়েছে।`:`✓ Correct! ${q.artifact} fabricated.`,'good');showSuccessFabricator(q);setTimeout(()=>document.getElementById('nextLevel').classList.remove('hidden-next'),950);return}
+ if(state.categoryMode){const p=categoryProgress();if(!p.completed.includes(state.categoryCursor+1))p.completed.push(state.categoryCursor+1);if(!p.seenIds.includes(q.id))p.seenIds.push(q.id);p.unlocked=Math.max(p.unlocked,Math.min(categoryPool().length,state.categoryCursor+2));state.replayLevel=false;state.xp+=50;state.materials.push(q.artifact);save();setMessage(state.language==='bn'?`✓ সঠিক! ${displayText(q.artifact)} তৈরি হয়েছে।`:`✓ Correct! ${q.artifact} fabricated.`,'good');showSuccessFabricator(q);setTimeout(()=>document.getElementById('nextLevel').classList.remove('hidden-next'),950);return}
  if(!isCompleted(state.level)){markCompleted(state.level);state.maxUnlocked=Math.max(state.maxUnlocked,Math.min(TOTAL_LEVELS,state.level+1));state.xp+=100;state.materials.push(q.artifact)}save();setMessage(state.language==='bn'?`✓ সঠিক! ${displayText(q.artifact)} fabricated হয়েছে।`:`✓ Correct! ${q.artifact} fabricated.`,'good');showSuccessFabricator(q);setTimeout(()=>document.getElementById('nextLevel').classList.remove('hidden-next'),950)
 }
-function advanceLevel(){if(!pendingLevelUp)return;pendingLevelUp=false;if(state.categoryMode){const total=categoryLevelCount();if(state.categoryCursor+1<total)state.categoryCursor++;state.retryCount=0;save();render();return}if(state.level<TOTAL_LEVELS)state.level++;state.retryCount=0;save();render();if(state.level>1&&((state.level-1)%5===0))showReward(state.level-1)}
+function advanceLevel(){if(!pendingLevelUp)return;pendingLevelUp=false;state.replayLevel=false;if(state.categoryMode){const total=categoryLevelCount();if(state.categoryCursor+1<total){state.categoryCursor++;state.retryCount=0;save();render();return}state.categoryMode=false;state.categoryCursor=0;state.retryCount=0;save();render();setMessage(state.language==='bn'?'🎉 Category-এর সব আলাদা প্রশ্ন সম্পন্ন হয়েছে।':'🎉 All unique questions in this category are complete.','good');return}if(state.level<TOTAL_LEVELS)state.level++;state.retryCount=0;save();render();if(state.level>1&&((state.level-1)%5===0))showReward(state.level-1)}
 function showReward(level){const s=scientistsBase.find(x=>x[0]===level);if(!s||state.rewarded.includes(level))return;state.rewarded.push(level);save();document.getElementById('awardLevel').textContent=`LEVEL ${level} • SCIENTIST / DISCOVERY AWARD`;document.getElementById('scientistName').textContent=s[1];document.getElementById('scientistField').textContent=level===5000?'Genesis Gate':'Milestone Scientist';document.getElementById('quoteEn').textContent=s[2];document.getElementById('quoteBn').textContent=s[3];document.getElementById('modal').classList.remove('hidden')}
 
 function renderChallengeUI(){
@@ -857,17 +1055,27 @@ function renderChallengeUI(){
 function renderNCTBUI(){
  const cls=document.getElementById('nctbClass'),sub=document.getElementById('nctbSubject'),ch=document.getElementById('nctbChapters');if(!cls||!sub||!ch)return;
  cls.value=state.nctbClass;
- const subjects=Object.keys(NCTB_2026[state.nctbClass]||{});sub.innerHTML=subjects.map(x=>`<option value="${escapeHTML(x)}">${escapeHTML(x)}</option>`).join('');if(!subjects.includes(state.nctbSubject))state.nctbSubject=subjects[0]||'';sub.value=state.nctbSubject;
- const chapters=nctbChapters(state.nctbClass,state.nctbSubject);ch.innerHTML=chapters.map(x=>`<label class="chapter-check"><input type="checkbox" data-chapter="${escapeHTML(x)}" ${state.nctbChapters.includes(x)?'checked':''}><span>✓</span><b>${escapeHTML(x)}</b><small>40 ${state.language==='bn'?'প্রশ্ন':'questions'}</small></label>`).join('');
- ch.querySelectorAll('input').forEach(x=>x.onchange=()=>{state.nctbChapters=[...ch.querySelectorAll('input:checked')].map(a=>a.dataset.chapter);const i=document.getElementById('nctbInfo');if(i)i.textContent=`${state.nctbChapters.length} chapter(s) • ${state.nctbChapters.length*40} checkpoints`;});
+ const subjects=Object.keys(NCTB_2026[state.nctbClass]||{});
+ if(!subjects.includes(state.nctbSubject))state.nctbSubject=subjects[0]||'';
+ sub.innerHTML=subjects.map(x=>`<option value="${escapeHTML(x)}">${escapeHTML(x)}</option>`).join('');sub.value=state.nctbSubject;
+ const classBox=document.getElementById('nctbClassChoices');
+ if(classBox){classBox.innerHTML=Object.keys(NCTB_2026).map(x=>`<button type="button" class="nctb-choice ${state.nctbClass===x?'active':''}" data-class="${escapeHTML(x)}">${x==='9-10'?'Class 9–10':'Class '+x}</button>`).join('');classBox.querySelectorAll('[data-class]').forEach(b=>b.onclick=()=>{state.nctbClass=b.dataset.class;state.nctbChapters=[];renderNCTBUI()});}
+ const subBox=document.getElementById('nctbSubjectChoices');
+ if(subBox){subBox.innerHTML=subjects.map(x=>`<button type="button" class="nctb-choice subject-choice ${state.nctbSubject===x?'active':''}" data-subject="${escapeHTML(x)}">${escapeHTML(x)}</button>`).join('');subBox.querySelectorAll('[data-subject]').forEach(b=>b.onclick=()=>{state.nctbSubject=b.dataset.subject;state.nctbChapters=[];renderNCTBUI()});}
+ const chapters=nctbChapters(state.nctbClass,state.nctbSubject);
+ ch.innerHTML=chapters.map((x,i)=>`<label class="chapter-check ${state.nctbChapters.includes(x)?'selected':''}"><input type="checkbox" data-chapter="${escapeHTML(x)}" ${state.nctbChapters.includes(x)?'checked':''}><span class="chapter-checkmark">✓</span><div><b>${escapeHTML(x)}</b><small>${state.language==='bn'?'৪০টি আলাদা প্রশ্ন':'40 unique questions'}</small></div><em>${String(i+1).padStart(2,'0')}</em></label>`).join('');
+ const sync=()=>{state.nctbChapters=[...ch.querySelectorAll('input:checked')].map(a=>a.dataset.chapter);ch.querySelectorAll('.chapter-check').forEach(card=>card.classList.toggle('selected',card.querySelector('input').checked));const i=document.getElementById('nctbInfo');if(i)i.textContent=state.language==='bn'?`${state.nctbChapters.length}টি অধ্যায় • ${state.nctbChapters.length*40}টি প্রশ্ন`:`${state.nctbChapters.length} chapter(s) • ${state.nctbChapters.length*40} unique questions`;};
+ ch.querySelectorAll('input').forEach(x=>x.onchange=sync);
+ sync();
 }
+
 function openChallengeSetup(){state.challengeMode=false;renderCategoryUI();renderChallengeUI();document.getElementById('challengeSetup').classList.remove('hidden-ui')}
 function closeChallengeSetup(){document.getElementById('challengeSetup').classList.add('hidden-ui')}
 
 function renderCategoryUI(){const list=document.getElementById('categoryList');if(!list)return;list.innerHTML=CATEGORY_DEFS.map(d=>`<button class="category-card ${state.categoryKey===d.key?'selected':''}" data-cat="${d.key}"><span>${d.icon}</span><strong>${d.label}</strong><small>${d.subs.length} sub-categories</small></button>`).join('');list.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>selectCategory(b.dataset.cat));const d=categoryDefinition(state.categoryKey);const area=document.getElementById('subcategoryArea'),subList=document.getElementById('subcategoryList');if(!d){area.classList.add('hidden-ui');return}area.classList.remove('hidden-ui');subList.innerHTML=d.subs.map(([value,label])=>{const count=MISSION_BANK.filter(m=>m.categoryKey===d.key&&m.subCategory===value&&(state.difficulty==='All'||m.difficulty===state.difficulty)).length;return `<label class="subcat-check ${count?'':'disabled'}"><input type="checkbox" data-sub="${escapeHTML(value)}" ${state.categorySubs.includes(value)?'checked':''} ${count?'':'disabled'}><span class="checkmark">✓</span><span class="subcat-copy"><strong>${escapeHTML(label)}</strong><small>${count} ${state.language==='bn'?'মিশন':'missions'}</small></span></label>`}).join('')+`<div class="subcat-actions"><button id="selectAllSubs" class="secondary-btn">SELECT ALL</button><button id="clearSubs" class="secondary-btn">CLEAR</button><button id="startCategory" class="start-category-btn">START CATEGORY</button></div><div id="selectionInfo" class="selection-info"></div>`;subList.querySelectorAll('input[data-sub]').forEach(x=>x.onchange=()=>refreshSelection(d));document.getElementById('selectAllSubs').onclick=()=>{subList.querySelectorAll('input[data-sub]:not(:disabled)').forEach(x=>x.checked=true);refreshSelection(d)};document.getElementById('clearSubs').onclick=()=>{subList.querySelectorAll('input[data-sub]').forEach(x=>x.checked=false);refreshSelection(d)};document.getElementById('startCategory').onclick=()=>startCategory(d.key,state.categorySubs);refreshSelection(d)}
 function selectCategory(key){state.categoryKey=key;state.categorySubs=[];state.categoryCursor=0;renderCategoryUI()}
 function refreshSelection(d){const subList=document.getElementById('subcategoryList');state.categorySubs=[...subList.querySelectorAll('input[data-sub]:checked')].map(x=>x.dataset.sub);const count=categoryLevelCount();const selectedCounts=state.categorySubs.map(sub=>MISSION_BANK.filter(m=>m.categoryKey===d.key&&m.subCategory===sub&&(state.difficulty==='All'||m.difficulty===state.difficulty)).length);const minCount=selectedCounts.length?Math.min(...selectedCounts):0;const info=document.getElementById('selectionInfo');if(info)info.textContent=`${state.categorySubs.length} selected • ${count} unique category levels • smallest selected sub-category: ${minCount}`}
-function startCategory(key,subs){const selected=[...new Set(subs)];if(!selected.length){setMessage('Select at least one sub-category.','bad');return}state.categoryMode=true;state.categoryKey=key;state.categorySubs=selected;state.categoryCursor=0;state.retryCount=0;const p=categoryProgress();p.unlocked=Math.max(1,Math.min(categoryPool().length,p.unlocked||1));pendingLevelUp=false;save();document.getElementById('playHub').classList.add('hidden');render()}
+function startCategory(key,subs){const selected=[...new Set(subs)];if(!selected.length){setMessage('Select at least one sub-category.','bad');return}state.categoryMode=true;state.categoryKey=key;state.categorySubs=selected;state.categoryCursor=0;state.replayLevel=false;state.retryCount=0;const p=categoryProgress();p.unlocked=Math.max(1,Math.min(categoryPool().length,p.unlocked||1));if(categoryPool().every(x=>p.seenIds.includes(x.id))){state.categoryMode=false;setMessage(state.language==='bn'?'এই selection-এর সব আলাদা প্রশ্ন আগেই সম্পন্ন হয়েছে।':'All unique questions in this selection were already completed.','good');return}pendingLevelUp=false;save();document.getElementById('playHub').classList.add('hidden');render()}
 function exitCategory(){clearInterval(window.__challengeTimer);state.categoryMode=false;state.challengeMode=false;state.nctbMode=false;state.categoryKey='';state.categorySubs=[];state.categoryCursor=0;state.nctbCursor=0;state.retryCount=0;pendingLevelUp=false;save();render()}
 function openPlayHub(){document.getElementById('playHub').classList.remove('hidden');renderCategoryUI();renderChallengeUI();renderNCTBUI();updateSetupLabels()}
 function closePlayHub(){document.getElementById('playHub').classList.add('hidden')}
@@ -877,9 +1085,9 @@ function selectLanguage(lang){state.language=lang;document.querySelectorAll('.la
 function selectDifficulty(diff){state.difficulty=diff;const total=MISSION_BANK.filter(m=>diff==='All'||m.difficulty===diff).length;state.level=Math.max(1,Math.min(Number(state.level)||1,total));state.maxUnlocked=Math.max(1,Math.min(Number(state.maxUnlocked)||1,total));document.querySelectorAll('.difficulty-card,.diff-mini button').forEach(b=>b.classList.toggle('active',b.dataset.diff===diff));renderCategoryUI();render()}
 function finishSetup(){const pc=document.getElementById('setupPoolCount');if(pc)pc.textContent=String(MISSION_BANK.length).replace(/\B(?=(\d{3})+(?!\d))/g,',');state.setupDone=true;save();document.getElementById('setupScreen').classList.add('hidden');render()}
 function openSetup(){const pc=document.getElementById('setupPoolCount');if(pc)pc.textContent=String(MISSION_BANK.length).replace(/\B(?=(\d{3})+(?!\d))/g,',');document.getElementById('setupScreen').classList.remove('hidden');document.querySelectorAll('.lang-card').forEach(b=>b.classList.toggle('active',b.dataset.lang===state.language));document.querySelectorAll('.difficulty-card').forEach(b=>b.classList.toggle('active',b.dataset.diff===state.difficulty));updateSetupLabels()}
-function resetSave(){if(confirm(state.language==='bn'?'সব progress reset করতে চান?':'Reset all local progress?')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(SETUP_KEY);localStorage.removeItem('elementGameSave_v6000');localStorage.removeItem('elementGameSave_v5000');localStorage.removeItem('elementGameSave');location.reload()}}
+function resetSave(){if(confirm(state.language==='bn'?'সব progress reset করতে চান?':'Reset all local progress?')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(SETUP_KEY);localStorage.removeItem('elementGameSave_v8000');localStorage.removeItem('elementGameSave_v7000');localStorage.removeItem('elementGameSetup_v8000');localStorage.removeItem('elementGameSave_v6000');localStorage.removeItem('elementGameSave_v5000');localStorage.removeItem('elementGameSave');location.reload()}}
 
-document.getElementById('hintBtn').onclick=showHint;document.getElementById('nextLevel').onclick=advanceLevel;document.getElementById('levelMapBtn').onclick=openArchive;document.getElementById('categoryMapBtn').onclick=openArchive;document.getElementById('closeMap').onclick=()=>document.getElementById('levelMapModal').classList.add('hidden');document.getElementById('reset').onclick=resetSave;document.getElementById('playHubBtn').onclick=openPlayHub;document.getElementById('closePlayHub').onclick=closePlayHub;document.getElementById('exitCategory').onclick=exitCategory;document.getElementById('continue').onclick=()=>document.getElementById('modal').classList.add('hidden');document.getElementById('setupContinue').onclick=finishSetup;document.getElementById('setupSettingsBtn').onclick=openSetup;document.querySelectorAll('.lang-card,.lang-card-mini').forEach(b=>b.onclick=()=>selectLanguage(b.dataset.lang));document.querySelectorAll('.difficulty-card,.diff-mini button').forEach(b=>b.onclick=()=>selectDifficulty(b.dataset.diff));document.getElementById('randomPlayBtn').onclick=()=>{state.categoryMode=false;state.categoryKey='';state.categorySubs=[];state.categoryCursor=0;pendingLevelUp=false;save();closePlayHub();render()};
+document.getElementById('hintBtn').onclick=showHint;document.getElementById('nextLevel').onclick=advanceLevel;document.getElementById('levelMapBtn').onclick=openArchive;document.getElementById('categoryMapBtn').onclick=openArchive;document.getElementById('closeMap').onclick=()=>document.getElementById('levelMapModal').classList.add('hidden');document.getElementById('reset').onclick=resetSave;document.getElementById('playHubBtn').onclick=openPlayHub;document.getElementById('closePlayHub').onclick=closePlayHub;document.getElementById('exitCategory').onclick=exitCategory;document.getElementById('continue').onclick=()=>document.getElementById('modal').classList.add('hidden');document.getElementById('setupContinue').onclick=finishSetup;document.getElementById('setupSettingsBtn').onclick=openSetup;document.querySelectorAll('.lang-card,.lang-card-mini').forEach(b=>b.onclick=()=>selectLanguage(b.dataset.lang));document.querySelectorAll('.difficulty-card,.diff-mini button').forEach(b=>b.onclick=()=>selectDifficulty(b.dataset.diff));document.getElementById('randomPlayBtn').onclick=()=>{state.categoryMode=false;state.categoryKey='';state.categorySubs=[];state.categoryCursor=0;state.replayLevel=false;pendingLevelUp=false;save();closePlayHub();render()};
 document.getElementById('challengeOpenBtn')?.addEventListener('click',openChallengeSetup);document.getElementById('closeChallengeSetup')?.addEventListener('click',closeChallengeSetup);document.getElementById('challengeStartBtn')?.addEventListener('click',startChallenge);document.querySelectorAll('#challengeDurations button').forEach(b=>b.onclick=()=>{state.challengeDuration=Number(b.dataset.minutes);renderChallengeUI()});document.getElementById('challengeDuration')?.addEventListener('change',e=>{state.challengeDuration=Math.max(3,Math.min(60,Number(e.target.value)||5));renderChallengeUI()});document.getElementById('challengeResultClose')?.addEventListener('click',()=>{document.getElementById('challengeResultModal').classList.add('hidden');render()});document.getElementById('nctbClass')?.addEventListener('change',e=>{state.nctbClass=e.target.value;state.nctbChapters=[];renderNCTBUI()});document.getElementById('nctbSubject')?.addEventListener('change',e=>{state.nctbSubject=e.target.value;state.nctbChapters=[];renderNCTBUI()});document.getElementById('nctbStartBtn')?.addEventListener('click',startNCTB);document.getElementById('nctbSelectAll')?.addEventListener('click',()=>{const ch=document.getElementById('nctbChapters');ch.querySelectorAll('input').forEach(x=>x.checked=true);state.nctbChapters=[...ch.querySelectorAll('input')].map(x=>x.dataset.chapter);renderNCTBUI()});document.getElementById('nctbClear')?.addEventListener('click',()=>{state.nctbChapters=[];renderNCTBUI()});
 
 document.getElementById('challengeTopBtn')?.addEventListener('click',()=>{openPlayHub();openChallengeSetup()});document.getElementById('nctbOpenBtn')?.addEventListener('click',()=>{document.getElementById('nctbSetup').classList.remove('hidden-ui');renderNCTBUI()});document.getElementById('closeNctbSetup')?.addEventListener('click',()=>document.getElementById('nctbSetup').classList.add('hidden-ui'));

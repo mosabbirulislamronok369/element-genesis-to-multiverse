@@ -5,7 +5,7 @@
 <title>ELEMENT: Genesis to Multiverse — Verified Unique Edition</title>
 <meta name="theme-color" content="#070a10">
 <meta name="description" content="ELEMENT: Genesis to Multiverse — a premium verified-unique knowledge adventure with language, difficulty, categories and sub-category progression.">
-<link rel="stylesheet" href="style.css?v=14.0.0">
+<link rel="stylesheet" href="style.css?v=15.0.0">
 </head>
 <body>
 <div id="app">
@@ -71,7 +71,7 @@
     </div>
     <div id="nctbSetup" class="special-panel hidden-ui">
       <div class="special-head"><div><b>📚 NCTB 2026 BOARD PRACTICE</b><small>Official NCTB 2026 textbook structure • multi-chapter practice.</small></div><button id="closeNctbSetup" class="icon-close">×</button></div>
-      <div class="nctb-select-row"><label>CLASS<select id="nctbClass"><option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6" selected>Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9-10">Class 9–10</option></select></label><label>SUBJECT<select id="nctbSubject"></select></label></div>
+      <div class="nctb-select-row"><div class="nctb-field"><label>CLASS</label><div id="nctbClassChoices" class="nctb-choice-grid"></div><select id="nctbClass" class="native-sync-select" aria-hidden="true"><option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6" selected>Class 6</option><option value="7">Class 7</option><option value="8">Class 8</option><option value="9-10">Class 9–10</option></select></div><div class="nctb-field"><label>SUBJECT</label><div id="nctbSubjectChoices" class="nctb-choice-grid subject-grid"></div><select id="nctbSubject" class="native-sync-select" aria-hidden="true"></select></div></div>
       <div class="chapter-head"><b>CHAPTERS</b><span id="nctbInfo">0 chapter(s) • 0 checkpoints</span></div>
       <div id="nctbChapters" class="chapter-list"></div>
       <div class="subcat-actions"><button id="nctbSelectAll" class="secondary-btn">SELECT ALL</button><button id="nctbClear" class="secondary-btn">CLEAR</button><button id="nctbStartBtn" class="start-category-btn">START NCTB PRACTICE →</button></div>
@@ -126,5 +126,5 @@
 
 <div id="levelMapModal" class="modal hidden"><div class="modalbox map-box"><div class="eyebrow">LEVEL ARCHIVE</div><h2 id="mapTitle">LEVEL ARCHIVE</h2><p id="mapInfo" class="map-info">Unlocked: 1 / 5000</p><div class="jump-row"><input id="levelSearch" type="number" min="1" max="5000" placeholder="Level number"><button id="jumpLevel">GO</button></div><div id="levelMap" class="level-map"></div><button id="closeMap" class="secondary-btn">CLOSE ARCHIVE</button></div></div>
 <div id="challengeResultModal" class="modal hidden"><div class="modalbox challenge-result-box"><div class="medal">⚡</div><div class="eyebrow">CHALLENGE RESULT</div><h2 id="challengeResultTitle">Challenge Complete</h2><div id="challengeResultStats" class="result-stats"></div><button id="challengeResultClose">RETURN TO PLAY HUB</button></div></div>
-<script src="game.js?v=14.0.0"></script>
+<script src="game.js?v=15.0.0"></script>
 </body></html>

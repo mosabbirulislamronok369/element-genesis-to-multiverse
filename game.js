@@ -108,6 +108,144 @@ SEED_FACTS.push(
  ['Islamic Knowledge • Manhaj','What is meant by following the understanding of the Salaf?','Giving methodological weight to the understanding of the early Muslim generations',['Rejecting hadith','Ignoring Arabic','Replacing revelation with custom'],'Salafi scholarship emphasizes the Qur’an and Sunnah as understood by the early generations.','Salaf'],
  ['Islamic Knowledge • Comparative Religion','What is a neutral academic comparison supposed to distinguish?','Description of beliefs from evaluation of truth claims',['All religions are identical','All traditions are false','Only one source can be studied'],'Academic comparison separates descriptive reporting from theological judgment.','Comparison'],
 );
+
+// V13 EXPANDED UNIQUE ANIME QUESTION SEEDS — replaces tiny 3/2-question pools.
+const V13_ANIME_EXPANSION=[
+["Anime • One Piece", "Who is the captain of the Straw Hat Pirates?", "Monkey D. Luffy", ["Roronoa Zoro", "Trafalgar Law", "Portgas D. Ace"], "His dream is to become the Pirate King.", "Luffy"],
+["Anime • One Piece", "What is the name of Luffy’s signature straw hat?", "Straw Hat", ["Red Crown", "Sun Hat", "Pirate Cap"], "It gives the crew their famous nickname.", "Straw Hat"],
+["Anime • One Piece", "Which swordsman is a core member of the Straw Hat crew?", "Roronoa Zoro", ["Sanji", "Usopp", "Brook"], "He fights mainly with swords and dreams of becoming the greatest swordsman.", "Zoro"],
+["Anime • One Piece", "Which Straw Hat member is the crew’s navigator?", "Nami", ["Robin", "Vivi", "Perona"], "She is the crew's navigator and loves treasure.", "Nami"],
+["Anime • One Piece", "Which Straw Hat member is the crew’s cook?", "Sanji", ["Zoro", "Franky", "Usopp"], "He is the crew's chef and uses powerful kicks in combat.", "Sanji"],
+["Anime • One Piece", "Who is the archaeologist of the Straw Hat Pirates?", "Nico Robin", ["Nami", "Boa Hancock", "Carrot"], "She can read ancient scripts and studies the history of the world.", "Robin"],
+["Anime • One Piece", "Who is the sniper of the Straw Hat Pirates?", "Usopp", ["Franky", "Brook", "Chopper"], "He is known for long-range attacks and storytelling.", "Usopp"],
+["Anime • One Piece", "Who is the doctor of the Straw Hat Pirates?", "Tony Tony Chopper", ["Law", "Marco", "Hogback"], "He is a reindeer who became the crew's doctor.", "Chopper"],
+["Anime • One Piece", "Who is the shipwright of the Straw Hat Pirates?", "Franky", ["Iceburg", "Usopp", "Jinbe"], "He builds and repairs ships and is a cyborg.", "Franky"],
+["Anime • One Piece", "Who is the musician of the Straw Hat Pirates?", "Brook", ["Sanji", "Franky", "Jinbe"], "He is a living skeleton who plays music.", "Brook"],
+["Anime • One Piece", "What is the name of the Straw Hat crew’s first major ship?", "Going Merry", ["Thousand Sunny", "Red Force", "Oro Jackson"], "It was the crew's beloved ship before the Thousand Sunny.", "Going Merry"],
+["Anime • One Piece", "What is the name of the Straw Hat crew’s current ship?", "Thousand Sunny", ["Going Merry", "Moby Dick", "Polar Tang"], "It was built by Franky and the Water 7 shipwrights.", "Thousand Sunny"],
+["Anime • One Piece", "Who was the first captain of the Roger Pirates?", "Gol D. Roger", ["Shanks", "Whitebeard", "Rayleigh"], "He became known as the Pirate King.", "Roger"],
+["Anime • One Piece", "What title is associated with Gol D. Roger?", "Pirate King", ["Fleet Admiral", "Warlord", "Dark King"], "He reached the end of the Grand Line and gained this title.", "Pirate King"],
+["Anime • One Piece", "What is the name of the sea route where the greatest pirate adventure unfolds?", "Grand Line", ["East Blue", "North Blue", "Red Line"], "It is the dangerous route crossing the world's seas.", "Grand Line"],
+["Anime • One Piece", "What is the name of the huge landmass that circles the One Piece world?", "Red Line", ["Grand Line", "Calm Belt", "Sky Island"], "It is a massive continent-like line around the planet.", "Red Line"],
+["Anime • One Piece", "What special power system allows characters to sense or dominate with willpower?", "Haki", ["Nen", "Chakra", "Reiatsu"], "It is a spiritual power used by many strong fighters.", "Haki"],
+["Anime • One Piece", "Which type of Haki allows a user to sense presence and intent?", "Observation Haki", ["Armament Haki", "Conqueror’s Haki", "Fish-Man Karate"], "It enhances perception and awareness.", "Observation Haki"],
+["Anime • One Piece", "Which type of Haki hardens the body or weapons?", "Armament Haki", ["Observation Haki", "Conqueror’s Haki", "Six Powers"], "It can be used to harden the body or weapons.", "Armament Haki"],
+["Anime • One Piece", "Which rare Haki is associated with overwhelming the will of others?", "Conqueror’s Haki", ["Observation Haki", "Armament Haki", "Rokushiki"], "Only a small fraction of people are born with it.", "Conqueror’s Haki"],
+["Anime • One Piece", "What are Devil Fruits?", "Fruits that grant supernatural abilities", ["Magic swords", "Sea-stone weapons", "Government licenses"], "They give unusual powers but traditionally weaken users in seawater.", "Devil Fruit"],
+["Anime • One Piece", "What weakness is commonly associated with Devil Fruit users?", "They cannot swim normally", ["They lose their memory", "They cannot use weapons", "They cannot eat meat"], "The sea is especially dangerous to Devil Fruit users.", "Sea weakness"],
+["Anime • One Piece", "Which organization is the main military force of the World Government?", "Marines", ["Revolutionary Army", "Baroque Works", "Cross Guild"], "They enforce World Government authority on the seas.", "Marines"],
+["Anime • One Piece", "Who is the red-haired pirate captain known as Shanks?", "Red-Haired Shanks", ["Blackbeard", "Buggy", "Mihawk"], "He is a famous Yonko and an important figure in Luffy's story.", "Shanks"],
+["Anime • One Piece", "Who is known as the world’s greatest swordsman?", "Dracule Mihawk", ["Zoro", "Shanks", "Vista"], "He is the swordsman Zoro aims to surpass.", "Mihawk"],
+["Anime • One Piece", "What is Zoro’s long-term ambition?", "Become the world’s greatest swordsman", ["Become Pirate King", "Find the All Blue", "Become a Marine"], "It connects directly to his promise to Kuina.", "Zoro’s dream"],
+["Anime • One Piece", "What is Sanji’s dream concerning the sea?", "Find the All Blue", ["Find Laugh Tale", "Become Fleet Admiral", "Find the One Piece alone"], "He searches for a legendary sea said to contain fish from all oceans.", "All Blue"],
+["Anime • One Piece", "What is Nami’s major personal goal?", "Draw a map of the world", ["Become Pirate King", "Find the All Blue", "Become a Marine"], "Her dream is connected to her skill as a navigator.", "Nami’s dream"],
+["Anime • One Piece", "What is Robin trying to uncover through the Poneglyphs?", "The true history", ["The location of the All Blue", "A Devil Fruit recipe", "Marine ranks"], "Her archaeological research focuses on the world's hidden past.", "True History"],
+["Anime • One Piece", "What are Poneglyphs?", "Ancient stone inscriptions", ["Devil Fruits", "Living ships", "Marine flags"], "They preserve information from the distant past.", "Poneglyph"],
+["Anime • One Piece", "What is Laugh Tale?", "The final island associated with the One Piece", ["A Marine base", "Zoro’s village", "A Devil Fruit"], "Roger reached the island at the end of his journey.", "Laugh Tale"],
+["Anime • One Piece", "What is the treasure called One Piece?", "The legendary treasure associated with the Pirate King’s journey", ["A Devil Fruit", "A sword", "A Marine medal"], "Its exact nature is central to the series mystery.", "One Piece treasure"],
+["Anime • One Piece", "Who is Luffy’s older brother who was a commander of Whitebeard’s crew?", "Portgas D. Ace", ["Sabo", "Marco", "Coby"], "He was the son of Gol D. Roger and brother of Luffy and Sabo.", "Ace"],
+["Anime • One Piece", "Who is the revolutionary associated with Luffy as his sworn brother?", "Sabo", ["Ace", "Law", "Smoker"], "He later became a major officer of the Revolutionary Army.", "Sabo"],
+["Anime • One Piece", "Who is Luffy’s grandfather?", "Monkey D. Garp", ["Sengoku", "Dragon", "Rayleigh"], "He is a legendary Marine hero.", "Garp"],
+["Anime • One Piece", "Who is Luffy’s father?", "Monkey D. Dragon", ["Garp", "Shanks", "Sabo"], "He is the leader of the Revolutionary Army.", "Dragon"],
+["Anime • One Piece", "What is the name of the government organization led by the Five Elders?", "World Government", ["Whitebeard Pirates", "Cross Guild", "Baroque Works"], "It is the dominant political authority in the One Piece world.", "World Government"],
+["Anime • One Piece", "What are the Five Elders commonly called?", "Gorosei", ["Yonko", "Shichibukai", "Cipher Pol"], "They are the highest-ranking political figures shown in the World Government.", "Gorosei"],
+["Anime • One Piece", "What is the name of the giant elephant carrying Zou?", "Zunesha", ["Laboon", "Surume", "Sea King"], "The Mink homeland is located on its back.", "Zunesha"],
+["Anime • One Piece", "What is the name of the island-city where Water 7 is located?", "Water 7", ["Dressrosa", "Wano", "Whole Cake Island"], "It is a major shipbuilding city.", "Water 7"],
+["Anime • One Piece", "Which crew member is especially famous for his cyborg modifications?", "Franky", ["Usopp", "Brook", "Chopper"], "He rebuilt much of his body with mechanical parts.", "Franky"],
+["Anime • One Piece", "Which Straw Hat uses the Three-Sword Style?", "Roronoa Zoro", ["Sanji", "Brook", "Franky"], "He fights with three swords, including one held in his mouth.", "Three-Sword Style"],
+["Anime • One Piece", "What is Luffy’s Devil Fruit power traditionally known as?", "Gum-Gum Fruit", ["Flame-Flame Fruit", "Sand-Sand Fruit", "Dark-Dark Fruit"], "Its well-known historical name is tied to Luffy's rubber-like body.", "Gum-Gum Fruit"],
+["Anime • One Piece", "Which pirate is associated with the Flame-Flame Fruit after Ace?", "Sabo", ["Zoro", "Usopp", "Smoker"], "He gained Ace's former Devil Fruit power.", "Sabo"],
+["Anime • One Piece", "What is the name of the powerful sword technique associated with Zoro’s three-sword style?", "Santoryu", ["Rokushiki", "Geppo", "Diable Jambe"], "The Japanese term literally refers to three swords.", "Santoryu"],
+["Anime • One Piece", "What is the nickname of Trafalgar Law?", "Surgeon of Death", ["Dark King", "Pirate Hunter", "Red-Haired"], "He is a doctor and pirate captain.", "Law"],
+["Anime • One Piece", "What is Trafalgar Law’s crew called?", "Heart Pirates", ["Kid Pirates", "Fire Tank Pirates", "Beasts Pirates"], "Their Jolly Roger is based around a heart motif.", "Heart Pirates"],
+["Anime • One Piece", "Who is the captain of the Heart Pirates?", "Trafalgar D. Water Law", ["Eustass Kid", "Marco", "Killer"], "He is a pirate captain and surgeon.", "Law"],
+["Anime • One Piece", "Who is the captain of the Kid Pirates?", "Eustass Kid", ["Law", "Shanks", "Drake"], "He is a rival pirate captain with a magnetic Devil Fruit power.", "Kid"],
+["Anime • One Piece", "What is the nickname of Eustass Kid?", "Captain Kid", ["Pirate Hunter", "Surgeon of Death", "Black Leg"], "His pirate identity is shortened to this nickname.", "Kid"],
+["Anime • One Piece", "What is the name of the giant prison where many major criminals are held?", "Impel Down", ["Enies Lobby", "Marineford", "Punk Hazard"], "It is the World Government's underwater prison.", "Impel Down"],
+["Anime • One Piece", "What is Marineford?", "A major Marine headquarters and battlefield", ["A pirate island", "A sky island", "A Wano province"], "It became the site of a major war involving Whitebeard and the Marines.", "Marineford"],
+["Anime • One Piece", "Which pirate was known as the strongest man in the world?", "Edward Newgate", ["Kaido", "Shanks", "Buggy"], "His epithet was Whitebeard.", "Whitebeard"],
+["Anime • One Piece", "What was Edward Newgate’s famous epithet?", "Whitebeard", ["Blackbeard", "Red-Haired", "Straw Hat"], "He was one of the legendary Yonko.", "Whitebeard"],
+["Anime • One Piece", "Who is known as Blackbeard?", "Marshall D. Teach", ["Edward Newgate", "Shanks", "Buggy"], "He is a major pirate antagonist who uses multiple Devil Fruit powers.", "Blackbeard"],
+["Anime • One Piece", "What is the name of the pirate crew led by Blackbeard?", "Blackbeard Pirates", ["Whitebeard Pirates", "Heart Pirates", "Straw Hat Pirates"], "Marshall D. Teach commands this crew.", "Blackbeard Pirates"],
+["Anime • One Piece", "Which character is called the Black Leg?", "Sanji", ["Zoro", "Law", "Usopp"], "His fighting style relies heavily on powerful kicks.", "Black Leg"],
+["Anime • One Piece", "Which Straw Hat is a reindeer?", "Tony Tony Chopper", ["Brook", "Franky", "Jinbe"], "He is a reindeer who gained human-like abilities through a Devil Fruit.", "Chopper"],
+["Anime • One Piece", "Which former Warlord is a fish-man and later joins Luffy’s crew?", "Jinbe", ["Crocodile", "Doflamingo", "Moria"], "He is a master of Fish-Man Karate.", "Jinbe"],
+["Anime • One Piece", "What fighting art is strongly associated with Jinbe?", "Fish-Man Karate", ["Three-Sword Style", "Black Leg", "Rokushiki"], "It uses water and martial-arts techniques.", "Fish-Man Karate"],
+["Anime • One Piece", "What is the name of the ancient weapons category in One Piece?", "Ancient Weapons", ["Sacred Treasures", "Sea Weapons", "World Swords"], "Pluton, Poseidon and Uranus are associated with this category.", "Ancient Weapons"],
+["Anime • One Piece", "Which ancient weapon is connected with Shirahoshi?", "Poseidon", ["Pluton", "Uranus", "Enma"], "Its ability is connected with Sea Kings.", "Poseidon"],
+["Anime • One Piece", "Who is Shirahoshi?", "The mermaid princess of Fish-Man Island", ["A Marine admiral", "A Yonko", "A Straw Hat"], "She is the daughter of Neptune.", "Shirahoshi"],
+["Anime • One Piece", "What is the name of the giant creatures controlled by Poseidon?", "Sea Kings", ["Pacifistas", "Zombies", "Homies"], "They are enormous sea creatures that can be commanded by Poseidon.", "Sea Kings"],
+["Anime • One Piece", "What is the name of the country associated with samurai and Kaido’s long rule?", "Wano Country", ["Dressrosa", "Water 7", "Alabasta"], "It is a closed country with a strong samurai tradition.", "Wano"],
+["Anime • One Piece", "Who is the ruler of Wano before the current era’s major conflict?", "Kozuki Momonosuke", ["Coby", "Koby", "Vivi"], "He is the heir of the Kozuki family and later becomes shogun.", "Momonosuke"],
+["Anime • One Piece", "Which character is known as the Pirate Hunter?", "Roronoa Zoro", ["Sanji", "Law", "Smoker"], "This is Zoro's famous epithet.", "Pirate Hunter"],
+["Anime • One Piece", "What is the name of the island where Luffy trained during the two-year timeskip?", "Rusukaina", ["Wano", "Zou", "Drum Island"], "It is near Amazon Lily and has dangerous wildlife.", "Rusukaina"],
+["Anime • Death Note", "What is the name of the supernatural notebook in Death Note?", "Death Note", ["Black Ledger", "Soul Book", "Judgment Diary"], "Its title is also the series name.", "Death Note"],
+["Anime • Death Note", "What is the detective alias used by the genius investigator in Death Note?", "L", ["N", "K", "M"], "It is a single-letter alias.", "L"],
+["Anime • Death Note", "Who is the main human protagonist of Death Note?", "Light Yagami", ["L Lawliet", "Near", "Mello"], "He discovers the notebook at the beginning of the story.", "Light"],
+["Anime • Death Note", "Who is the Shinigami who accompanies Light?", "Ryuk", ["Rem", "Gelus", "Sidoh"], "He drops the notebook into the human world.", "Ryuk"],
+["Anime • Death Note", "What are supernatural beings associated with the Death Note?", "Shinigami", ["Titans", "Devils", "Espers"], "They are death gods in the series world.", "Shinigami"],
+["Anime • Death Note", "What is the name of the female idol who becomes the Second Kira?", "Misa Amane", ["Kiyomi Takada", "Naomi Misora", "Sayu Yagami"], "She possesses another Death Note and has Shinigami Eyes.", "Misa"],
+["Anime • Death Note", "What is the nickname used for Light’s public identity as the killer?", "Kira", ["L", "N", "X-Kira"], "It comes from the Japanese pronunciation of 'killer'.", "Kira"],
+["Anime • Death Note", "What ability do Shinigami Eyes provide?", "Seeing a human’s name and remaining lifespan", ["Reading minds", "Stopping time", "Changing memories"], "The ability reveals information normally hidden from humans.", "Shinigami Eyes"],
+["Anime • Death Note", "What must be known to kill someone using the Death Note?", "The person’s name and face", ["Only the address", "Only the age", "Only the blood type"], "The user needs identifying information and can then specify conditions.", "Death Note rule"],
+["Anime • Death Note", "Who is the successor to L who leads the SPK?", "Near", ["Mello", "Matt", "Aizawa"], "He is one of the two major successors to L.", "Near"],
+["Anime • Death Note", "Who is L’s other major successor and rival to Near?", "Mello", ["Near", "Matsuda", "Watari"], "He pursues Kira independently and uses criminal connections.", "Mello"],
+["Anime • Death Note", "What does SPK stand for in Death Note?", "Special Provision for Kira", ["Special Police Kingdom", "Supernatural Power Keepers", "Strategic Police Kira"], "It is an international group formed to investigate Kira.", "SPK"],
+["Anime • Death Note", "Who is the second Shinigami strongly connected with Misa?", "Rem", ["Ryuk", "Gelus", "Sidoh"], "Rem becomes protective of Misa.", "Rem"],
+["Anime • Death Note", "Which Shinigami sacrifices itself for Misa?", "Gelus", ["Ryuk", "Rem", "Sidoh"], "Gelus dies after using the notebook to save Misa.", "Gelus"],
+["Anime • Death Note", "What is Light Yagami’s father’s name?", "Soichiro Yagami", ["Shuichi Aizawa", "Touta Matsuda", "Teru Mikami"], "He is the chief of the Japanese investigation team for much of the story.", "Soichiro"],
+["Anime • Death Note", "What is Light’s sister’s name?", "Sayu Yagami", ["Misa Yagami", "Naomi Yagami", "Kiyomi Yagami"], "She is Light's younger sister.", "Sayu"],
+["Anime • Death Note", "Who is the police officer and investigator known for being energetic and impulsive?", "Touta Matsuda", ["Watari", "Aizawa", "Ide"], "He is a member of the Japanese task force.", "Matsuda"],
+["Anime • Death Note", "Who is L’s trusted assistant and caretaker?", "Watari", ["Mello", "Matsuda", "Near"], "He supports L with logistics and technology.", "Watari"],
+["Anime • Death Note", "What is L’s unusual sitting posture often called?", "Squatting", ["Meditation pose", "Cross-legged lotus", "Standing stance"], "L frequently sits with his knees drawn up.", "L"],
+["Anime • Death Note", "What food does L famously enjoy?", "Sweets", ["Spicy curry", "Sushi only", "Apples"], "He is frequently shown eating cakes and other sweets.", "L"],
+["Anime • Death Note", "What fruit does Ryuk especially enjoy?", "Apples", ["Bananas", "Grapes", "Oranges"], "He repeatedly asks Light for this fruit.", "Ryuk"],
+["Anime • Death Note", "What does Ryuk find especially entertaining about humans?", "Human behavior and unpredictability", ["Their sports skills", "Their cooking", "Their technology"], "His main motivation for dropping the notebook is boredom and amusement.", "Ryuk"],
+["Anime • Death Note", "What is the name of the company group used by Light after a certain point?", "Yotsuba Group", ["SPK", "Wammy’s House", "Task Force"], "Kira's influence reaches a corporate group in the story.", "Yotsuba"],
+["Anime • Death Note", "Who becomes known as X-Kira?", "Teru Mikami", ["Mello", "Matsuda", "Aizawa"], "He becomes a devoted supporter of Kira.", "Mikami"],
+["Anime • Death Note", "What profession does Teru Mikami have?", "Prosecutor", ["Detective", "Doctor", "Journalist"], "His legal profession fits his intense sense of judgment.", "Mikami"],
+["Anime • Death Note", "Who is Kiyomi Takada?", "A television announcer associated with Light", ["A police detective", "A Shinigami", "A Wammy’s House student"], "She becomes an important public and personal connection for Light.", "Takada"],
+["Anime • Death Note", "What is Wammy’s House?", "An orphanage and institution for gifted children", ["A police station", "A Shinigami realm", "A television network"], "It is associated with L and his successors.", "Wammy’s House"],
+["Anime • Death Note", "Who founded Wammy’s House?", "Watari", ["L", "Light", "Near"], "Watari created the institution that raised gifted successors.", "Watari"],
+["Anime • Death Note", "What is L’s real name?", "L Lawliet", ["Light Yagami", "Near River", "Mello Kheel"], "His full name is revealed later in official material.", "L Lawliet"],
+["Anime • Death Note", "What is Near’s real name?", "Nate River", ["Mihael Keehl", "Lawliet", "Teru Mikami"], "Near is the successor associated with this name.", "Nate River"],
+["Anime • Death Note", "What is Mello’s real name?", "Mihael Keehl", ["Nate River", "L Lawliet", "Soichiro Yagami"], "Mello is the rival successor associated with this name.", "Mihael Keehl"],
+["Anime • Death Note", "What is the name of the Shinigami realm?", "Shinigami Realm", ["Wammy’s House", "Kira Kingdom", "Death Archive"], "It is the world where the death gods live.", "Shinigami Realm"],
+["Anime • Death Note", "What happens to a human after their lifespan ends according to the notebook rules?", "They die according to the rules of the Death Note world", ["They become a Shinigami automatically", "They become immortal", "They lose all memories"], "The series establishes supernatural rules around human lifespans and death.", "Death Note rules"],
+["Anime • Death Note", "Can a Death Note user normally write a name without knowing the face?", "No", ["Yes, always", "Only on a full moon", "Only with Shinigami Eyes"], "Knowing the face is one of the stated requirements.", "Death Note rule"],
+["Anime • Death Note", "What happens when a Shinigami kills a human to extend another human’s life?", "The Shinigami dies", ["The human becomes a Shinigami", "Nothing happens", "The notebook disappears"], "This is a central rule demonstrated by Gelus and Rem.", "Shinigami rule"],
+["Anime • Death Note", "What is one major limitation of the Death Note?", "The user must know the target’s name and face", ["It only works on criminals", "It cannot specify time", "It works only once"], "The identification rule prevents arbitrary use without knowledge.", "Death Note limitation"],
+["Anime • Death Note", "What is the 13-day rule?", "A false rule inserted into the notebook's rules", ["A rule about Shinigami births", "A rule about L's lifespan", "A rule about Misa's age"], "It becomes important in the investigation and manipulation of the task force.", "13-day rule"],
+["Anime • Death Note", "Who investigates Kira with the Japanese task force?", "L and the Japanese police task force", ["Only Near", "Only Mello", "Only the Shinigami"], "The investigation combines L's reasoning with police work.", "Kira investigation"],
+["Anime • Death Note", "What is Light’s father’s position for much of the story?", "Chief of the Japanese task force", ["Prime Minister", "School principal", "Shinigami leader"], "Soichiro leads the official investigation team.", "Task Force"],
+["Anime • Death Note", "Which character is a skilled investigator and L’s successor candidate?", "Near", ["Misa", "Takada", "Sayu"], "He was raised at Wammy's House.", "Near"],
+["Anime • Death Note", "Which character often works with criminal organizations to pursue Kira?", "Mello", ["Near", "Matsuda", "Watari"], "Mello takes a more aggressive and unconventional route.", "Mello"],
+["Anime • Death Note", "What is the central conflict of Death Note?", "A supernatural killer versus investigators seeking to identify him", ["Pirates versus Marines", "Humans versus Titans", "Heroes versus aliens"], "The story revolves around Kira's killings and the investigation.", "Kira conflict"],
+["Anime • Death Note", "What is Light’s stated goal after obtaining the notebook?", "Create a world without crime under his judgment", ["Become a detective", "Destroy the Shinigami realm", "Become a police chief"], "Light frames Kira's actions as a plan to reshape society.", "Light’s goal"],
+["Anime • Death Note", "What is the nickname for Light’s supernatural execution persona?", "Kira", ["L", "Ryuk", "Near"], "The public uses this name for the mysterious killer.", "Kira"],
+["Anime • Death Note", "Who owns the Death Note before Ryuk drops it into the human world?", "Ryuk", ["L", "Rem", "Near"], "Ryuk is the Shinigami who deliberately drops his notebook.", "Ryuk"],
+["Anime • Death Note", "Why does Ryuk initially drop his notebook?", "He is bored", ["He wants to become human", "He is ordered by L", "He loses a bet"], "Boredom is his stated motivation for creating the human-world experiment.", "Ryuk"],
+["Anime • Death Note", "What is the name of Misa’s Shinigami who loves her?", "Rem", ["Ryuk", "Gelus", "Sidoh"], "Rem becomes emotionally attached to Misa's safety.", "Rem"],
+["Anime • Death Note", "Who is Naomi Misora?", "A former FBI agent and investigator", ["A Shinigami", "A schoolmate of Light", "A Yotsuba executive"], "She investigates the Kira case after the death of her fiancé.", "Naomi Misora"],
+["Anime • Death Note", "Who was Naomi Misora’s fiancé?", "Raye Penber", ["Soichiro Yagami", "Aizawa", "Watari"], "He was an FBI agent assigned to monitor suspects.", "Raye Penber"],
+["Anime • Death Note", "What was Raye Penber’s job?", "FBI agent", ["Police chief", "Prosecutor", "Journalist"], "He is assigned to investigate people connected to the Kira case.", "Raye Penber"],
+["Anime • Death Note", "What is the name of the notebook’s supernatural owner who likes apples?", "Ryuk", ["Rem", "Gelus", "Sidoh"], "He is the Shinigami who watches Light's experiment.", "Ryuk"],
+["Anime • Death Note", "What is the primary purpose of L’s investigation?", "Identify and stop Kira", ["Find One Piece", "Destroy the Shinigami realm", "Join the police"], "L focuses on discovering Kira's identity and preventing further killings.", "L investigation"],
+["Anime • Death Note", "What is Light’s relationship to L in the investigation?", "They are allies and rivals in the same investigation", ["They are brothers", "They are both Shinigami", "They never meet"], "Light joins the investigation while secretly being Kira.", "Light and L"],
+["Anime • Death Note", "What happens when a human gives up ownership of a Death Note?", "They lose memories associated with that notebook", ["They become immortal", "They gain Shinigami Eyes automatically", "They become a Shinigami"], "Loss of ownership can affect memories under the notebook's rules.", "Ownership rule"],
+["Anime • Death Note", "What is the name of the organization created to oppose Kira internationally?", "SPK", ["Yotsuba", "Wammy’s House", "Task Force"], "Near leads this group during the later investigation.", "SPK"],
+["Anime • Death Note", "Who is Matt in Death Note?", "A former Wammy’s House student who assists Mello", ["A Shinigami", "Light’s brother", "An FBI director"], "He is associated with Mello during the final part of the story.", "Matt"],
+["Anime • Death Note", "What is the role of Shinigami Eyes in the story?", "They reveal names and lifespans", ["They reveal future events", "They erase memories", "They control police"], "Misa's deal with Rem gives her this ability.", "Shinigami Eyes"],
+["Anime • Death Note", "What does Misa trade to obtain Shinigami Eyes?", "Half of her remaining lifespan", ["Her notebook permanently", "Her memories forever", "Her human identity"], "The Shinigami Eye deal costs half the user's remaining lifespan.", "Eye deal"],
+["Anime • Death Note", "Can Shinigami Eyes reveal a person’s lifespan?", "Yes", ["No", "Only for Shinigami", "Only during daylight"], "That is their defining supernatural function.", "Shinigami Eyes"],
+["Anime • Death Note", "What is the significance of the Death Note rules written in the notebook?", "They define how the notebook’s supernatural power works", ["They are school rules", "They are police laws", "They are cooking recipes"], "The rules govern names, faces, timing and ownership.", "Notebook rules"],
+["Anime • Death Note", "What genre blend best describes Death Note?", "Psychological thriller and supernatural mystery", ["Sports comedy only", "Historical romance only", "Space opera only"], "The series combines supernatural elements with strategic psychological conflict.", "Death Note genre"],
+["Anime • Death Note", "What is the central intellectual contest in Death Note?", "Light’s strategy versus L’s deduction", ["Zoro versus Sanji", "Titans versus humans", "Avengers versus X-Men"], "Much of the tension comes from the two characters trying to outthink each other.", "Mind game"],
+["Anime • Death Note", "Which institution produces gifted successors to L?", "Wammy’s House", ["Yotsuba Group", "SPK headquarters", "Japanese task force"], "It is the institution created by Watari.", "Wammy’s House"],
+["Anime • Death Note", "Who is the first major investigator to openly challenge Kira’s existence on television?", "L", ["Near", "Mello", "Matsuda"], "He publicly challenges Kira and provokes a response.", "L"]
+];
+SEED_FACTS.push(...V13_ANIME_EXPANSION);
+
 const TOTAL_LEVELS=10000;
 const STORAGE_KEY='elementGameSave_v7000';
 const SETUP_KEY='elementGameSetup_v7000';
@@ -334,9 +472,11 @@ function bnQuestion(text){let s=String(text||'');if(BN_DIRECT[s])return BN_DIREC
 function bnMissionQuestion(q){
  const base=String(q.baseQuestion||q.question||'');
  const translatedBase=bnQuestion(base);
- const stem=BN_MISSION_STEMS[Math.abs(Number(q.variant)||0)%BN_MISSION_STEMS.length];
- const cycle=Math.floor((Math.abs(Number(q.variant)||0))/BN_MISSION_STEMS.length);
+ const v=Math.abs(Number(q.variant)||0);
+ const stem=BN_MISSION_STEMS[v%BN_MISSION_STEMS.length];
+ const cycle=Math.floor(v/BN_MISSION_STEMS.length);
  const body=stem.replace('{q}',translatedBase);
+ // The factual question stays intact, while every generated mission remains visibly unique.
  return cycle?`${body} — রাউন্ড ${cycle+1}`:body;
 }
 function bnOption(text){
@@ -377,7 +517,7 @@ function nctbChapters(cls,subject){
 const BASE_STATE={level:1,xp:0,retryCount:0,completed:[],maxUnlocked:1,rewarded:[],materials:['Stone','Wood'],categoryMode:false,categoryKey:'',categorySubs:[],categoryCursor:0,categoryProgress:{},language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0};
 let state={...BASE_STATE};
 try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(saved)state={...BASE_STATE,...saved};else{const legacy=JSON.parse(localStorage.getItem('elementGameSave_v5000')||localStorage.getItem('elementGameSave')||'null');if(legacy)state={...BASE_STATE,level:Number(legacy.level)||1,xp:Number(legacy.xp)||0,retryCount:Number(legacy.retryCount)||0,completed:Array.isArray(legacy.completed)?legacy.completed:[],maxUnlocked:Number(legacy.maxUnlocked)||Number(legacy.level)||1,rewarded:Array.isArray(legacy.rewarded)?legacy.rewarded:[],materials:Array.isArray(legacy.materials)?legacy.materials:['Stone','Wood'],language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0};}}catch(e){}
-state.completed=Array.isArray(state.completed)?state.completed:[];state.seenMissionIds=Array.isArray(state.seenMissionIds)?state.seenMissionIds:[];state.challengeSeenIds=Array.isArray(state.challengeSeenIds)?state.challengeSeenIds:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.materials=Array.isArray(state.materials)?state.materials:['Stone','Wood'];state.categorySubs=Array.isArray(state.categorySubs)?state.categorySubs:[];state.categoryProgress=state.categoryProgress&&typeof state.categoryProgress==='object'?state.categoryProgress:{};state.maxUnlocked=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.maxUnlocked)||1));state.level=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.level)||1));if(!['en','bn'].includes(state.language))state.language='bn';if(!DIFFICULTIES.includes(state.difficulty))state.difficulty='All';state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStats=state.challengeStats&&typeof state.challengeStats==='object'?state.challengeStats:{total:0,correct:0,wrong:0};state.nctbChapters=Array.isArray(state.nctbChapters)?state.nctbChapters:[];state.nctbClass=state.nctbClass||'6';state.nctbSubject=state.nctbSubject||'গণিত';state.challengeMode=false;state.nctbMode=false;
+state.completed=Array.isArray(state.completed)?state.completed:[];state.categorySeenBase=state.categorySeenBase&&typeof state.categorySeenBase==='object'?state.categorySeenBase:{};state.seenMissionIds=Array.isArray(state.seenMissionIds)?state.seenMissionIds:[];state.challengeSeenIds=Array.isArray(state.challengeSeenIds)?state.challengeSeenIds:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.materials=Array.isArray(state.materials)?state.materials:['Stone','Wood'];state.categorySubs=Array.isArray(state.categorySubs)?state.categorySubs:[];state.categoryProgress=state.categoryProgress&&typeof state.categoryProgress==='object'?state.categoryProgress:{};state.maxUnlocked=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.maxUnlocked)||1));state.level=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.level)||1));if(!['en','bn'].includes(state.language))state.language='bn';if(!DIFFICULTIES.includes(state.difficulty))state.difficulty='All';state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStats=state.challengeStats&&typeof state.challengeStats==='object'?state.challengeStats:{total:0,correct:0,wrong:0};state.nctbChapters=Array.isArray(state.nctbChapters)?state.nctbChapters:[];state.nctbClass=state.nctbClass||'6';state.nctbSubject=state.nctbSubject||'গণিত';state.challengeMode=false;state.nctbMode=false;
 let pendingLevelUp=false;
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));const el=document.getElementById('saveStatus');if(el)el.textContent=state.language==='bn'?'লোকালি সেভ হয়েছে':'Saved locally'}
 function isCompleted(level){return state.completed.includes(level)}
@@ -386,8 +526,15 @@ function getRandomPool(){const list=MISSION_BANK.filter(m=>state.difficulty==='A
 function randomMission(){const pool=getRandomPool();const idx=Math.max(0,Math.min(pool.length-1,state.level-1));return pool[idx]}
 function categoryPool(){if(!state.categoryKey||!state.categorySubs.length)return[];let pool=MISSION_BANK.filter(m=>m.categoryKey===state.categoryKey&&state.categorySubs.includes(m.subCategory));if(state.difficulty!=='All')pool=pool.filter(m=>m.difficulty===state.difficulty);return pool}
 function categorySessionKey(){return `${state.categoryKey}|${[...state.categorySubs].sort().join(',')}|${state.difficulty}`}
-function categoryProgress(){const key=categorySessionKey();if(!state.categoryProgress[key])state.categoryProgress[key]={unlocked:1,completed:[]};const p=state.categoryProgress[key];p.unlocked=Math.max(1,Math.min(categoryPool().length||1,Number(p.unlocked)||1));p.completed=Array.isArray(p.completed)?p.completed:[];return p}
-function currentQ(){if(state.challengeMode)return challengeCurrent();if(state.nctbMode)return nctbCurrent();if(!state.categoryMode)return randomMission();const pool=categoryPool();const idx=Math.max(0,Math.min(pool.length-1,(Number(state.categoryCursor)||0)));return pool[idx]||pool[0]||randomMission()}
+function categoryProgress(){const key=categorySessionKey();if(!state.categoryProgress[key])state.categoryProgress[key]={unlocked:1,completed:[],seenIds:[],seenBases:[]};const p=state.categoryProgress[key];p.seenIds=Array.isArray(p.seenIds)?p.seenIds:[];p.seenBases=Array.isArray(p.seenBases)?p.seenBases:[];p.unlocked=Math.max(1,Math.min(categoryPool().length||1,Number(p.unlocked)||1));p.completed=Array.isArray(p.completed)?p.completed:[];return p}
+function currentQ(){
+ if(state.challengeMode)return challengeCurrent();
+ if(state.nctbMode)return nctbCurrent();
+ if(!state.categoryMode)return randomMission();
+ const pool=categoryPool();
+ const idx=Math.max(0,Math.min(pool.length-1,(Number(state.categoryCursor)||0)));
+ return pool[idx]||pool[0]||randomMission();
+}
 function displayText(text){return state.language==='bn'?bnText(text):String(text??'')}
 function displayQuestion(q){if(state.language==='bn')return bnMissionQuestion(q);return q.question}
 function levelCount(){return getRandomPool().length}

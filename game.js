@@ -313,7 +313,7 @@ SEED_FACTS.push(...V15_ANIME_EXPANSION);
 
 
 let TOTAL_LEVELS=0;
-const STORAGE_KEY='elementGameSave_v9000';
+const STORAGE_KEY='elementGameSave_v10000';
 const SETUP_KEY='elementGameSetup_v9000';
 
 const CATEGORY_DEFS=[
@@ -557,48 +557,69 @@ const GAME_STAGE_SCIENTISTS={
   450:['Marie Curie','Radiation Science','Persistent measurement can open entirely new scientific fields.','অবিচল পরিমাপ নতুন বৈজ্ঞানিক ক্ষেত্রের দ্বার খুলতে পারে।'],
   500:['Genesis Gate','Multiverse / Omniverse','The journey ends where the next question begins.','যাত্রা শেষ হয় যেখানে পরের প্রশ্নের শুরু।']
 };
-const GAME_VARIANT_STEMS=[
-  'Fabrication check: {q}',
-  'Workshop check: {q}',
-  'Build-system check: {q}',
-  'Engineering checkpoint: {q}',
-  'Discovery lab check: {q}',
-  'Genesis builder question: {q}',
-  'Prototype verification: {q}',
-  'Technology gate: {q}',
-  'Invention checkpoint: {q}',
-  'Knowledge core check: {q}'
+/* =========================================================
+   V17 — GAME-ONLY QUESTION ENGINE
+   Game mode must NEVER reuse Random/Category/NCTB question text.
+   Each Game level is a dedicated fabrication/blueprint checkpoint.
+   ========================================================= */
+const GAME_BUILD_MATERIALS=[
+  ['Stone','পাথর'],['Wood','কাঠ'],['Clay','মাটি'],['Copper','তামা'],['Bronze','ব্রোঞ্জ'],['Iron','লোহা'],['Steel','ইস্পাত'],['Glass','কাচ'],['Rubber','রাবার'],['Silicon','সিলিকন'],['Aluminium','অ্যালুমিনিয়াম'],['Lithium','লিথিয়াম'],['Carbon Fiber','কার্বন ফাইবার'],['Titanium','টাইটানিয়াম'],['Graphene','গ্রাফিন'],['Rare-earth magnets','রেয়ার-আর্থ চুম্বক'],['Semiconductor','সেমিকন্ডাক্টর'],['Battery','ব্যাটারি'],['Solar cell','সোলার সেল'],['Superconductor','সুপারকন্ডাক্টর']
 ];
-function gameStageFor(level){return GAME_STAGES.find(s=>level>=s[1]&&level<=s[2])||GAME_STAGES[GAME_STAGES.length-1]}
-function gameArtifactFor(level){
-  const m=GAME_MILESTONES[level];
-  if(m)return m[0];
-  const stage=gameStageFor(level), within=level-stage[1];
-  const list=[stage[3].split(' ও ')[0],stage[4],`Prototype ${within+1}`,`Builder Module ${within+1}`];
-  return list[(within)%list.length];
+function gameArtifactForLevel(level){
+  const milestone=GAME_MILESTONES[level];
+  if(milestone)return milestone[0];
+  const stage=gameStageFor(level);
+  const n=level-stage[1]+1;
+  return `${stage[0]} Module ${n}`;
 }
-function makeGameLevel(base,index){
-  const id=`G${index}`;
-  const stem=index<=MISSION_BANK.length?String(base.question):GAME_VARIANT_STEMS[(index-MISSION_BANK.length-1)%GAME_VARIANT_STEMS.length].replace('{q}',String(base.question));
-  const stage=gameStageFor(index);
-  const artifact=gameArtifactFor(index);
-  const variant=index<=MISSION_BANK.length?0:(index-MISSION_BANK.length);
-  const options=shuffle(base.options,`game-${index}`);
+function gameArtifactBnForLevel(level){
+  const milestone=GAME_MILESTONES[level];
+  if(milestone)return milestone[1];
+  const stage=gameStageFor(level);
+  const n=level-stage[1]+1;
+  return `${stage[3]} • মডিউল ${n}`;
+}
+function gameBuildBlueprint(level){
+  const artifact=gameArtifactForLevel(level);
+  const stage=gameStageFor(level);
+  const bnArtifact=gameArtifactBnForLevel(level);
+  const material=GAME_BUILD_MATERIALS[(level-1)%GAME_BUILD_MATERIALS.length];
+  const material2=GAME_BUILD_MATERIALS[(level+6)%GAME_BUILD_MATERIALS.length];
+  const material3=GAME_BUILD_MATERIALS[(level+11)%GAME_BUILD_MATERIALS.length];
+  const material4=GAME_BUILD_MATERIALS[(level+15)%GAME_BUILD_MATERIALS.length];
+  const templates=[
+    {en:`Blueprint ${level}: Which discovery are you fabricating at this stage?`,bn:`ব্লুপ্রিন্ট ${level}: এই ধাপে কোন আবিষ্কারটি তৈরি করা হচ্ছে?`},
+    {en:`Fabricator ${level}: What is the current build target?`,bn:`ফ্যাব্রিকেটর ${level}: বর্তমান নির্মাণের লক্ষ্য কী?`},
+    {en:`Genesis Workshop ${level}: Which item unlocks the next build path?`,bn:`জেনেসিস ওয়ার্কশপ ${level}: কোন আইটেমটি পরের নির্মাণপথ খুলছে?`},
+    {en:`Engineering Gate ${level}: Identify the artifact being assembled.`,bn:`ইঞ্জিনিয়ারিং গেট ${level}: কোন আর্টিফ্যাক্টটি তৈরি হচ্ছে তা শনাক্ত করো।`},
+    {en:`Discovery Core ${level}: Select the correct fabrication target.`,bn:`ডিসকভারি কোর ${level}: সঠিক ফ্যাব্রিকেশন লক্ষ্য বেছে নাও।`}
+  ];
+  const t=templates[(level-1)%templates.length];
+  const answer=artifact;
+  const options=[answer,`${stage[0]} Research Module ${((level+3)%50)+1}`,`${stage[0]} Prototype ${((level+9)%50)+1}`,`${stage[0]} Archive Unit ${((level+17)%50)+1}`];
   return {
-    id, gameLevel:index, categoryKey:'game', subCategory:stage[0], subject:stage[0],
-    baseQuestion:base.baseQuestion, question:stem, options, answerIndex:options.indexOf(base.answer),
-    answer:base.answer, hint:base.hint||'Use the key scientific or engineering concept in the question.',
-    artifact, difficulty: index<=150?'Easy':index<=300?'Medium':'Hard',
-    gameStage:stage[0], gameDescription:stage[3], variant
+    id:`GAME-${level}`,
+    gameLevel:level,
+    categoryKey:'game',subCategory:stage[0],subject:stage[0],
+    baseQuestion:t.en,
+    question:t.en,
+    questionBn:t.bn,
+    answer,
+    answerBn:bnArtifact,
+    options,
+    optionBns:[bnArtifact,`${stage[3]} • গবেষণা মডিউল ${((level+3)%50)+1}`,`${stage[3]} • প্রোটোটাইপ ${((level+9)%50)+1}`,`${stage[3]} • আর্কাইভ ইউনিট ${((level+17)%50)+1}`],
+    answerIndex:0,
+    hint:`Focus on the current build target: ${artifact}.`,
+    artifact,
+    artifactBn:bnArtifact,
+    difficulty:level<=150?'Easy':level<=300?'Medium':'Hard',
+    gameStage:stage[0],gameDescription:stage[3],
+    buildMaterial:material[0],buildMaterialBn:material[1],supportMaterial:material2[0],supportMaterialBn:material2[1],
+    source:'Game-only blueprint engine v17'
   };
 }
 const GAME_LEVELS=[];
-for(let i=1;i<=GAME_TOTAL_LEVELS;i++){
-  const base=MISSION_BANK[(i-1)%MISSION_BANK.length];
-  GAME_LEVELS.push(makeGameLevel(base,i));
-}
-if(new Set(GAME_LEVELS.map(x=>x.question)).size!==GAME_TOTAL_LEVELS)throw new Error('Game mode question keys are not unique.');
-
+for(let i=1;i<=GAME_TOTAL_LEVELS;i++)GAME_LEVELS.push(gameBuildBlueprint(i));
 
 // A compact Bengali rendering layer. Proper names and technical terms remain standard English/transliterated where that is clearer.
 const BN_WORDS={
@@ -793,7 +814,7 @@ const NCTB_CHEMISTRY_PACK=[
 
 const BASE_STATE={level:1,xp:0,retryCount:0,completed:[],maxUnlocked:1,rewarded:[],materials:['Stone','Wood'],categoryMode:false,categoryKey:'',categorySubs:[],categoryCursor:0,categoryProgress:{},language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],gameMode:false,gameLevel:1,gameXp:0,gameRetryCount:0,gameCompleted:[],gameMaxUnlocked:1,gameRewarded:[],gameSeenIds:[],gameMaterials:['Stone','Wood'],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0,replayLevel:false};
 let state={...BASE_STATE};
-try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||localStorage.getItem('elementGameSave_v8000')||'null');if(saved)state={...BASE_STATE,...saved};else{const legacy=JSON.parse(localStorage.getItem('elementGameSave_v5000')||localStorage.getItem('elementGameSave')||'null');if(legacy)state={...BASE_STATE,level:Number(legacy.level)||1,xp:Number(legacy.xp)||0,retryCount:Number(legacy.retryCount)||0,completed:Array.isArray(legacy.completed)?legacy.completed:[],maxUnlocked:Number(legacy.maxUnlocked)||Number(legacy.level)||1,rewarded:Array.isArray(legacy.rewarded)?legacy.rewarded:[],materials:Array.isArray(legacy.materials)?legacy.materials:['Stone','Wood'],language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],gameMode:false,gameLevel:1,gameXp:0,gameRetryCount:0,gameCompleted:[],gameMaxUnlocked:1,gameRewarded:[],gameSeenIds:[],gameMaterials:['Stone','Wood'],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0,replayLevel:false};}}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||localStorage.getItem('elementGameSave_v9000')||localStorage.getItem('elementGameSave_v8000')||'null');if(saved)state={...BASE_STATE,...saved};else{const legacy=JSON.parse(localStorage.getItem('elementGameSave_v5000')||localStorage.getItem('elementGameSave')||'null');if(legacy)state={...BASE_STATE,level:Number(legacy.level)||1,xp:Number(legacy.xp)||0,retryCount:Number(legacy.retryCount)||0,completed:Array.isArray(legacy.completed)?legacy.completed:[],maxUnlocked:Number(legacy.maxUnlocked)||Number(legacy.level)||1,rewarded:Array.isArray(legacy.rewarded)?legacy.rewarded:[],materials:Array.isArray(legacy.materials)?legacy.materials:['Stone','Wood'],language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],gameMode:false,gameLevel:1,gameXp:0,gameRetryCount:0,gameCompleted:[],gameMaxUnlocked:1,gameRewarded:[],gameSeenIds:[],gameMaterials:['Stone','Wood'],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0,replayLevel:false};}}catch(e){}
 state.completed=Array.isArray(state.completed)?state.completed:[];state.categorySeenBase=state.categorySeenBase&&typeof state.categorySeenBase==='object'?state.categorySeenBase:{};state.seenMissionIds=Array.isArray(state.seenMissionIds)?state.seenMissionIds:[];state.challengeSeenIds=Array.isArray(state.challengeSeenIds)?state.challengeSeenIds:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.materials=Array.isArray(state.materials)?state.materials:['Stone','Wood'];state.categorySubs=Array.isArray(state.categorySubs)?state.categorySubs:[];state.categoryProgress=state.categoryProgress&&typeof state.categoryProgress==='object'?state.categoryProgress:{};state.maxUnlocked=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.maxUnlocked)||1));state.level=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.level)||1));if(!['en','bn'].includes(state.language))state.language='bn';if(!DIFFICULTIES.includes(state.difficulty))state.difficulty='All';state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStats=state.challengeStats&&typeof state.challengeStats==='object'?state.challengeStats:{total:0,correct:0,wrong:0};state.nctbChapters=Array.isArray(state.nctbChapters)?state.nctbChapters:[];state.nctbClass=state.nctbClass||'6';state.nctbSubject=state.nctbSubject||'গণিত';state.challengeMode=false;state.gameMode=Boolean(state.gameMode);state.gameLevel=Math.max(1,Math.min(GAME_TOTAL_LEVELS,Number(state.gameLevel)||1));state.gameXp=Math.max(0,Number(state.gameXp)||0);state.gameRetryCount=Math.max(0,Number(state.gameRetryCount)||0);state.gameCompleted=Array.isArray(state.gameCompleted)?state.gameCompleted:[];state.gameMaxUnlocked=Math.max(1,Math.min(GAME_TOTAL_LEVELS,Number(state.gameMaxUnlocked)||1));state.gameRewarded=Array.isArray(state.gameRewarded)?state.gameRewarded:[];state.gameSeenIds=Array.isArray(state.gameSeenIds)?state.gameSeenIds:[];state.gameMaterials=Array.isArray(state.gameMaterials)?state.gameMaterials:['Stone','Wood'];state.nctbMode=false;state.replayLevel=Boolean(state.replayLevel);
 let pendingLevelUp=false;
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));const el=document.getElementById('saveStatus');if(el)el.textContent=state.language==='bn'?'লোকালি সেভ হয়েছে':'Saved locally'}
@@ -829,7 +850,7 @@ function currentQ(){
  return fresh[0]||null;
 }
 function displayText(text){return state.language==='bn'?bnText(text):String(text??'')}
-function displayQuestion(q){if(state.gameMode){return state.language==='bn'?bnMissionQuestion(q):q.question}if(state.nctbMode){const core=state.language==='bn'?nctbChemBnQuestion(q.baseQuestion):String(q.baseQuestion||q.question);return `${state.language==='bn'?'অধ্যায়':'Chapter'}: ${q.subCategory} — ${core}`}if(state.language==='bn')return bnMissionQuestion(q);return q.question}
+function displayQuestion(q){if(state.gameMode){return state.language==='bn'?(q.questionBn||q.question):q.question}if(state.nctbMode){const core=state.language==='bn'?nctbChemBnQuestion(q.baseQuestion):String(q.baseQuestion||q.question);return `${state.language==='bn'?'অধ্যায়':'Chapter'}: ${q.subCategory} — ${core}`}if(state.language==='bn')return bnMissionQuestion(q);return q.question}
 function nctbChemBnQuestion(text){return NCTB_CHEM_BN[String(text)]||bnQuestion(text)}
 function levelCount(){return getRandomPool().length}
 function categoryLevelCount(){return categoryPool().length}
@@ -853,7 +874,7 @@ if(n.includes('stone axe'))return wrap('<path d="M60 124 L113 54" stroke="#9b765
  if(n.includes('black hole')||n.includes('hawking'))return wrap('<circle cx="90" cy="90" r="40" fill="#050811" stroke="#ffb35c" stroke-width="9"/><circle cx="90" cy="90" r="16" fill="#000"/>');
  return wrap('<circle cx="90" cy="90" r="48" fill="#344a6d" stroke="#dce8f5" stroke-width="5"/><path d="M90 52v76M52 90h76" stroke="#8be7ff" stroke-width="5"/><circle cx="90" cy="90" r="12" fill="#fff"/>');
 }
-function gameArtifactDisplay(q){if(!state.gameMode)return displayText(q.artifact);const m=GAME_MILESTONES[q.gameLevel];if(state.language==='bn'&&m)return m[1];return String(q.artifact||'')}
+function gameArtifactDisplay(q){if(!state.gameMode)return displayText(q.artifact);return state.language==='bn'?(q.artifactBn||q.artifact):String(q.artifact||'')}
 function gameStageDisplay(level){const s=gameStageFor(level);return state.language==='bn'?s[3]:s[0]}
 function showSuccessFabricator(q){const p=document.getElementById('fabricatorSuccess'),v=document.getElementById('fabricatorVisual'),cap=document.getElementById('fabCaption'),st=document.getElementById('fabState');if(!p||!v)return;const artifactLabel=gameArtifactDisplay(q),stageLabel=state.gameMode?gameStageDisplay(q.gameLevel):displayText(q.subCategory);st.textContent=state.language==='bn'?'DISCOVERY FABRICATED':'DISCOVERY FABRICATED';const particles=Array.from({length:30},(_,i)=>`<i class="particle" style="--x:${((i*37)%180)-90}px;--y:${((i*61)%160)-80}px;left:${8+(i*13)%84}%;top:${10+(i*17)%78}%"></i>`).join('');v.innerHTML=`<div class="forge-particles">${particles}</div><div class="product-core"><div class="product-picture">${productArt(q.artifact)}</div><strong>${escapeHTML(artifactLabel)}</strong><small>${escapeHTML(stageLabel.toUpperCase())}</small></div>`;cap.textContent=state.language==='bn'?`${stageLabel} → ${artifactLabel} • মিশন সম্পন্ন`:`${stageLabel} → ${artifactLabel} • Mission complete`;p.classList.add('show');p.setAttribute('aria-hidden','false')}
 function renderMaterials(){const el=document.getElementById('materials');if(!el)return;const items=state.gameMode?state.gameMaterials:state.materials;el.innerHTML=items.slice(-40).map(x=>`<span class="chip">${escapeHTML(displayText(x))}</span>`).join('')}
@@ -1030,7 +1051,7 @@ function render(){
  const goal=document.getElementById('goal');
  goal.innerHTML=`<span class="q-${state.language}">${escapeHTML(displayQuestion(q))}</span>`;
  const opts=document.getElementById('options');
- opts.innerHTML=q.options.map((x,i)=>`<button class="option" data-i="${i}"><span class="num">${String.fromCharCode(65+i)}</span><strong>${escapeHTML(state.language==='bn'?(state.nctbMode&&state.nctbSubject==='রসায়ন'?nctbChemBnOption(x):bnOption(x)):String(x))}</strong>${state.challengeMode?'':'<small></small>'}</button>`).join('');
+ opts.innerHTML=q.options.map((x,i)=>{const label=state.gameMode?(state.language==='bn'?(q.optionBns?.[i]||x):x):(state.language==='bn'?(state.nctbMode&&state.nctbSubject==='রসায়ন'?nctbChemBnOption(x):bnOption(x)):String(x));return `<button class="option" data-i="${i}"><span class="num">${String.fromCharCode(65+i)}</span><strong>${escapeHTML(label)}</strong>${state.challengeMode?'':'<small></small>'}</button>`}).join('');
  opts.querySelectorAll('.option').forEach(b=>b.onclick=()=>choose(Number(b.dataset.i)));
  resetQuestionUI();
  setMessage(state.challengeMode?(state.language==='bn'?`সময়: ${formatTimer(Math.max(0,state.challengeDuration*60-Math.floor((Date.now()-state.challengeStartedAt)/1000)))} • প্রশ্ন শেষ না হওয়া পর্যন্ত এগোবে।`:`Time: ${formatTimer(Math.max(0,state.challengeDuration*60-Math.floor((Date.now()-state.challengeStartedAt)/1000)))} • Questions continue until time is up.`):state.nctbMode?(state.language==='bn'?`${q.subCategory} • ${current} / ${total} • প্রতি অধ্যায়ে 40টি আলাদা checkpoint।`:`${q.subCategory} • ${current} / ${total} • 40 chapter checkpoints.`):state.categoryMode?(state.language==='bn'?`${cat.label} → ${q.subCategory} • ${current} / ${total} • Category progress আলাদা করে save হয়।`:`${cat.label} → ${q.subCategory} • ${current} / ${total} • Category progress is saved separately.`):(isCompleted(state.level)?'✓ Discovered already — replay anytime from Level Archive.':''),state.challengeMode?'':'good');
@@ -1041,6 +1062,7 @@ function render(){
 function choose(index){
  if(pendingLevelUp)return;
  const q=currentQ();
+ if(!q)return;
  const correct=index===q.answerIndex;
 
  if(state.gameMode){
@@ -1164,7 +1186,7 @@ function renderNCTBUI(){
  sync();
 }
 
-function startGameMode(){state.gameMode=true;state.categoryMode=false;state.challengeMode=false;state.nctbMode=false;state.replayLevel=false;state.gameRetryCount=0;pendingLevelUp=false;save();document.getElementById('playHub').classList.add('hidden');render()}
+function startGameMode(){state.gameMode=true;state.categoryMode=false;state.challengeMode=false;state.nctbMode=false;state.replayLevel=false;state.gameLevel=Math.max(1,Math.min(GAME_TOTAL_LEVELS,Number(state.gameLevel)||1));state.gameRetryCount=0;pendingLevelUp=false;hideFabricator();document.getElementById('levelMapModal')?.classList.add('hidden');document.getElementById('modal')?.classList.add('hidden');document.getElementById('playHub').classList.add('hidden');save();render()}
 function openGameArchive(){state.gameMode=true;renderLevelMap();document.getElementById('levelMapModal').classList.remove('hidden')}
 function openChallengeSetup(){state.challengeMode=false;renderCategoryUI();renderChallengeUI();document.getElementById('challengeSetup').classList.remove('hidden-ui')}
 function closeChallengeSetup(){document.getElementById('challengeSetup').classList.add('hidden-ui')}
@@ -1182,7 +1204,7 @@ function selectLanguage(lang){state.language=lang;document.querySelectorAll('.la
 function selectDifficulty(diff){state.difficulty=diff;const total=MISSION_BANK.filter(m=>diff==='All'||m.difficulty===diff).length;state.level=Math.max(1,Math.min(Number(state.level)||1,total));state.maxUnlocked=Math.max(1,Math.min(Number(state.maxUnlocked)||1,total));document.querySelectorAll('.difficulty-card,.diff-mini button').forEach(b=>b.classList.toggle('active',b.dataset.diff===diff));renderCategoryUI();render()}
 function finishSetup(){const pc=document.getElementById('setupPoolCount');if(pc)pc.textContent=String(MISSION_BANK.length).replace(/\B(?=(\d{3})+(?!\d))/g,',');state.setupDone=true;save();document.getElementById('setupScreen').classList.add('hidden');render()}
 function openSetup(){const pc=document.getElementById('setupPoolCount');if(pc)pc.textContent=String(MISSION_BANK.length).replace(/\B(?=(\d{3})+(?!\d))/g,',');document.getElementById('setupScreen').classList.remove('hidden');document.querySelectorAll('.lang-card').forEach(b=>b.classList.toggle('active',b.dataset.lang===state.language));document.querySelectorAll('.difficulty-card').forEach(b=>b.classList.toggle('active',b.dataset.diff===state.difficulty));updateSetupLabels()}
-function resetSave(){if(confirm(state.language==='bn'?'সব progress reset করতে চান?':'Reset all local progress?')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(SETUP_KEY);localStorage.removeItem('elementGameSave_v9000');localStorage.removeItem('elementGameSave_v8000');localStorage.removeItem('elementGameSave_v7000');localStorage.removeItem('elementGameSetup_v9000');localStorage.removeItem('elementGameSetup_v8000');localStorage.removeItem('elementGameSave_v6000');localStorage.removeItem('elementGameSave_v5000');localStorage.removeItem('elementGameSave');location.reload()}}
+function resetSave(){if(confirm(state.language==='bn'?'সব progress reset করতে চান?':'Reset all local progress?')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(SETUP_KEY);localStorage.removeItem('elementGameSave_v10000');localStorage.removeItem('elementGameSave_v9000');localStorage.removeItem('elementGameSave_v8000');localStorage.removeItem('elementGameSave_v7000');localStorage.removeItem('elementGameSetup_v9000');localStorage.removeItem('elementGameSetup_v8000');localStorage.removeItem('elementGameSave_v6000');localStorage.removeItem('elementGameSave_v5000');localStorage.removeItem('elementGameSave');location.reload()}}
 
 document.getElementById('hintBtn').onclick=showHint;document.getElementById('nextLevel').onclick=advanceLevel;document.getElementById('levelMapBtn').onclick=openArchive;document.getElementById('categoryMapBtn').onclick=openArchive;document.getElementById('closeMap').onclick=()=>document.getElementById('levelMapModal').classList.add('hidden');document.getElementById('reset').onclick=resetSave;document.getElementById('playHubBtn').onclick=openPlayHub;document.getElementById('closePlayHub').onclick=closePlayHub;document.getElementById('exitCategory').onclick=exitCategory;document.getElementById('continue').onclick=()=>{document.getElementById('modal').classList.add('hidden');pendingLevelUp=false;if(state.gameMode){state.gameRetryCount=0;save();render()}};document.getElementById('setupContinue').onclick=finishSetup;document.getElementById('setupSettingsBtn').onclick=openSetup;document.querySelectorAll('.lang-card,.lang-card-mini').forEach(b=>b.onclick=()=>selectLanguage(b.dataset.lang));document.querySelectorAll('.difficulty-card,.diff-mini button').forEach(b=>b.onclick=()=>selectDifficulty(b.dataset.diff));document.getElementById('gameModeBtn')?.addEventListener('click',startGameMode);document.getElementById('gameTopBtn')?.addEventListener('click',startGameMode);document.getElementById('gameMapBtn')?.addEventListener('click',openGameArchive);document.getElementById('randomPlayBtn').onclick=()=>{state.gameMode=false;state.categoryMode=false;state.categoryKey='';state.categorySubs=[];state.categoryCursor=0;state.replayLevel=false;pendingLevelUp=false;save();closePlayHub();render()};
 document.getElementById('challengeOpenBtn')?.addEventListener('click',openChallengeSetup);document.getElementById('closeChallengeSetup')?.addEventListener('click',closeChallengeSetup);document.getElementById('challengeStartBtn')?.addEventListener('click',startChallenge);document.querySelectorAll('#challengeDurations button').forEach(b=>b.onclick=()=>{state.challengeDuration=Number(b.dataset.minutes);renderChallengeUI()});document.getElementById('challengeDuration')?.addEventListener('change',e=>{state.challengeDuration=Math.max(3,Math.min(60,Number(e.target.value)||5));renderChallengeUI()});document.getElementById('challengeResultClose')?.addEventListener('click',()=>{document.getElementById('challengeResultModal').classList.add('hidden');render()});document.getElementById('nctbClass')?.addEventListener('change',e=>{state.nctbClass=e.target.value;state.nctbChapters=[];renderNCTBUI()});document.getElementById('nctbSubject')?.addEventListener('change',e=>{state.nctbSubject=e.target.value;state.nctbChapters=[];renderNCTBUI()});document.getElementById('nctbStartBtn')?.addEventListener('click',startNCTB);document.getElementById('nctbSelectAll')?.addEventListener('click',()=>{const ch=document.getElementById('nctbChapters');ch.querySelectorAll('input').forEach(x=>x.checked=true);state.nctbChapters=[...ch.querySelectorAll('input')].map(x=>x.dataset.chapter);renderNCTBUI()});document.getElementById('nctbClear')?.addEventListener('click',()=>{state.nctbChapters=[];renderNCTBUI()});
@@ -1191,15 +1213,3 @@ document.getElementById('challengeTopBtn')?.addEventListener('click',()=>{openPl
 
 renderCategoryUI();render();save();
 if(!state.setupDone)openSetup();
-
-/* ===== V17 GAME-500 UI STABILITY PATCH ===== */
-(function(){
-  "use strict";
-  const GAME_MAX=500;
-  const clamp=n=>Math.max(1,Math.min(GAME_MAX,Math.floor(Number.isFinite(Number(n))?Number(n):1)));
-  function sync(){
-    const i=document.getElementById("levelSearch"); if(i){i.min="1";i.max="500";if(Number(i.value)>500)i.value="500";}
-    const t=document.getElementById("gameBuildLevel"); if(t){const m=(t.textContent||"").match(/(\d+)/);if(m)t.textContent=clamp(m[1])+" / 500";}
-  }
-  document.addEventListener("DOMContentLoaded",()=>{sync();new MutationObserver(sync).observe(document.getElementById("app")||document.body,{subtree:true,childList:true,characterData:true});});
-})();

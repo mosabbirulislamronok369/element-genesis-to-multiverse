@@ -1191,3 +1191,15 @@ document.getElementById('challengeTopBtn')?.addEventListener('click',()=>{openPl
 
 renderCategoryUI();render();save();
 if(!state.setupDone)openSetup();
+
+/* ===== V17 GAME-500 UI STABILITY PATCH ===== */
+(function(){
+  "use strict";
+  const GAME_MAX=500;
+  const clamp=n=>Math.max(1,Math.min(GAME_MAX,Math.floor(Number.isFinite(Number(n))?Number(n):1)));
+  function sync(){
+    const i=document.getElementById("levelSearch"); if(i){i.min="1";i.max="500";if(Number(i.value)>500)i.value="500";}
+    const t=document.getElementById("gameBuildLevel"); if(t){const m=(t.textContent||"").match(/(\d+)/);if(m)t.textContent=clamp(m[1])+" / 500";}
+  }
+  document.addEventListener("DOMContentLoaded",()=>{sync();new MutationObserver(sync).observe(document.getElementById("app")||document.body,{subtree:true,childList:true,characterData:true});});
+})();

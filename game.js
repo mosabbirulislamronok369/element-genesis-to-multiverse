@@ -377,7 +377,7 @@ function nctbChapters(cls,subject){
 const BASE_STATE={level:1,xp:0,retryCount:0,completed:[],maxUnlocked:1,rewarded:[],materials:['Stone','Wood'],categoryMode:false,categoryKey:'',categorySubs:[],categoryCursor:0,categoryProgress:{},language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0};
 let state={...BASE_STATE};
 try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(saved)state={...BASE_STATE,...saved};else{const legacy=JSON.parse(localStorage.getItem('elementGameSave_v5000')||localStorage.getItem('elementGameSave')||'null');if(legacy)state={...BASE_STATE,level:Number(legacy.level)||1,xp:Number(legacy.xp)||0,retryCount:Number(legacy.retryCount)||0,completed:Array.isArray(legacy.completed)?legacy.completed:[],maxUnlocked:Number(legacy.maxUnlocked)||Number(legacy.level)||1,rewarded:Array.isArray(legacy.rewarded)?legacy.rewarded:[],materials:Array.isArray(legacy.materials)?legacy.materials:['Stone','Wood'],language:'bn',difficulty:'All',setupDone:false,challengeMode:false,challengeDuration:5,challengeStartedAt:0,challengeIndex:0,challengeStats:{total:0,correct:0,wrong:0},challengePool:[],nctbMode:false,nctbClass:'6',nctbSubject:'গণিত',nctbChapters:[],nctbCursor:0};}}catch(e){}
-state.completed=Array.isArray(state.completed)?state.completed:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.materials=Array.isArray(state.materials)?state.materials:['Stone','Wood'];state.categorySubs=Array.isArray(state.categorySubs)?state.categorySubs:[];state.categoryProgress=state.categoryProgress&&typeof state.categoryProgress==='object'?state.categoryProgress:{};state.maxUnlocked=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.maxUnlocked)||1));state.level=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.level)||1));if(!['en','bn'].includes(state.language))state.language='bn';if(!DIFFICULTIES.includes(state.difficulty))state.difficulty='All';state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStats=state.challengeStats&&typeof state.challengeStats==='object'?state.challengeStats:{total:0,correct:0,wrong:0};state.nctbChapters=Array.isArray(state.nctbChapters)?state.nctbChapters:[];state.nctbClass=state.nctbClass||'6';state.nctbSubject=state.nctbSubject||'গণিত';state.challengeMode=false;state.nctbMode=false;
+state.completed=Array.isArray(state.completed)?state.completed:[];state.seenMissionIds=Array.isArray(state.seenMissionIds)?state.seenMissionIds:[];state.challengeSeenIds=Array.isArray(state.challengeSeenIds)?state.challengeSeenIds:[];state.rewarded=Array.isArray(state.rewarded)?state.rewarded:[];state.materials=Array.isArray(state.materials)?state.materials:['Stone','Wood'];state.categorySubs=Array.isArray(state.categorySubs)?state.categorySubs:[];state.categoryProgress=state.categoryProgress&&typeof state.categoryProgress==='object'?state.categoryProgress:{};state.maxUnlocked=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.maxUnlocked)||1));state.level=Math.max(1,Math.min(TOTAL_LEVELS,Number(state.level)||1));if(!['en','bn'].includes(state.language))state.language='bn';if(!DIFFICULTIES.includes(state.difficulty))state.difficulty='All';state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStats=state.challengeStats&&typeof state.challengeStats==='object'?state.challengeStats:{total:0,correct:0,wrong:0};state.nctbChapters=Array.isArray(state.nctbChapters)?state.nctbChapters:[];state.nctbClass=state.nctbClass||'6';state.nctbSubject=state.nctbSubject||'গণিত';state.challengeMode=false;state.nctbMode=false;
 let pendingLevelUp=false;
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));const el=document.getElementById('saveStatus');if(el)el.textContent=state.language==='bn'?'লোকালি সেভ হয়েছে':'Saved locally'}
 function isCompleted(level){return state.completed.includes(level)}
@@ -389,7 +389,7 @@ function categorySessionKey(){return `${state.categoryKey}|${[...state.categoryS
 function categoryProgress(){const key=categorySessionKey();if(!state.categoryProgress[key])state.categoryProgress[key]={unlocked:1,completed:[]};const p=state.categoryProgress[key];p.unlocked=Math.max(1,Math.min(categoryPool().length||1,Number(p.unlocked)||1));p.completed=Array.isArray(p.completed)?p.completed:[];return p}
 function currentQ(){if(state.challengeMode)return challengeCurrent();if(state.nctbMode)return nctbCurrent();if(!state.categoryMode)return randomMission();const pool=categoryPool();const idx=Math.max(0,Math.min(pool.length-1,(Number(state.categoryCursor)||0)));return pool[idx]||pool[0]||randomMission()}
 function displayText(text){return state.language==='bn'?bnText(text):String(text??'')}
-function displayQuestion(q){if(state.language==='bn')return bnQuestion(q.baseQuestion||q.question);return q.question}
+function displayQuestion(q){if(state.language==='bn')return bnMissionQuestion(q);return q.question}
 function levelCount(){return getRandomPool().length}
 function categoryLevelCount(){return categoryPool().length}
 function categoryDefinitionForQuestion(q){return categoryDefinition(q.categoryKey)||CATEGORY_DEFS[0]}
@@ -416,7 +416,7 @@ function renderMaterials(){const el=document.getElementById('materials');if(el)e
 function renderScientists(){const el=document.getElementById('scientists');if(!el)return;el.innerHTML=scientistsBase.map(s=>`<div class="scientist ${state.rewarded.includes(s[0])?'done':'locked'}"><div><b>${escapeHTML(s[1])}</b><br><span>${state.language==='bn'?'লেভেল':'Level'} ${s[0]}</span></div><span>${state.rewarded.includes(s[0])?'✓':'🔒'}</span></div>`).join('')}
 function renderLevelMap(){const el=document.getElementById('levelMap');if(!el)return;const total=state.categoryMode?categoryLevelCount():levelCount(),p=state.categoryMode?categoryProgress():{unlocked:Math.min(state.maxUnlocked,total),completed:state.completed};const maxUnlocked=Math.max(1,Math.min(total,p.unlocked||1));const start=Math.max(1,maxUnlocked-120),end=maxUnlocked;let html='';for(let l=start;l<=end;l++){const done=state.categoryMode?p.completed.includes(l):isCompleted(l);const cur=l===(state.categoryCursor+1)&&state.categoryMode || (!state.categoryMode&&l===state.level);html+=`<button class="level-cell ${cur?'current':done?'done':'unlocked'}" data-level="${l}">${l}</button>`}el.innerHTML=html;el.querySelectorAll('[data-level]').forEach(b=>b.onclick=()=>loadMapLevel(Number(b.dataset.level)));const info=document.getElementById('mapInfo');if(info)info.textContent=state.categoryMode?`${state.language==='bn'?'Category Level':'Category Level'} ${Math.min(state.categoryCursor+1,maxUnlocked)} / ${total} • ${state.categorySubs.join(' + ')}`:`${state.language==='bn'?'Unlocked':'Unlocked'}: ${state.maxUnlocked} / ${TOTAL_LEVELS}`}
 function loadMapLevel(level){if(state.categoryMode){const p=categoryProgress();if(level>p.unlocked){setMessage(state.language==='bn'?`এই category-তে Level ${level} এখনো unlock হয়নি।`:`Category Level ${level} is not unlocked yet.`,'bad');return}state.categoryCursor=level-1;pendingLevelUp=false;hideFabricator();document.getElementById('levelMapModal')?.classList.add('hidden');render();return}if(level>state.maxUnlocked){setMessage(`Level ${level} is not unlocked yet.`,'bad');return}state.level=level;state.retryCount=0;pendingLevelUp=false;hideFabricator();document.getElementById('levelMapModal')?.classList.add('hidden');render();save()}
-function challengePool(){let p=MISSION_BANK.filter(m=>state.categoryKey===m.categoryKey&&state.categorySubs.includes(m.subCategory));if(state.difficulty!=='All')p=p.filter(m=>m.difficulty===state.difficulty);return shuffle(p,`${state.categoryKey}|${state.categorySubs.join(',')}|${state.difficulty}|challenge`)}
+function challengePool(){let p=MISSION_BANK.filter(m=>state.categoryKey===m.categoryKey&&state.categorySubs.includes(m.subCategory));if(state.difficulty!=='All')p=p.filter(m=>m.difficulty===state.difficulty);p=[...new Map(p.map(x=>[x.id,x])).values()];return shuffle(p,`${state.categoryKey}|${state.categorySubs.join(',')}|${state.difficulty}|challenge`)}
 function nctbPool(){
  const chapters=state.nctbChapters||[]; const out=[];
  const subjectSeeds=SEED_FACTS.filter(f=>String(f[0])===String(state.nctbSubject) || (state.nctbSubject==='বিজ্ঞান'&&['Physics','Biology','Botany','Zoology','Environmental Science'].includes(f[0])) || (state.nctbSubject==='গণিত'&&f[0]==='Mathematics') || (state.nctbSubject==='তথ্য ও যোগাযোগ প্রযুক্তি'&&f[0]==='ICT'));
@@ -454,11 +454,19 @@ function nctbQuestionTemplate(subject,chapter,i){
 function startChallenge(){
  const pool=challengePool();
  if(!pool.length){setMessage(state.language==='bn'?'কমপক্ষে একটি sub-category নির্বাচন করুন।':'Select at least one sub-category.','bad');return}
- state.challengeMode=true;state.nctbMode=false;state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStartedAt=Date.now();state.challengeIndex=0;state.challengeStats={total:0,correct:0,wrong:0};state.challengePool=pool.map(x=>x.id);pendingLevelUp=false;state.retryCount=0;save();document.getElementById('playHub').classList.add('hidden');startChallengeTimer();render();
+ state.challengeMode=true;state.nctbMode=false;state.challengeDuration=Math.max(3,Math.min(60,Number(state.challengeDuration)||5));state.challengeStartedAt=Date.now();state.challengeIndex=0;state.challengeStats={total:0,correct:0,wrong:0};state.challengePool=[...new Set(pool.map(x=>x.id))];state.challengeSeenIds=[];pendingLevelUp=false;state.retryCount=0;save();document.getElementById('playHub').classList.add('hidden');startChallengeTimer();render();
 }
 function startChallengeTimer(){clearInterval(window.__challengeTimer);window.__challengeTimer=setInterval(()=>{if(!state.challengeMode){clearInterval(window.__challengeTimer);return}const left=Math.max(0,state.challengeDuration*60-Math.floor((Date.now()-state.challengeStartedAt)/1000));const el=document.getElementById('challengeTimer');if(el)el.textContent=formatTimer(left);if(left<=0)finishChallenge('time')},1000)}
 function formatTimer(sec){const m=Math.floor(sec/60),s=sec%60;return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`}
-function challengeCurrent(){const ids=state.challengePool||[];return MISSION_BANK.find(x=>x.id===ids[state.challengeIndex])||MISSION_BANK[0]}
+function challengeCurrent(){
+  const ids=Array.isArray(state.challengePool)?state.challengePool:[];
+  let q=MISSION_BANK.find(x=>x.id===ids[state.challengeIndex]);
+  if(!q){
+    const pool=challengePool();
+    q=pickFreshFromPool(pool,state.challengeSeenIds||[])||MISSION_BANK[0];
+  }
+  return q;
+}
 function finishChallenge(reason='time'){
  if(!state.challengeMode)return;clearInterval(window.__challengeTimer);state.challengeMode=false;const st={...state.challengeStats,duration:state.challengeDuration,reason};save();const modal=document.getElementById('challengeResultModal');if(modal){document.getElementById('challengeResultTitle').textContent=state.language==='bn'?'চ্যালেঞ্জ সম্পন্ন':'Challenge Complete';document.getElementById('challengeResultStats').innerHTML=`<div><b>${st.total}</b><span>${state.language==='bn'?'মোট প্রশ্ন':'Total Questions'}</span></div><div><b>${st.correct}</b><span>${state.language==='bn'?'সঠিক':'Correct'}</span></div><div><b>${st.wrong}</b><span>${state.language==='bn'?'ভুল':'Wrong'}</span></div><div><b>${Math.max(0,st.correct*10)}</b><span>XP</span></div>`;modal.classList.remove('hidden')}state.challengePool=[];save();}
 function startNCTB(){const pool=nctbPool();if(!state.nctbChapters.length){setMessage(state.language==='bn'?'কমপক্ষে একটি অধ্যায় নির্বাচন করুন।':'Select at least one chapter.','bad');return}state.nctbMode=true;state.challengeMode=false;state.nctbCursor=0;state.nctbPoolIds=pool.map(x=>x.id);save();document.getElementById('playHub').classList.add('hidden');render()}
@@ -466,6 +474,73 @@ function nctbCurrent(){const p=nctbPool();return p[state.nctbCursor]||p[0]}
 
 function showHint(){const q=currentQ(),box=document.getElementById('hintBox'),text=document.getElementById('hintText');if(!box||!text)return;text.textContent=state.language==='bn'?bnText(q.hint):q.hint;box.classList.add('show');document.getElementById('hintBtn').textContent=state.language==='bn'?'💡 HINT দেখা হয়েছে':'💡 HINT SHOWN'}
 function resetQuestionUI(){document.getElementById('hintBox')?.classList.remove('show');document.getElementById('hintText').textContent=state.language==='bn'?'প্রয়োজনে HINT চাপুন।':'Click HINT if you need a clue.';document.getElementById('hintBtn').textContent='💡 HINT'}
+
+/* =========================================================
+   V12 — NO-REPEAT + ANSWER FEEDBACK
+   ========================================================= */
+function ensureRuntimeState(){
+  if(!Array.isArray(state.seenMissionIds)) state.seenMissionIds=[];
+  if(!Array.isArray(state.challengeSeenIds)) state.challengeSeenIds=[];
+}
+ensureRuntimeState();
+
+function rememberMission(id){
+  ensureRuntimeState();
+  if(id!=null && !state.seenMissionIds.includes(id)) state.seenMissionIds.push(id);
+  if(state.seenMissionIds.length>3000) state.seenMissionIds=state.seenMissionIds.slice(-3000);
+}
+
+function questionFingerprint(q){
+  return String(q?.id||q?.question||'').trim().toLowerCase();
+}
+
+function playAnswerSound(kind){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return;
+    if(!window.__answerAudio) window.__answerAudio=new AC();
+    const ctx=window.__answerAudio;
+    if(ctx.state==='suspended')ctx.resume();
+    const now=ctx.currentTime;
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+
+    if(kind==='correct'){
+      osc.type='sine';
+      osc.frequency.setValueAtTime(660,now);
+      osc.frequency.exponentialRampToValueAtTime(990,now+0.13);
+      gain.gain.setValueAtTime(0.0001,now);
+      gain.gain.exponentialRampToValueAtTime(0.075,now+0.018);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+0.22);
+      osc.start(now); osc.stop(now+0.23);
+    }else{
+      osc.type='triangle';
+      osc.frequency.setValueAtTime(230,now);
+      osc.frequency.exponentialRampToValueAtTime(120,now+0.18);
+      gain.gain.setValueAtTime(0.0001,now);
+      gain.gain.exponentialRampToValueAtTime(0.085,now+0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+0.24);
+      osc.start(now); osc.stop(now+0.25);
+    }
+  }catch(_){}
+}
+
+function flashAnswer(kind){
+  const box=document.querySelector('.mission');
+  if(!box)return;
+  box.classList.remove('answer-correct-flash','answer-wrong-flash');
+  void box.offsetWidth;
+  box.classList.add(kind==='correct'?'answer-correct-flash':'answer-wrong-flash');
+  setTimeout(()=>box.classList.remove('answer-correct-flash','answer-wrong-flash'),520);
+}
+
+function pickFreshFromPool(pool, usedIds){
+  if(!pool.length)return null;
+  const fresh=pool.filter(q=>!usedIds.includes(q.id));
+  return fresh.length?fresh[0]:pool[0];
+}
+
 function render(){
  const q=currentQ();
  const cat=categoryDefinitionForQuestion(q);
@@ -494,22 +569,97 @@ function render(){
  renderMaterials();renderScientists();renderLevelMap();
 }
 function choose(index){
- if(pendingLevelUp)return;const q=currentQ();
+ if(pendingLevelUp)return;
+ const q=currentQ();
+ const correct=index===q.answerIndex;
+
  if(state.challengeMode){
    state.challengeStats.total++;
-   if(index===q.answerIndex){state.challengeStats.correct++;state.xp+=10;showSuccessFabricator(q);setMessage(state.language==='bn'?'✓ সঠিক!':'✓ Correct!','good')}
-   else{state.challengeStats.wrong++;setMessage(state.language==='bn'?'✕ ভুল':'✕ Wrong','bad')}
+   if(correct){
+     state.challengeStats.correct++;
+     state.xp+=10;
+     playAnswerSound('correct');
+     flashAnswer('correct');
+     showSuccessFabricator(q);
+     setMessage(state.language==='bn'?'✓ সঠিক!':'✓ Correct!','good');
+   }else{
+     state.challengeStats.wrong++;
+     playAnswerSound('wrong');
+     flashAnswer('wrong');
+     setMessage(state.language==='bn'?'✕ ভুল':'✕ Wrong','bad');
+   }
+   state.challengeSeenIds=Array.isArray(state.challengeSeenIds)?state.challengeSeenIds:[];
+   if(!state.challengeSeenIds.includes(q.id))state.challengeSeenIds.push(q.id);
    state.challengeIndex++;
    save();
    if(state.challengeIndex>=state.challengePool.length){finishChallenge('pool');return}
    setTimeout(()=>render(),260);return;
  }
+
  if(state.nctbMode){
-   if(index!==q.answerIndex){setMessage(state.language==='bn'?'✕ ভুল উত্তর। আবার চেষ্টা করুন।':'✕ Incorrect. Try again.','bad');return}
-   state.xp+=15;state.nctbCursor++;save();showSuccessFabricator(q);setMessage(state.language==='bn'?'✓ অধ্যায় checkpoint সম্পন্ন।':'✓ Chapter checkpoint complete.','good');if(state.nctbCursor>=nctbPool().length){state.nctbMode=false;state.nctbCursor=0;setTimeout(()=>render(),700);return}setTimeout(()=>render(),700);return;
+   if(!correct){
+     playAnswerSound('wrong');
+     flashAnswer('wrong');
+     setMessage(state.language==='bn'?'✕ ভুল উত্তর। আবার চেষ্টা করুন।':'✕ Incorrect. Try again.','bad');
+     return;
+   }
+   playAnswerSound('correct');
+   flashAnswer('correct');
+   state.xp+=15;state.nctbCursor++;rememberMission(q.id);save();
+   showSuccessFabricator(q);
+   setMessage(state.language==='bn'?'✓ অধ্যায় checkpoint সম্পন্ন।':'✓ Chapter checkpoint complete.','good');
+   if(state.nctbCursor>=nctbPool().length){state.nctbMode=false;state.nctbCursor=0;setTimeout(()=>render(),700);return}
+   setTimeout(()=>render(),700);return;
  }
- if(index!==q.answerIndex){state.retryCount++;save();setMessage(state.language==='bn'?`✕ সঠিক নয় — ${state.retryCount}/3 ভুল। HINT ব্যবহার করতে পারো।`:`✕ Not this time — ${state.retryCount}/3 mistakes. Use HINT if needed.`,'bad');if(state.retryCount>=3){state.retryCount=0;document.querySelectorAll('.option').forEach(b=>b.disabled=true);setTimeout(()=>render(),900)}return}
- pendingLevelUp=true;state.retryCount=0;document.querySelectorAll('.option').forEach(b=>b.disabled=true);
+
+ if(!correct){
+   state.retryCount++;
+   playAnswerSound('wrong');
+   flashAnswer('wrong');
+
+   if(state.retryCount>=3){
+     const oldLevel=state.categoryMode ? (state.categoryCursor+1) : state.level;
+     const penalty=5;
+
+     if(state.categoryMode){
+       state.categoryCursor=Math.max(0,state.categoryCursor-penalty);
+     }else{
+       state.level=Math.max(1,state.level-penalty);
+     }
+
+     state.retryCount=0;
+     document.querySelectorAll('.option').forEach(b=>b.disabled=true);
+
+     const newLevel=state.categoryMode ? (state.categoryCursor+1) : state.level;
+     save();
+
+     setMessage(
+       state.language==='bn'
+         ? `✕ ৩টি ভুল হয়েছে। Level ${oldLevel} → Level ${newLevel} (৫ Level penalty)।`
+         : `✕ 3 mistakes. Level ${oldLevel} → Level ${newLevel} (5-level penalty).`,
+       'bad'
+     );
+
+     setTimeout(()=>render(),1100);
+     return;
+   }
+
+   save();
+   setMessage(
+     state.language==='bn'
+       ? `✕ সঠিক নয় — ${state.retryCount}/3 ভুল। HINT ব্যবহার করতে পারো।`
+       : `✕ Not this time — ${state.retryCount}/3 mistakes. Use HINT if needed.`,
+     'bad'
+   );
+   return;
+ }
+
+ pendingLevelUp=true;
+ state.retryCount=0;
+ rememberMission(q.id);
+ playAnswerSound('correct');
+ flashAnswer('correct');
+ document.querySelectorAll('.option').forEach(b=>b.disabled=true);
  if(state.categoryMode){const p=categoryProgress();if(!p.completed.includes(state.categoryCursor+1))p.completed.push(state.categoryCursor+1);p.unlocked=Math.max(p.unlocked,Math.min(categoryPool().length,state.categoryCursor+2));state.xp+=50;state.materials.push(q.artifact);save();setMessage(state.language==='bn'?`✓ সঠিক! ${displayText(q.artifact)} তৈরি হয়েছে।`:`✓ Correct! ${q.artifact} fabricated.`,'good');showSuccessFabricator(q);setTimeout(()=>document.getElementById('nextLevel').classList.remove('hidden-next'),950);return}
  if(!isCompleted(state.level)){markCompleted(state.level);state.maxUnlocked=Math.max(state.maxUnlocked,Math.min(TOTAL_LEVELS,state.level+1));state.xp+=100;state.materials.push(q.artifact)}save();setMessage(state.language==='bn'?`✓ সঠিক! ${displayText(q.artifact)} fabricated হয়েছে।`:`✓ Correct! ${q.artifact} fabricated.`,'good');showSuccessFabricator(q);setTimeout(()=>document.getElementById('nextLevel').classList.remove('hidden-next'),950)
 }

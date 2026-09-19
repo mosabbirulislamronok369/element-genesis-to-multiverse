@@ -246,7 +246,7 @@ const V13_ANIME_EXPANSION=[
 ];
 SEED_FACTS.push(...V13_ANIME_EXPANSION);
 
-const TOTAL_LEVELS=10000;
+let TOTAL_LEVELS=0;
 const STORAGE_KEY='elementGameSave_v7000';
 const SETUP_KEY='elementGameSetup_v7000';
 
@@ -261,8 +261,6 @@ const CATEGORY_DEFS=[
  {key:'islamic',label:'Islamic Knowledge',icon:'☪️',subs:[['Islamic Knowledge','Islamic Knowledge'],['Hadith Studies','Hadith Studies'],['Aqeedah','ঈমান • আকিদাহ'],['Manhaj','মানহাজ'],['Comparative Religion','তুলনামূলক ধর্মতত্ত্ব'],['Seerah & History','সীরাহ ও ইসলামের ইতিহাস']]}
 ];
 
-const SUB_TOTAL=(()=>{let n=0;for(const c of CATEGORY_DEFS)n+=c.subs.length;return n})();
-const BASE_PER_SUB=Math.floor(TOTAL_LEVELS/SUB_TOTAL), EXTRA_SUBS=TOTAL_LEVELS%SUB_TOTAL;
 const DIFFICULTIES=['All','Easy','Medium','Hard'];
 const DIFF_BN={All:'সব লেভেল',Easy:'সহজ',Medium:'মাঝারি',Hard:'কঠিন'};
 const DIFF_EN={All:'All Levels',Easy:'Easy',Medium:'Medium',Hard:'Hard'};
@@ -286,19 +284,7 @@ function sourceForSub(key,sub){
    if(key==='islamic')return s===sub;
    return s===sub;
  });
- if(direct.length)return direct;
- const fallback=SEED_FACTS.filter(f=>{
-   const s=String(f[0]);
-   if(key==='anime')return s.startsWith('Anime • ');
-   if(key==='marvel')return s==='Marvel'||s.startsWith('Marvel • ');
-   if(key==='entertainment')return ['Stranger Things','Wednesday','FROM','Hatim','Aladdin Naam Toh Suna Hoga'].includes(s);
-   if(key==='sports')return s==='Sports';
-   if(key==='islamic')return ['Islamic Knowledge','Hadith Studies'].includes(s);
-   if(key==='technology')return s==='ICT';
-   if(key==='jobs')return ['Bangladesh GK','Teacher Prep','Primary Teacher','Job Prep','English Grammar','Bangla Grammar','General Knowledge'].includes(s);
-   return ['Chemistry','Physics','Biology','Botany','Zoology','Biotechnology','Microbiology','Molecular Biology','Limnology','Environmental Science','Mathematics','Astronomy','Cosmology','Quantum Science','Materials Science','Engineering'].includes(s);
- });
- return fallback.length?fallback:SEED_FACTS.slice(0,1);
+ return direct;
 }
 
 const missionTemplates=[
@@ -319,7 +305,7 @@ function makeMission(seed,variant,id,key,sub){
  return {id,categoryKey:key,subCategory:sub,subject:sub,baseQuestion:rawQ,question:q,answer:seed[2],options,answerIndex:options.indexOf(seed[2]),hint:seed[4],artifact:seed[5],difficulty:missionDifficulty(variant),variant};
 }
 
-// Build 10,000 playable missions. Every sub-category receives 166 or 167 missions.
+// Build the verified unique-question bank. No prefix/cycle is used to inflate the count.
 // The generator NEVER reuses the exact same displayed question inside a sub-category.
 const UNIQUE_STEMS=[
   'Recall checkpoint: {q}',
@@ -434,27 +420,34 @@ function makeMission(seed,variant,id,key,sub){
   const options=shuffle([seed[2],...seed[3]],id*7919+variant*101);
   return {id,categoryKey:key,subCategory:sub,subject:sub,baseQuestion:String(seed[1]),question:q,answer:seed[2],options,answerIndex:options.indexOf(seed[2]),hint:seed[4],artifact:seed[5],difficulty:missionDifficulty(variant),variant,sourceSeed:seed[1]};
 }
-const MISSION_BANK=[];let missionId=0,subOrdinal=0;
+const MISSION_BANK=[];
+let missionId=0;
 const GLOBAL_QUESTION_KEYS=new Set();
+const GLOBAL_BASE_KEYS=new Set();
+
+// STRICT NO-REPEAT BUILD: one authored factual question = one mission.
 for(const cat of CATEGORY_DEFS){
- for(const [sub] of cat.subs){
-   const target=BASE_PER_SUB+(subOrdinal<EXTRA_SUBS?1:0);
-   const seeds=sourceForSub(cat.key,sub);
-   const seen=new Set(); let v=0;
-   while(seen.size<target){
-     const seed=seeds[v%seeds.length];
-     const m=makeMission(seed,v,++missionId,cat.key,sub);
-     const key=m.question.replace(/\s+/g,' ').trim().toLowerCase();
-     if(!seen.has(key) && !GLOBAL_QUESTION_KEYS.has(key)){
-       seen.add(key); GLOBAL_QUESTION_KEYS.add(key); MISSION_BANK.push(m);
-     }
-     v++;
-     if(v>target*UNIQUE_STEMS.length*6) throw new Error(`Could not create ${target} globally unique missions for ${sub}`);
-   }
-   subOrdinal++;
- }
+  for(const [sub] of cat.subs){
+    const seeds=sourceForSub(cat.key,sub);
+    const seen=new Set();
+    for(const seed of seeds){
+      const base=String(seed[1]).replace(/\s+/g,' ').trim();
+      const key=`${cat.key}|${sub}|${base.toLowerCase()}`;
+      const baseKey=base.toLowerCase();
+      if(seen.has(baseKey)||GLOBAL_BASE_KEYS.has(baseKey)||GLOBAL_QUESTION_KEYS.has(key))continue;
+      seen.add(baseKey);
+      GLOBAL_BASE_KEYS.add(baseKey);
+      GLOBAL_QUESTION_KEYS.add(key);
+      const m=makeMission(seed,0,++missionId,cat.key,sub);
+      m.question=base;
+      m.variant=0;
+      m.difficulty=['Easy','Medium','Hard'][hash(`${key}|difficulty`)%3];
+      MISSION_BANK.push(m);
+    }
+  }
 }
-if(MISSION_BANK.length!==TOTAL_LEVELS)throw new Error(`Mission bank size mismatch: ${MISSION_BANK.length}`);
+TOTAL_LEVELS=MISSION_BANK.length;
+if(!TOTAL_LEVELS)throw new Error('No unique missions available.');
 
 // A compact Bengali rendering layer. Proper names and technical terms remain standard English/transliterated where that is clearer.
 const BN_WORDS={
@@ -468,7 +461,49 @@ const BN_DIRECT={
 const BN_MISSION_STEMS=[
 'মিশন সমাধান করুন: {q}','সঠিক উত্তর নির্ধারণ করুন: {q}','জ্ঞান যাচাই: {q}','আবিষ্কার চেকপয়েন্ট: {q}','সঠিকটি বেছে নিন: {q}','গবেষণা গেট: {q}','ফিল্ড চ্যালেঞ্জ: {q}','আর্কাইভ চ্যালেঞ্জ: {q}','ভেবে উত্তর দিন: {q}','চেকপয়েন্টের উত্তর দিন: {q}','জেনেসিস টেস্ট: {q}','মাস্টারি চেকপয়েন্ট: {q}','এক্সপ্লোরার মিশন: {q}','স্কলার চেকপয়েন্ট: {q}','নির্ভুলতা পরীক্ষা: {q}','কনসেপ্ট লক: {q}','তথ্য যাচাই: {q}','দ্রুত রিভিউ: {q}','গভীর চিন্তার মিশন: {q}','ফ্রন্টিয়ার চেকপয়েন্ট: {q}','ল্যাবরেটরি গেট: {q}','ক্যারিয়ার চেকপয়েন্ট: {q}','চ্যালেঞ্জ চেম্বার: {q}','মিশন কন্ট্রোল: {q}','রিসার্চ চেকপয়েন্ট: {q}','আর্কাইভ টেস্ট: {q}','ধারণা যাচাই: {q}','জ্ঞান গেট: {q}','ডিসকভারি মিশন: {q}','স্কলার গেট: {q}','এক্সপার্ট চেকপয়েন্ট: {q}','প্রতিযোগিতামূলক পরীক্ষা: {q}','বিষয়ভিত্তিক চেকপয়েন্ট: {q}','মাস্টারি গেট: {q}','রিজনিং স্টেশন: {q}','কনসেপ্ট চ্যালেঞ্জ: {q}','লার্নিং ফ্রন্টিয়ার: {q}','প্রিসিশন আর্কাইভ: {q}','রিসার্চ ভল্ট: {q}','প্রশ্ন চেম্বার: {q}','মাস্টারি চেম্বার: {q}','ফাইনাল ফ্রন্টিয়ার: {q}','স্পেশালিস্ট চেকপয়েন্ট: {q}','অ্যাডভান্সড মিশন: {q}','গভীর অধ্যয়ন মিশন: {q}','টপিক লক: {q}','নলেজ লক: {q}','মিশন সিল: {q}','ডিসকভারি প্রোটোকল: {q}','রিসার্চ প্রোটোকল: {q}','মাস্টারি প্রোটোকল: {q}','জেনেসিস প্রোটোকল: {q}','ফ্রন্টিয়ার প্রোটোকল: {q}','ওমনিভার্স প্রোটোকল: {q}','ফ্যাক্ট চেক: {q}','প্রমাণ যাচাই: {q}','অধ্যয়ন গেট: {q}','বোর্ড প্রস্তুতি চেকপয়েন্ট: {q}','বিশ্ববিদ্যালয় চেকপয়েন্ট: {q}','অনার্স রিভিউ: {q}','শিক্ষক প্রস্তুতি চেকপয়েন্ট: {q}','কনসেপ্ট মাস্টারি: {q}','অ্যানালাইসিস চেকপয়েন্ট: {q}','রিভিশন স্টেশন: {q}','জ্ঞান ভল্ট: {q}','শিক্ষা মিশন: {q}','উত্তর যাচাই করুন: {q}','এই তথ্যটি শনাক্ত করুন: {q}','সেরা উত্তরটি নির্ধারণ করুন: {q}','সঠিক তথ্যটি খুঁজুন: {q}','বিষয়টি বিশ্লেষণ করুন: {q}','পরবর্তী ডিসকভারি: {q}','নলেজ ফোর্জ: {q}','মিশন আর্কাইভ: {q}','স্টাডি ভল্ট: {q}','রিসার্চ স্টেশন: {q}','ফ্যাক্ট ভেরিফিকেশন: {q}','ডিপ রিকল: {q}','অ্যাপ্লিকেশন চেকপয়েন্ট: {q}','রিজনিং গেট: {q}','এক্সপার্ট রিভিউ: {q}','টপিক মাস্টারি: {q}','সাবজেক্ট আর্কাইভ: {q}','অ্যাডভান্সড রিকল: {q}','ইন্ডিপেন্ডেন্ট থিংকিং: {q}','কনসেপ্ট ফ্রন্টিয়ার: {q}','চ্যালেঞ্জ আর্কাইভ: {q}','মিশন ব্রিফ: {q}','থিংক-অ্যান্ড-আনসার: {q}','প্রশ্নটি মনোযোগ দিয়ে পড়ুন: {q}','নলেজ স্ক্যান: {q}','মাস্টারি রিভিউ: {q}','ডিসকভারি গেট: {q}','এভিডেন্স চেক: {q}','ক্যারিয়ার গেট: {q}','কম্পিটিটিভ গেট: {q}','ল্যাব চেক: {q}','ফিল্ড প্রশ্ন: {q}','আর্কাইভ প্রোটোকল: {q}','রিসার্চ ভল্ট চেক: {q}','শিক্ষার্থী চ্যালেঞ্জ: {q}','শিক্ষক ট্র্যাক: {q}','অলিম্পিয়াড স্টাইল চেক: {q}','কনসেপ্ট লকড চ্যালেঞ্জ: {q}','ফাইনাল উত্তর চেক: {q}','ডিপ-স্টাডি চেকপয়েন্ট: {q}','ফ্রন্টিয়ার মিশন: {q}','এক্সপ্লোরেশন গেট: {q}','জ্ঞান পরীক্ষা: {q}','রিভিশন চ্যালেঞ্জ: {q}','মাস্টারি প্রশ্ন: {q}','স্পেশালিস্ট রিভিউ: {q}','স্কিল চেকপয়েন্ট: {q}','অ্যাপ্লাই অ্যান্ড রিজন: {q}','স্মার্ট রিকল: {q}','নলেজ ট্রায়াল: {q}','ডিসকভারি ট্রায়াল: {q}','এক্সপার্ট গেট: {q}','চূড়ান্ত যাচাই: {q}','সঠিক তথ্য নির্বাচন করুন: {q}','বিষয়ভিত্তিক পরীক্ষা: {q}','মিশন স্টেশন: {q}','অ্যানালাইসিস গেট: {q}','প্রমাণভিত্তিক উত্তর দিন: {q}','শিক্ষা আর্কাইভ: {q}','জ্ঞান চেম্বার: {q}','রিজনিং চ্যালেঞ্জ: {q}','কনসেপ্ট স্টেশন: {q}','মাস্টারি স্টেশন: {q}','ফ্যাক্ট স্টেশন: {q}','ডিসকভারি ভল্ট: {q}','স্টাডি চেকপয়েন্ট: {q}','গভীর রিভিশন: {q}','উচ্চতর যাচাই: {q}','বিশেষজ্ঞ চেক: {q}','কঠিন চ্যালেঞ্জ: {q}','নির্ভুলতা গেট: {q}','জ্ঞান অভিযান: {q}','অধ্যয়ন মিশন: {q}','রিসার্চ মিশন: {q}','ফাইনাল ফ্রন্টিয়ার মিশন: {q}'
 ];
-function bnQuestion(text){let s=String(text||'');if(BN_DIRECT[s])return BN_DIRECT[s];if(/[\u0980-\u09FF]/.test(s))return s;let t=s.replace(/^Scenario \d+: /,'').replace(/^(Solve this mission:|Identify the precise answer:|Knowledge scan:|Discovery checkpoint:|Choose correctly:|Research gate:|Field challenge:|Archive challenge:|Think carefully:|Answer the checkpoint:|Genesis test:|Mastery checkpoint:|Explorer mission:|Scholar checkpoint:|Precision test:|Concept lock:|Evidence check:|Rapid review:|Deep-thinking mission:|Frontier checkpoint:|Laboratory gate:|Career checkpoint:|Challenge chamber:|Mission control:|Recall checkpoint:|Precision checkpoint:|Concept check:|Knowledge gate:|Discovery question:|Archive test:|Research checkpoint:|Scholar challenge:|Exam checkpoint:|Field question:|Mastery gate:|Story-world checkpoint:|Character archive checkpoint:|Universe archive checkpoint:|Question chamber:|Final frontier checkpoint:)\s*/,'').replace(/( Choose the most precise answer\.| Select the correct option\.| Find the best-supported answer\.| Identify the correct choice\.| Pick the answer that completes the mission\.)$/,'');if(/^What does (.+) stand for\?$/.test(t))return t.replace(/^What does /,'').replace(/ stand for\?$/,'')+'-এর পূর্ণরূপ কী?';if(/^What is (.+)\?$/.test(t))return t.replace(/^What is /,'').replace('?','')+' কী?';if(/^Who is (.+)\?$/.test(t))return t.replace(/^Who is /,'').replace('?','')+' কে?';if(/^Who won (.+)\?$/.test(t))return t.replace(/^Who won /,'').replace('?','')+' কে জিতেছে?';if(/^Which (.+)\?$/.test(t))return 'কোন '+t.replace(/^Which /,'').replace('?','')+'?';return t}
+function bnQuestion(text){
+ let s=String(text||'').trim();
+ if(BN_DIRECT[s])return BN_DIRECT[s];
+ if(/[\u0980-\u09FF]/.test(s))return s;
+ const exact={
+  'Which swordsman is a core member of the Straw Hat crew?':'স্ট্র হ্যাট ক্রু-এর কোন তলোয়ারযোদ্ধা মূল সদস্য?',
+  'Which Straw Hat member is the crew’s navigator?':'স্ট্র হ্যাট ক্রু-এর কোন সদস্য নেভিগেটর?',
+  'Which Straw Hat member is the crew’s cook?':'স্ট্র হ্যাট ক্রু-এর কোন সদস্য রাঁধুনি?',
+  'Who is the captain of the Straw Hat Pirates?':'স্ট্র হ্যাট পাইরেটস-এর অধিনায়ক কে?',
+  'Who is the archaeologist of the Straw Hat Pirates?':'স্ট্র হ্যাট পাইরেটস-এর প্রত্নতাত্ত্বিক কে?',
+  'Who is the sniper of the Straw Hat Pirates?':'স্ট্র হ্যাট পাইরেটস-এর নিশানাবাজ কে?',
+  'Who is the doctor of the Straw Hat Pirates?':'স্ট্র হ্যাট পাইরেটস-এর চিকিৎসক কে?',
+  'Who is the shipwright of the Straw Hat Pirates?':'স্ট্র হ্যাট পাইরেটস-এর জাহাজ নির্মাতা কে?',
+  'Who is the musician of the Straw Hat Pirates?':'স্ট্র হ্যাট পাইরেটস-এর সংগীতশিল্পী কে?',
+  'What are Devil Fruits?':'ডেভিল ফ্রুট কী?',
+  'What are Poneglyphs?':'পোনেগ্লিফ কী?',
+  'What is Laugh Tale?':'লাফ টেল কী?',
+  'What is Marineford?':'মেরিনফোর্ড কী?',
+  'What is Wammy’s House?':'ওয়াম্মি’স হাউস কী?',
+  'What is L’s real name?':'L-এর আসল নাম কী?',
+  'What is Near’s real name?':'নিয়ার-এর আসল নাম কী?',
+  'What is Mello’s real name?':'মেলো-এর আসল নাম কী?',
+  'Can Shinigami Eyes reveal a person’s lifespan?':'শিনিগামি আইজ কি কোনো ব্যক্তির আয়ুষ্কাল দেখাতে পারে?',
+  'What does SPK stand for in Death Note?':'Death Note-এ SPK-এর পূর্ণরূপ কী?'
+ };
+ if(exact[s])return exact[s];
+ let t=s.replace(/^Scenario \d+:\s*/,'');
+ const animeTerms=[
+  [/Straw Hat Pirates/gi,'স্ট্র হ্যাট পাইরেটস'],[/Straw Hat crew/gi,'স্ট্র হ্যাট ক্রু'],[/Luffy’s/gi,'Luffy-এর'],[/Zoro’s/gi,'Zoro-এর'],[/Nami’s/gi,'Nami-এর'],[/Sanji’s/gi,'Sanji-এর'],[/Robin’s/gi,'Robin-এর'],[/signature straw hat/gi,'বিশেষ স্ট্র হ্যাট'],[/straw hat/gi,'স্ট্র হ্যাট'],[/major ship/gi,'প্রধান জাহাজ'],[/current ship/gi,'বর্তমান জাহাজ'],[/sea route/gi,'সমুদ্রপথ'],[/huge landmass/gi,'বিশাল স্থলভাগ'],[/special power system/gi,'বিশেষ ক্ষমতা ব্যবস্থা'],[/Devil Fruits/gi,'ডেভিল ফ্রুট'],[/Devil Fruit/gi,'ডেভিল ফ্রুট'],[/World Government/gi,'World Government'],[/Pirate King/gi,'পাইরেট কিং'],[/greatest swordsman/gi,'শ্রেষ্ঠ তলোয়ারযোদ্ধা'],[/long-term ambition/gi,'দীর্ঘমেয়াদি লক্ষ্য'],[/personal goal/gi,'ব্যক্তিগত লক্ষ্য'],[/Poneglyphs/gi,'পোনেগ্লিফ'],[/Laugh Tale/gi,'লাফ টেল'],[/One Piece/gi,'ওয়ান পিস'],[/older brother/gi,'বড় ভাই'],[/sworn brother/gi,'শপথ নেওয়া ভাই'],[/grandfather/gi,'দাদা'],[/father/gi,'বাবা'],[/giant elephant/gi,'বিশাল হাতি'],[/island-city/gi,'দ্বীপ-নগরী'],[/cyborg modifications/gi,'সাইবর্গ পরিবর্তন'],[/Three-Sword Style/gi,'থ্রি-সোর্ড স্টাইল'],[/power/gi,'ক্ষমতা'],[/technique/gi,'কৌশল'],[/nickname/gi,'ডাকনাম'],[/crew/gi,'ক্রু'],[/captain/gi,'অধিনায়ক'],[/navigator/gi,'নেভিগেটর'],[/cook/gi,'রাঁধুনি'],[/archaeologist/gi,'প্রত্নতাত্ত্বিক'],[/sniper/gi,'নিশানাবাজ'],[/doctor/gi,'চিকিৎসক'],[/shipwright/gi,'জাহাজ নির্মাতা'],[/musician/gi,'সংগীতশিল্পী'],[/swordsman/gi,'তলোয়ারযোদ্ধা'],[/member/gi,'সদস্য'],[/organization/gi,'সংগঠন'],[/military force/gi,'সামরিক বাহিনী'],[/world’s/gi,'বিশ্বের'],[/sea/gi,'সমুদ্র'],[/island/gi,'দ্বীপ'],[/country/gi,'দেশ'],[/ruler/gi,'শাসক'],[/island where/gi,'যে দ্বীপে'],[/trained during/gi,'প্রশিক্ষণ নিয়েছিল যে সময়ে']
+ ];
+ for(const [re,r] of animeTerms)t=t.replace(re,r);
+ const replacements=[
+  [/\bswordsman\b/gi,'তলোয়ারযোদ্ধা'],[/\bcore member\b/gi,'মূল সদস্য'],[/\bmember\b/gi,'সদস্য'],[/\bcrew\b/gi,'ক্রু'],[/\bcaptain\b/gi,'অধিনায়ক'],[/\bnavigator\b/gi,'নেভিগেটর'],[/\bcook\b/gi,'রাঁধুনি'],[/\barchaeologist\b/gi,'প্রত্নতাত্ত্বিক'],[/\bsniper\b/gi,'নিশানাবাজ'],[/\bdoctor\b/gi,'চিকিৎসক'],[/\bshipwright\b/gi,'জাহাজ নির্মাতা'],[/\bmusician\b/gi,'সংগীতশিল্পী'],[/\bfirst major ship\b/gi,'প্রথম প্রধান জাহাজ'],[/\bcurrent ship\b/gi,'বর্তমান জাহাজ'],[/\bpower system\b/gi,'ক্ষমতা ব্যবস্থা'],[/\bwillpower\b/gi,'ইচ্ছাশক্তি'],[/\bsense presence and intent\b/gi,'উপস্থিতি ও অভিপ্রায় অনুভব'],[/\bhardens the body or weapons\b/gi,'শরীর বা অস্ত্রকে শক্ত করে'],[/\boverwhelming the will of others\b/gi,'অন্যের ইচ্ছাশক্তিকে প্রভাবিত করা'],[/\borganization\b/gi,'সংগঠন'],[/\bmain military force\b/gi,'প্রধান সামরিক বাহিনী'],[/\bgreatest swordsman\b/gi,'শ্রেষ্ঠ তলোয়ারযোদ্ধা'],[/\blong-term ambition\b/gi,'দীর্ঘমেয়াদি লক্ষ্য'],[/\bdream\b/gi,'স্বপ্ন'],[/\bgoal\b/gi,'লক্ষ্য'],[/\bolder brother\b/gi,'বড় ভাই'],[/\bgrandfather\b/gi,'দাদা'],[/\bfather\b/gi,'বাবা'],[/\bdetective alias\b/gi,'গোয়েন্দা ছদ্মনাম'],[/\bgenius investigator\b/gi,'প্রতিভাবান তদন্তকারী'],[/\bmain human protagonist\b/gi,'প্রধান মানব চরিত্র'],[/\bsupernatural beings\b/gi,'অতিপ্রাকৃত সত্তা'],[/\bfemale idol\b/gi,'নারী আইডল'],[/\bnickname\b/gi,'ডাকনাম'],[/\bability\b/gi,'ক্ষমতা'],[/\bsuccessor\b/gi,'উত্তরসূরি'],[/\brival\b/gi,'প্রতিদ্বন্দ্বী'],[/\bpolice officer\b/gi,'পুলিশ কর্মকর্তা'],[/\binvestigator\b/gi,'তদন্তকারী'],[/\bassistant\b/gi,'সহকারী'],[/\bprofession\b/gi,'পেশা'],[/\breal name\b/gi,'আসল নাম'],[/\brealm\b/gi,'জগত'],[/\blifespan\b/gi,'আয়ুষ্কাল'],[/\blimitation\b/gi,'সীমাবদ্ধতা'],[/\binvestigation\b/gi,'তদন্ত'],[/\bposition\b/gi,'পদ'],[/\bconflict\b/gi,'দ্বন্দ্ব'],[/\bnotebook\b/gi,'নোটবুক']
+ ];
+ for(const [re,r] of replacements)t=t.replace(re,r);
+ t=t.replace(/^Who is (.+)\?$/i,'$1 কে?');
+ t=t.replace(/^What is the name of (.+)\?$/i,'$1-এর নাম কী?');
+ t=t.replace(/^What is (.+)\?$/i,'$1 কী?');
+ t=t.replace(/^What are (.+)\?$/i,'$1 কী?');
+ t=t.replace(/^Which (.+)\?$/i,'কোন $1?');
+ t=t.replace(/^Who was (.+)\?$/i,'$1 কে ছিলেন?');
+ return t;
+}
 function bnMissionQuestion(q){
  const base=String(q.baseQuestion||q.question||'');
  const translatedBase=bnQuestion(base);
@@ -831,7 +866,7 @@ function closeChallengeSetup(){document.getElementById('challengeSetup').classLi
 
 function renderCategoryUI(){const list=document.getElementById('categoryList');if(!list)return;list.innerHTML=CATEGORY_DEFS.map(d=>`<button class="category-card ${state.categoryKey===d.key?'selected':''}" data-cat="${d.key}"><span>${d.icon}</span><strong>${d.label}</strong><small>${d.subs.length} sub-categories</small></button>`).join('');list.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>selectCategory(b.dataset.cat));const d=categoryDefinition(state.categoryKey);const area=document.getElementById('subcategoryArea'),subList=document.getElementById('subcategoryList');if(!d){area.classList.add('hidden-ui');return}area.classList.remove('hidden-ui');subList.innerHTML=d.subs.map(([value,label])=>{const count=MISSION_BANK.filter(m=>m.categoryKey===d.key&&m.subCategory===value&&(state.difficulty==='All'||m.difficulty===state.difficulty)).length;return `<label class="subcat-check ${count?'':'disabled'}"><input type="checkbox" data-sub="${escapeHTML(value)}" ${state.categorySubs.includes(value)?'checked':''} ${count?'':'disabled'}><span class="checkmark">✓</span><span class="subcat-copy"><strong>${escapeHTML(label)}</strong><small>${count} ${state.language==='bn'?'মিশন':'missions'}</small></span></label>`}).join('')+`<div class="subcat-actions"><button id="selectAllSubs" class="secondary-btn">SELECT ALL</button><button id="clearSubs" class="secondary-btn">CLEAR</button><button id="startCategory" class="start-category-btn">START CATEGORY</button></div><div id="selectionInfo" class="selection-info"></div>`;subList.querySelectorAll('input[data-sub]').forEach(x=>x.onchange=()=>refreshSelection(d));document.getElementById('selectAllSubs').onclick=()=>{subList.querySelectorAll('input[data-sub]:not(:disabled)').forEach(x=>x.checked=true);refreshSelection(d)};document.getElementById('clearSubs').onclick=()=>{subList.querySelectorAll('input[data-sub]').forEach(x=>x.checked=false);refreshSelection(d)};document.getElementById('startCategory').onclick=()=>startCategory(d.key,state.categorySubs);refreshSelection(d)}
 function selectCategory(key){state.categoryKey=key;state.categorySubs=[];state.categoryCursor=0;renderCategoryUI()}
-function refreshSelection(d){const subList=document.getElementById('subcategoryList');state.categorySubs=[...subList.querySelectorAll('input[data-sub]:checked')].map(x=>x.dataset.sub);const count=categoryLevelCount();const info=document.getElementById('selectionInfo');if(info)info.textContent=`${state.categorySubs.length} selected • ${count} category levels • minimum 83 per sub-category`}
+function refreshSelection(d){const subList=document.getElementById('subcategoryList');state.categorySubs=[...subList.querySelectorAll('input[data-sub]:checked')].map(x=>x.dataset.sub);const count=categoryLevelCount();const selectedCounts=state.categorySubs.map(sub=>MISSION_BANK.filter(m=>m.categoryKey===d.key&&m.subCategory===sub&&(state.difficulty==='All'||m.difficulty===state.difficulty)).length);const minCount=selectedCounts.length?Math.min(...selectedCounts):0;const info=document.getElementById('selectionInfo');if(info)info.textContent=`${state.categorySubs.length} selected • ${count} unique category levels • smallest selected sub-category: ${minCount}`}
 function startCategory(key,subs){const selected=[...new Set(subs)];if(!selected.length){setMessage('Select at least one sub-category.','bad');return}state.categoryMode=true;state.categoryKey=key;state.categorySubs=selected;state.categoryCursor=0;state.retryCount=0;const p=categoryProgress();p.unlocked=Math.max(1,Math.min(categoryPool().length,p.unlocked||1));pendingLevelUp=false;save();document.getElementById('playHub').classList.add('hidden');render()}
 function exitCategory(){clearInterval(window.__challengeTimer);state.categoryMode=false;state.challengeMode=false;state.nctbMode=false;state.categoryKey='';state.categorySubs=[];state.categoryCursor=0;state.nctbCursor=0;state.retryCount=0;pendingLevelUp=false;save();render()}
 function openPlayHub(){document.getElementById('playHub').classList.remove('hidden');renderCategoryUI();renderChallengeUI();renderNCTBUI();updateSetupLabels()}
@@ -840,8 +875,8 @@ function openArchive(){renderLevelMap();document.getElementById('levelMapModal')
 function updateSetupLabels(){const lang=state.language;document.querySelectorAll('[data-bn]').forEach(el=>{el.textContent=lang==='bn'?el.dataset.bn:el.dataset.en})}
 function selectLanguage(lang){state.language=lang;document.querySelectorAll('.lang-card,.lang-card-mini').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));document.getElementById('setupContinue').disabled=false;updateSetupLabels();renderCategoryUI();render()}
 function selectDifficulty(diff){state.difficulty=diff;const total=MISSION_BANK.filter(m=>diff==='All'||m.difficulty===diff).length;state.level=Math.max(1,Math.min(Number(state.level)||1,total));state.maxUnlocked=Math.max(1,Math.min(Number(state.maxUnlocked)||1,total));document.querySelectorAll('.difficulty-card,.diff-mini button').forEach(b=>b.classList.toggle('active',b.dataset.diff===diff));renderCategoryUI();render()}
-function finishSetup(){state.setupDone=true;save();document.getElementById('setupScreen').classList.add('hidden');render()}
-function openSetup(){document.getElementById('setupScreen').classList.remove('hidden');document.querySelectorAll('.lang-card').forEach(b=>b.classList.toggle('active',b.dataset.lang===state.language));document.querySelectorAll('.difficulty-card').forEach(b=>b.classList.toggle('active',b.dataset.diff===state.difficulty));updateSetupLabels()}
+function finishSetup(){const pc=document.getElementById('setupPoolCount');if(pc)pc.textContent=String(MISSION_BANK.length).replace(/\B(?=(\d{3})+(?!\d))/g,',');state.setupDone=true;save();document.getElementById('setupScreen').classList.add('hidden');render()}
+function openSetup(){const pc=document.getElementById('setupPoolCount');if(pc)pc.textContent=String(MISSION_BANK.length).replace(/\B(?=(\d{3})+(?!\d))/g,',');document.getElementById('setupScreen').classList.remove('hidden');document.querySelectorAll('.lang-card').forEach(b=>b.classList.toggle('active',b.dataset.lang===state.language));document.querySelectorAll('.difficulty-card').forEach(b=>b.classList.toggle('active',b.dataset.diff===state.difficulty));updateSetupLabels()}
 function resetSave(){if(confirm(state.language==='bn'?'সব progress reset করতে চান?':'Reset all local progress?')){localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(SETUP_KEY);localStorage.removeItem('elementGameSave_v6000');localStorage.removeItem('elementGameSave_v5000');localStorage.removeItem('elementGameSave');location.reload()}}
 
 document.getElementById('hintBtn').onclick=showHint;document.getElementById('nextLevel').onclick=advanceLevel;document.getElementById('levelMapBtn').onclick=openArchive;document.getElementById('categoryMapBtn').onclick=openArchive;document.getElementById('closeMap').onclick=()=>document.getElementById('levelMapModal').classList.add('hidden');document.getElementById('reset').onclick=resetSave;document.getElementById('playHubBtn').onclick=openPlayHub;document.getElementById('closePlayHub').onclick=closePlayHub;document.getElementById('exitCategory').onclick=exitCategory;document.getElementById('continue').onclick=()=>document.getElementById('modal').classList.add('hidden');document.getElementById('setupContinue').onclick=finishSetup;document.getElementById('setupSettingsBtn').onclick=openSetup;document.querySelectorAll('.lang-card,.lang-card-mini').forEach(b=>b.onclick=()=>selectLanguage(b.dataset.lang));document.querySelectorAll('.difficulty-card,.diff-mini button').forEach(b=>b.onclick=()=>selectDifficulty(b.dataset.diff));document.getElementById('randomPlayBtn').onclick=()=>{state.categoryMode=false;state.categoryKey='';state.categorySubs=[];state.categoryCursor=0;pendingLevelUp=false;save();closePlayHub();render()};

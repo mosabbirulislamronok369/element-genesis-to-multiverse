@@ -102,3 +102,57 @@ button,input,select{font:inherit}button:focus-visible,input:focus-visible,select
 @media(max-width:850px){#app{padding:20px}header.topbar{flex-direction:column}.header-actions{max-width:none;justify-content:flex-start}main{grid-template-columns:1fr}.side{grid-template-columns:1fr 1fr}.hud{grid-template-columns:repeat(3,1fr)}.route-grid,.advanced-routes,.hub-controls{grid-template-columns:1fr}}
 @media(max-width:620px){#app{padding:14px 12px 30px}h1{font-size:37px;letter-spacing:-1.4px}.header-actions{display:grid;grid-template-columns:1fr 1fr}.premium-nav{min-width:0}.savebox{grid-column:1/-1}.hud{grid-template-columns:1fr 1fr}.gamecard{padding:20px 17px 24px}.mission h2{font-size:28px!important;line-height:1.45!important}.options{grid-template-columns:1fr}.option{min-height:112px}.option strong{font-size:17px!important}.side{grid-template-columns:1fr}.category-list{grid-template-columns:1fr 1fr}.subcategory-list{grid-template-columns:1fr}.language-grid,.difficulty-grid{grid-template-columns:1fr}.setup-box,.hub-box{padding:20px}}
 
+
+
+/* =========================================================
+   V10 READABILITY FIX
+   Root cause: .mission span was applying the 10px mission-label
+   style to the <span> used INSIDE the question itself.
+   These selectors restore the intended question typography.
+   ========================================================= */
+
+.mission h2,
+.mission h2 span,
+.mission h2 .q-en,
+.mission h2 .q-bn{
+  font-size:30px !important;
+  line-height:1.5 !important;
+  letter-spacing:-0.25px !important;
+  color:#f7f9ff !important;
+  font-weight:850 !important;
+  display:block !important;
+}
+
+.mission h2 .q-bn{
+  margin-top:2px;
+}
+
+.mission h2 .q-en{
+  margin-top:0;
+}
+
+@media (min-width:1100px){
+  .mission h2,
+  .mission h2 span,
+  .mission h2 .q-en,
+  .mission h2 .q-bn{
+    font-size:32px !important;
+  }
+}
+
+@media (max-width:620px){
+  .mission h2,
+  .mission h2 span,
+  .mission h2 .q-en,
+  .mission h2 .q-bn{
+    font-size:27px !important;
+    line-height:1.5 !important;
+  }
+}
+
+/* Keep mission metadata small while question stays large. */
+.mission-meta > span{
+  font-size:10px !important;
+  line-height:1.2 !important;
+  color:#69e9b1 !important;
+}
